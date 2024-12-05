@@ -21,6 +21,7 @@ $config = obtenerConfiguracion();
     <div class="container">
         <?php include("header.php"); ?>
         <h2 class="titulo-seccion">Contacto</h2>
+        <h2>hola</h2>
         <div class="contenedor-contacto">
             <div class="col info">
                 <div class="formulario">
