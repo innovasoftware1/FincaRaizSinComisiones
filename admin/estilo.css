@@ -1,0 +1,1091 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/************ LOGIN       *********************************/
+
+#contenedor-login {
+    height: 100vh;
+    background: #c0c0c0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#contenedor-login .presentacion {
+    width: 1000px;
+    max-width: 1000px;
+    height: 550px;
+    display: flex;
+    border: 1px solid #c0c0c0;
+}
+
+#contenedor-login .presentacion .titulo .logo {
+    width: 100px;
+    height: 50px;
+    margin-left: 40%;
+}
+
+#contenedor-login .presentacion .titulo {
+    width: 50%;
+    background: linear-gradient(#f74c3c, #272f60);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+#contenedor-login .presentacion .titulo h1 {
+    font-size: 60px;
+}
+
+#contenedor-login .presentacion .titulo p {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#contenedor-login .presentacion .contenedor-formulario {
+    width: 50%;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+}
+
+#contenedor-login .presentacion .contenedor-formulario .form-login {
+    width: 375px;
+    padding: 40px 20px;
+    border: 1px solid #c0c0c0;
+    background-color: transparent;
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px 4px rgb(168, 168, 168);
+    text-align: center;
+}
+
+#contenedor-login .presentacion .contenedor-formulario .form-login .label-login {
+    text-align: left;
+}
+
+#contenedor-login .presentacion .contenedor-formulario .form-login .input-login {
+    display: block;
+    width: 100%;
+    margin: 20px 0;
+    padding: 7px;
+    border: 1px solid #c0c0c0;
+    border-radius: 10px;
+}
+
+#contenedor-login .presentacion .contenedor-formulario .form-login .btn {
+    display: block;
+    margin-left: 12%;
+    width: 80%;
+    border: none;
+    background-color: #3d4ded;
+    border: 1px solid #3d4ded;
+    padding: 7px;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+#contenedor-login .presentacion .contenedor-formulario .form-login .btn:hover {
+    color: #3d4ded;
+    background-color: #fff;
+    border: 1px solid #3d4ded;
+}
+
+.msj-error-input {
+    font-size: 12px;
+    color: darkred;
+}
+
+/*** ESTILO GENERALES DEL ADMIN     *********************************/
+
+html,
+body {
+    height: 100%;
+}
+
+header {
+    top: 0;
+    right: 0;
+    width: 82%;
+    height: 90px;
+    padding: 20px 10px;
+    color: #fff;
+    background-color: #f74c3c;
+    position: fixed;
+    z-index: 10;
+    text-align: center;
+}
+
+header h2 {
+    font-size: 14px;
+}
+
+.user-btn {
+    background-color: #e9ebf1;
+    border: 1px solid #f74c3c;
+    font-size: 24px;
+    color: #f74c3c;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-btn img {
+    width: 30px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 80px;
+    right: 10px;
+    width: 320px;
+    background-color: #ffffff;
+    box-shadow: 0px 4px 10px rgba(94, 91, 91, 0.836);
+    border-radius: 8px;
+    z-index: 1000;
+    overflow: hidden;
+    flex-direction: column;
+    max-height: 800px;
+}
+
+.modal-content {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: auto;
+}
+
+.hr-modal {
+    width: 100%;
+    height: 1px;
+    border: none;
+    background-color: #777;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.user-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+}
+
+.user-details {
+    text-align: left;
+    flex-grow: 1;
+}
+
+.user-details h4 {
+    font-size: 18px;
+    margin: 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.user-details p {
+    font-size: 12px;
+    color: #777;
+    margin-top: 5px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.modal-options {
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+}
+
+.modal-options button {
+    width: 50%;
+    padding: 8px 14px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
+}
+
+.modal-options .config {
+    background-color: #fff;
+    color: #164085;
+    border: 1px solid #164085;
+}
+
+.modal-options .config:hover {
+    background-color: #164085;
+    color: #fff;
+}
+
+.modal-options .cerrar {
+    background-color: #fff;
+    color: #e92324;
+    border: 1px solid #e92324;
+}
+
+.modal-options .cerrar:hover {
+    background-color: #e92324;
+    color: #fff;
+}
+
+.modal-options button .icon-l,
+.modal-options button .icon-c {
+    font-size: 18px;
+    margin-right: 10px;
+}
+
+
+
+
+
+/* find el modal  */
+
+#contenedor-admin {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+}
+
+.contenedor-menu {
+    position: fixed;
+    left: 0;
+    width: 18%;
+    padding: 15px;
+    background-color: #d4dbf3;
+    color: #444;
+    height: 100%;
+}
+
+.contenedor-menu h2 {
+    font-size: 18px;
+    margin: 10px 15px;
+
+}
+
+.contenedor-menu nav ul {
+    list-style: none;
+}
+
+.contenedor-menu nav ul li {
+    padding-left: 15px;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.contenedor-menu nav ul li i {
+    font-size: 16px;
+    width: 16px !important;
+    color: #0e1c34;
+    margin-right: 5px !important;
+    font-weight: bold;
+}
+
+.contenedor-menu nav ul hr {
+    margin: 18px 0;
+    border: none;
+    border-top: 1px solid;
+    color: #aaa;
+}
+
+.contenedor-menu nav ul li a {
+    display: inline-block;
+    width: 100%;
+    color: #0e1c34;
+    font-size: 12px;
+    padding: 7px 0;
+    text-decoration: none;
+}
+
+.pagina-activa,
+.pagina-activa a {
+    background: #f74c3c;
+    color: #fff !important;
+}
+
+.pagina-activa i {
+    color: #fff !important;
+}
+
+.contenedor-menu nav ul li a:after {
+    content: "";
+    display: block;
+    margin: auto;
+    height: 2px;
+    width: 0px;
+    transition: all .8s;
+}
+
+.contenedor-menu nav ul li a:hover:after {
+    width: 80%;
+    background: #f74c3c;
+}
+
+.contenedor-principal {
+    position: relative;
+    height: 100%;
+    padding-top: 80px;
+    /*z-index: -99;*/
+    margin-left: 250px;
+}
+
+/*** ESTILOS DEL DASHBOARD     *********************************/
+
+#dashboard {
+    background-color: #fff;
+    padding: 30px;
+    height: 100%;
+    width: 100%;
+}
+
+#dashboard>hr {
+    margin-bottom: 30px;
+}
+
+#dashboard .contenedor-cajas-info {
+    display: flex;
+    background-color: #fff;
+    padding: 40px 20px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+}
+
+#dashboard .contenedor-cajas-info .caja-info {
+    background-color: #d8e9d8;
+    width: 200px;
+    text-align: center;
+    color: #444;
+    margin-right: 30px;
+    transition: transform .5s;
+    margin: auto;
+    border-radius: 5px;
+}
+
+
+#dashboard .contenedor-cajas-info .propiedades {
+    background-color: #a9cce3;
+    border: 2px solid #599cc9;
+}
+
+#dashboard .contenedor-cajas-info .tipo {
+    background-color: #fad7a0;
+    border: 2px solid #f7c677;
+}
+
+#dashboard .contenedor-cajas-info .departamentos {
+    background-color: #a3e4d7;
+    border: 2px solid #59dac0;
+}
+
+#dashboard .contenedor-cajas-info .ciudades {
+    background-color: #edbb99;
+    border: 2px solid #dd996c;
+}
+
+#e6ebf5 #dashboard .contenedor-cajas-info .caja-info:hover {
+    transform: scale(1.1);
+}
+
+#dashboard .contenedor-cajas-info .caja-info p {
+    font-size: 13px;
+    font-weight: bold;
+    padding: 10px 0;
+}
+
+#dashboard .contenedor-cajas-info .propiedades hr {
+    color: #599cc9;
+    background-color: #599cc9;
+    border: none;
+    height: 3px;
+}
+
+#dashboard .contenedor-cajas-info .tipo hr {
+    color: #f7c677;
+    background-color: #f7c677;
+    border: none;
+    height: 3px;
+}
+
+#dashboard .contenedor-cajas-info .departamentos hr {
+    color: #59dac0;
+    background-color: #59dac0;
+    border: none;
+    height: 3px;
+}
+
+#dashboard .contenedor-cajas-info .ciudades hr {
+    color: #dd996c;
+    background-color: #dd996c;
+    border: none;
+    height: 3px;
+}
+
+#dashboard .contenedor-cajas-info .caja-info .dato {
+    display: block;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 20px 0;
+}
+
+#dashboard .contenedor-cajas-info .caja-info a {
+    display: block;
+    color: #444;
+    padding: 10px 0;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+
+}
+
+#dashboard .contenedor-cajas-info .caja-info a:hover {
+    text-decoration: none;
+    color: #fff;
+
+}
+
+.btn-accion {
+    background-color: #0e1c34;
+    border: 1px solid #0e1c34;
+    display: inline-block;
+    padding: 10px 20px;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.btn-accion:hover {
+    background-color: #a4bde7;
+    color: #0e1c34;
+    border: 1px solid #0e1c34;
+
+}
+
+/*** ESTILOS DE NUEVA PROPIEDAD     *********************************/
+
+#nueva-propiedad {
+    background-color: #fff;
+    padding: 20px;
+}
+
+#nueva-propiedad form,
+#actualizar-propiedad form {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+}
+
+#nueva-propiedad label,
+#actualizar-propiedad label {
+    display: block;
+    width: 100%;
+    margin-bottom: 3px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+#nueva-propiedad .fila-una-columna,
+#actualizar-propiedad .fila-una-columna {
+    width: 100%;
+    margin: 20px 0;
+}
+
+#nueva-propiedad .input-entrada-texto,
+#actualizar-propiedad .input-entrada-texto,
+#configuracion .input-entrada-texto {
+    width: 100%;
+    border: 2px solid #aaa;
+    background-color: #e6ebf5;
+    padding: 10px;
+    border-radius: 5px;
+    outline: none;
+}
+
+#nueva-propiedad .input-entrada-texto:focus,
+#actualizar-propiedad .input-entrada-texto:focus,
+#configuracion .input-entrada-texto:focus {
+    border: 2px solid #f74c3c;
+}
+
+#nueva-propiedad .fila,
+#actualizar-propiedad .fila {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0
+}
+
+#nueva-propiedad .fila .box,
+#actualizar-propiedad .fila .box {
+    width: 30%;
+}
+
+#nueva-propiedad .fila .box input,
+#actualizar-propiedad .fila .box input {
+    outline: none;
+    
+}
+
+#nueva-propiedad .btn-fotos,
+#actualizar-propiedad .btn-fotos {
+    width: 200px;
+    background-color: #1e8449;
+    border: 1px solid #1e8449;
+    border-radius: 5px;
+    padding: 10px 10px;
+    cursor: pointer;
+    color: #fff;
+    font-weight: bold;
+    font-size: 12px;
+    text-align: center;
+}
+
+#nueva-propiedad .btn-fotos:hover,
+#actualizar-propiedad .btn-fotos:hover {
+    color: #1e8449;
+    border: 1px solid #1e8449;
+    background-color: #7dcea0;
+}
+
+#nueva-propiedad .contenedor-foto-principal,
+#actualizar-propiedad .contenedor-foto-principal {
+    display: block;
+    max-width: 600px;
+    margin: 10px 0;
+}
+
+#nueva-propiedad .contenedor-foto-principal img,
+#actualizar-propiedad .contenedor-foto-principal img {
+    width: 100%;
+}
+
+#nueva-propiedad .contenedor-foto-galeria,
+#actualizar-propiedad .contenedor-foto-galeria {
+    display: inline-block;
+    max-width: 300px;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+#nueva-propiedad .foto-galeria,
+#actualizar-propiedad .foto-galeria {
+    width: 100%;
+}
+
+#nueva-propiedad hr {
+    margin-bottom: 20px;
+}
+
+/*** LISTDO DE PROPIEDADES     *********************************/
+
+#listado-propiedades {
+    background-color: #fff;
+    padding: 20px;
+}
+
+#listado-propiedades .contenedor-tabla {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    margin-top: 15px;
+}
+
+#listado-propiedades table {
+    margin-top: 20px;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+#listado-propiedades table tr {
+    border: 1px solid #ccc;
+    font-size: 12px;
+    padding: 5px;
+}
+
+#listado-propiedades table td,
+th {
+    padding: 10px;
+}
+
+#listado-propiedades table th {
+    background-color: #c2c2c2;
+}
+
+#listado-propiedades table .form-acciones {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+/* Estilos para el formulario de búsqueda */
+#listado-propiedades .form-busqueda,
+#listado-tipos-propiedades .form-busqueda,
+#listado-departamentos .form-busqueda,
+#listado-ciudades .form-busqueda {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto 30px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccd1d1;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#listado-propiedades .form-busqueda label,
+#listado-tipos-propiedades .form-busqueda label,
+#listado-departamentos .form-busqueda label,
+#listado-ciudades .form-busqueda label {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+    text-align: center;
+}
+
+#listado-propiedades .form-busqueda .input-container,
+#listado-tipos-propiedades .form-busqueda .input-container,
+#listado-departamentos .form-busqueda .input-container,
+#listado-ciudades .form-busqueda .input-container {
+    display: inline-flex;
+    width: 100%;
+    max-width: 600px;
+    gap: 10px;
+}
+
+#listado-propiedades .input-buscar,
+#listado-tipos-propiedades .input-buscar,
+#listado-departamentos .input-buscar,
+#listado-ciudades .input-buscar {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+#listado-propiedades .input-buscar:focus,
+#listado-tipos-propiedades .input-buscar:focus,
+#listado-departamentos .input-buscar:focus,
+#listado-ciudades .input-buscar:focus {
+    border-color: #f74c3c;
+    outline: none;
+}
+
+/* final de buscador */
+
+/* Estilos para el botón de búsqueda */
+.btn-buscar {
+    display: inline-block;
+    padding: 10px 15px;
+    font-size: 14px;
+    background-color: #1e8449;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease;
+}
+
+.btn-buscar:hover {
+    background-color: #1e8449;
+}
+
+
+
+/* configuracion general para btn btn-eliminar */
+
+.btn-eliminar {
+    font-size: 14px;
+    text-decoration: none;
+    background-color: #f74c3c;
+    border: 1px solid #f74c3c;
+    color: #fff;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.btn-eliminar:hover {
+    background-color: #fadbd8;
+    border: 1px solid #f74c3c;
+    color: #f74c3c;
+}
+
+/* ---------------------------------------------- */
+
+
+
+#listado-propiedades table .btn-eliminar {
+    font-size: 14px;
+    text-decoration: none;
+    background-color: #f74c3c;
+    border: 1px solid #f74c3c;
+    color: #fff;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+#listado-propiedades table .btn-eliminar:hover {
+    background-color: #fadbd8;
+    border: 1px solid #f74c3c;
+    color: #f74c3c;
+}
+
+/* BTN ELIMINAR GALERIA */
+#btn-eliminar-galeria {
+    font-size: 14px;
+    text-decoration: none;
+    background-color: #f74c3c;
+    border: 1px solid #f74c3c;
+    color: #fff;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+#btn-eliminar-galeria:hover {
+    background-color: #fadbd8;
+    border: 1px solid #f74c3c;
+    color: #f74c3c;
+}
+
+
+
+#listado-propiedades table .btn-actualizar {
+    font-size: 14px;
+    text-decoration: none;
+    background-color: #1e8449;
+    border: 1px solid #1e8449;
+    color: #fff;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+#listado-propiedades table .btn-actualizar:hover {
+    background-color: #d0ece7;
+    border: 1px solid #1e8449;
+    color: #1e8449;
+}
+
+#listado-propiedades table .btn-detalle {
+    font-size: 14px;
+    text-decoration: none;
+    background-color: #d68910;
+    border: 1px solid #d68910;
+    color: #fff;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+#listado-propiedades table .btn-detalle:hover {
+    background-color: #fdebd0;
+    border: 1px solid #d68910;
+    color: #d68910;
+}
+
+
+#listado-propiedades table {
+    width: 100%;
+    table-layout: auto !important;
+}
+
+#listado-propiedades table tr:nth-child(odd) {
+    background: #dedede;
+}
+
+/***  DETALLE PROPIEDADES     *********************************/
+
+#detalle-propiedad {
+    background-color: #fff;
+    padding: 20px;
+}
+
+#detalle-propiedad .contenedor-tabla {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    margin-top: 15px;
+}
+
+#detalle-propiedad .descripcion {
+    width: 100%;
+    margin-top: 5px;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+#detalle-propiedad .descripcion td {
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+#detalle-propiedad .descripcion tr:nth-child(odd) {
+    background: #dedede;
+}
+
+#detalle-propiedad .descripcion tr td:nth-child(odd) {
+    width: 200px;
+    font-weight: bold;
+}
+
+#detalle-propiedad h3 {
+    margin-top: 20px;
+    color: #8e342a;
+}
+
+#detalle-propiedad .descripcion img {
+    max-width: 300px;
+}
+
+
+/*** ACTUALIZAR PROPIEDAD     *********************************/
+
+#actualizar-propiedad {
+    background-color: #fff;
+    padding: 20px;
+}
+
+#actualizar-propiedad hr {
+    margin-bottom: 20px;
+}
+
+#actualizar-propiedad .btn-cambiar-foto {
+    display: inline;
+    color: #18ab84;
+    cursor: pointer;
+    font-weight: normal;
+}
+
+#actualizar-propiedad .btn-cambiar-foto:hover {
+    text-decoration: underline;
+}
+
+#actualizar-propiedad #contenedor-fotos-nuevas .contenedor-foto-galeria {
+    display: inline-block;
+    max-width: 300px;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+#actualizar-propiedad #contenedor-fotos-nuevas .foto-galeria {
+    width: 100%;
+}
+
+
+/*** NEUVO TIPO DE PROPIEDAD - NUEVO PAIS - NUEVA CIUDAD     *********************************/
+
+#nuevo-tipo-propiedad,
+#nuevo-departamento,
+#nueva-ciudad {
+    background-color: #fff;
+    padding: 20px;
+}
+
+#nuevo-tipo-propiedad .box-nuevo-tipo,
+#nuevo-departamento .box-nuevo-tipo,
+#nueva-ciudad .box-nuevo-tipo {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    margin-top: 15px;
+}
+
+#nuevo-tipo-propiedad h3,
+#nuevo-departamento h3,
+#nueva-ciudad h3 {
+    font-weight: normal;
+}
+
+#nuevo-tipo-propiedad .box-nuevo-tipo form,
+#nuevo-departamento .box-nuevo-tipo form,
+#nueva-ciudad .box-nuevo-tipo form {
+    max-width: 900px;
+    margin: auto;
+}
+
+#nuevo-tipo-propiedad .box-nuevo-tipo form input[type=text],
+#nuevo-departamento .box-nuevo-tipo form input[type=text],
+#nueva-ciudad .box-nuevo-tipo form input[type=text] {
+    display: block;
+    width: 100%;
+    max-width: 500px;
+    padding: 10px;
+    margin: 25px 0;
+    border-radius: 5px;
+}
+
+#nueva-ciudad .box-nuevo-tipo #select {
+    border-radius: 5px;
+}
+
+#nuevo-tipo-propiedad hr,
+#nuevo-departamento hr,
+#nueva-ciudad hr {
+    margin: 10px 0;
+}
+
+#nueva-ciudad select {
+    display: block;
+    width: 200px;
+    background-color: #fff;
+    padding: 10px;
+}
+
+
+/*** LISTADO TIPO PROPIEDADES     *********************************/
+
+#listado-tipos-propiedades {
+    background-color: #fff;
+    padding: 20px;
+}
+
+#listado-tipos-propiedades .contenedor-tabla,
+#listado-departamentos .contenedor-tabla,
+#listado-ciudades .contenedor-tabla {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    margin-top: 15px;
+}
+
+#listado-departamentos {
+    background-color: #fff;
+    padding: 20px;
+}
+
+.listados {
+    margin-top: 20px;
+    border-collapse: collapse;
+    text-align: left;
+    width: 600px;
+    max-width: 600px;
+}
+
+.listados tr:nth-child(odd) {
+    background: #dedede;
+}
+
+.listados tr {
+    border: 1px solid #ccc;
+    font-size: 12px;
+    padding: 5px;
+}
+
+.listados td,
+th {
+    padding: 10px;
+}
+
+.listados th {
+    background-color: #c2c2c2;
+}
+
+.listados input {
+    font-size: 14px;
+    text-decoration: none;
+    background-color: #1e8449;
+    border: 1px solid #1e8449;
+    color: #fff;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.listados input:hover {
+    background-color: #d4efdf;
+    border: 1px solid #1e8449;
+    color: #1e8449;
+}
+
+/*** CONFIGURACION     *********************************/
+
+#configuracion {
+    background-color: #fff;
+    padding: 20px;
+}
+
+#configuracion .box-configuracion {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    margin-top: 15px;
+}
+
+#configuracion .box-configuracion h3 {
+    margin-bottom: 10px;
+}
+
+#configuracion .box-configuracion #personalizada .fila {
+    display: flex;
+    justify-content: space-between;
+}
+
+#configuracion .box-configuracion #personalizada .fila div {
+    width: 30%;
+    margin: 15px 0;
+}
+
+#configuracion label {
+    width: 100%;
+    display: block;
+}
+
+#configuracion .box-configuracion input[type="text"] {
+    margin-bottom: 15px;
+}
+
+#configuracion .box-configuracion #personalizada {
+    display: none;
+}
