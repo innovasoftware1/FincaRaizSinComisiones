@@ -123,57 +123,12 @@ $tipoUbicacion = isset($_GET['tipoUbicacion']) ? $_GET['tipoUbicacion'] : 'Venta
                     <input class="btn-buscar-filtro" type="submit" value="Buscar" name="buscar">
                 </form>
             </div>
-        </div>                           
-
-
-
-        
+        </div>
 
         <footer class="inferior2">
             <?php include("contenido-footer.php"); ?>
         </footer>
     </div>
-
-
-    <script>
-        function convertirAMinusculas(input) {
-            input.value = input.value.toLowerCase();
-        }
-
-
-function actualizarFiltro() {
-
-    document.querySelectorAll('.filtro').forEach(function (filtro) {
-        const selectBtn = filtro.querySelector('.select-btn');
-        const selectedItems = filtro.querySelectorAll('.checkbox:checked');
-
-
-        let selectedText = '';
-        selectedItems.forEach(function (item) {
-            selectedText += item.nextElementSibling.textContent + ', ';
-        });
-
-
-        if (selectedText) {
-            selectedText = selectedText.slice(0, -2); 
-        } else {
-            selectedText = selectBtn.getAttribute('data-value');
-        }
-
-        selectBtn.querySelector('.btn-text').textContent = selectedText;
-    });
-}
-
-document.querySelectorAll('.checkbox').forEach(function (checkbox) {
-    checkbox.addEventListener('change', actualizarFiltro);
-});
-
-document.querySelectorAll('.select-btn').forEach(function (btn) {
-    btn.setAttribute('data-value', btn.querySelector('.btn-text').textContent);
-});
-
-
-    </script>
 
 </body>
 

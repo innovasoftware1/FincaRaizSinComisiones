@@ -13,6 +13,10 @@ if (!isset($_SESSION['usuarioLogeado']) || !isset($_SESSION['rol_id'])) {
     exit();
 }
 
+// Define la constante BASE_URL si no está definida
+if (!defined('BASE_URL')) {
+    define('BASE_URL', 'http://localhost/FincaRaizV1/fincaRaizInnova/');
+}
 ?>
 
 <!-- Tu HTML comienza aquí -->
@@ -21,8 +25,9 @@ if (!isset($_SESSION['usuarioLogeado']) || !isset($_SESSION['rol_id'])) {
     <h2>Sistema Administrativo</h2>
 
 
+
     <button id="userBtn" class="user-btn">
-    <img src="../img/admin.svg" alt="Icono de usuario" class="user-icon">
+    <img src="<?php echo BASE_URL; ?>img/admin.svg" alt="Icono de usuario" class="user-icon">
     </button>
     
 </header>
@@ -52,7 +57,17 @@ if (!isset($_SESSION['usuarioLogeado']) || !isset($_SESSION['rol_id'])) {
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
+    // Constante BASE_URL definida desde PHP
+    const BASE_URL = "<?php 
+        if (!defined('BASE_URL')) {
+            define('BASE_URL', 'http://localhost/FincaRaizV1/fincaRaizInnova/');
+        }
+        echo BASE_URL; 
+    ?>";
 
+    function redirectToConfig() {
+        window.location.href = BASE_URL + 'configuracion.php';
+    }
 
     const userBtn = document.getElementById("userBtn");
     const modal = document.getElementById("userModal");
@@ -97,7 +112,7 @@ if (!isset($_SESSION['usuarioLogeado']) || !isset($_SESSION['rol_id'])) {
                     timer: 3000,
                     showConfirmButton: false
                 }).then(() => {
-                    window.location.href = 'cerrar-sesion.php';
+                    window.location.href = BASE_URL + 'admin/cerrar-sesion.php';
                 });
             }
         });

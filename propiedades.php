@@ -6,10 +6,8 @@ $id_ciudad = $_GET['ciudad'] ?? null;
 $id_tipo = $_GET['tipo'] ?? null;
 $tipoUbicacion = isset($_GET['tipoUbicacion']) ? (array)$_GET['tipoUbicacion'] : [];
 
-
 $precio_min = isset($_GET['precio_min']) ? $_GET['precio_min'] : null;
 $precio_max = isset($_GET['precio_max']) ? $_GET['precio_max'] : null;
-
 
 $result_propiedades = realizarBusqueda($id_ciudad, $id_tipo, $tipoUbicacion, $precio_min, $precio_max);
 
@@ -175,7 +173,7 @@ $result_tipos = obtenerTodosLosTipos();
         </div>
 
         <!--  -->
-        <h2 class="titulo-seccion"><b>Propiedades Destacadas</b></h2>
+        <h2 class="titulo-seccion"><b>Propiedades disponibles</b></h2>
 
         <div class="contenedor-propiedades" id="contenedor-propiedades">
             <?php if (mysqli_num_rows($result_propiedades) > 0): ?>
@@ -209,15 +207,17 @@ $result_tipos = obtenerTodosLosTipos();
                     </form>
                 <?php endwhile; ?>
             <?php else: ?>
-                <div class="sin-resultados" style="text-align: center;">
-                    <img src="img/none.svg" alt="Sin resultados" width="100" height="100">
-                    <p style="color: #c7c7c7; font-weight: bold;">No se encontraron propiedades con los filtros seleccionados.</p>
+                <div class="contenedor-propiedades mensaje-no-resultados">
+                    <div>
+                        <img src="img/none.svg" alt="Sin resultados" width="100" height="100">
+                        <p>No se encontraron propiedades con los filtros seleccionados.</p>
+                    </div>
                 </div>
 
             <?php endif; ?>
         </div>
 
-        <button value="0" onclick="cargarMasPropiedades(this.value)" id="botonCargarMas">Ver Más</button>
+        <!-- <button value="0" onclick="cargarMasPropiedades(this.value)" id="botonCargarMas">Ver Más</button> -->
     </div>
 
     <footer class="inferior">
@@ -226,32 +226,6 @@ $result_tipos = obtenerTodosLosTipos();
 
     <script src="script.js"></script>
     <script src="filtros-dropdown.js"></script>
-    <script>
-        function validarPrecio() {
-            const precioMin = document.getElementById('precio_min');
-            const precioMax = document.getElementById('precio_max');
-            const errorMessage = document.getElementById('error-message');
-
-            errorMessage.textContent = '';
-            errorMessage.style.color = 'red';
-            errorMessage.style.fontSize = '12px';
-
-            let valid = true;
-
-            if (isNaN(precioMin.value) || isNaN(precioMax.value)) {
-                valid = false;
-                errorMessage.textContent = 'Por favor, ingrese valores numéricos válidos.';
-            } else if (precioMin.value < 0 || precioMax.value < 0) {
-                valid = false;
-                errorMessage.textContent = 'Los precios no pueden ser negativos.';
-            } else if (parseFloat(precioMin.value) > parseFloat(precioMax.value)) {
-                valid = false;
-                errorMessage.textContent = 'El precio máximo no puede ser menor al precio mínimo.';
-            }
-
-            return valid;
-        }
-    </script>
 </body>
 
 </html>

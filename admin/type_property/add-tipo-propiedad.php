@@ -33,9 +33,9 @@ if (isset($_POST['agregar'])) {
 </head>
 
 <body>
-    <?php include("../header-menu.php"); ?>
+    <?php include("../header.php"); ?>
     <div id="contenedor-admin">
-        <?php include("../menu_index_options.php"); ?>
+        <?php include("../contenedor-menu.php"); ?>
 
         <div class="contenedor-principal">
             <div id="nuevo-tipo-propiedad">
