@@ -7,7 +7,7 @@ $result_tipos = obtenerTodosLosTipos();
 
 $busqueda = isset($_GET['busqueda']) ? trim($_GET['busqueda']) : '';
 
-$estado = isset($_GET['estado']) ? $_GET['estado'] : 'Venta';
+$tipoUbicacion = isset($_GET['tipoUbicacion']) ? $_GET['tipoUbicacion'] : 'Venta';
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -76,8 +76,6 @@ $estado = isset($_GET['estado']) ? $_GET['estado'] : 'Venta';
                             </div>
                         </div>
 
-                        <!-- Filtro de Estado -->
-
                         <div class="filtro">
                             <div class="select-btn select-btn-filtro">
                                 <span class="btn-text">Tipo ubicacion</span>
@@ -85,46 +83,57 @@ $estado = isset($_GET['estado']) ? $_GET['estado'] : 'Venta';
                             </div>
                             <div class="list-items list-items-filtro">
                                 <div class="item item-filtro">
-                                    <input type="checkbox" name="estado[]" value="campestre" id="campestre" class="checkbox">
+                                    <input type="checkbox" name="tipoUbicacion[]" value="campestre" id="campestre" class="checkbox">
                                     <span class="item-text">Campestre</span>
                                 </div>
                                 <div class="item item-filtro">
-                                    <input type="checkbox" name="estado[]" value="urbano" id="urbano" class="checkbox">
+                                    <input type="checkbox" name="tipoUbicacion[]" value="urbano" id="urbano" class="checkbox">
                                     <span class="item-text">Urbano</span>
                                 </div>
                             </div>
                         </div>
 
-                            <!-- Filtro Rango de Precio -->
-                            <div class="filtro">
-                                <div class="select-btn">
-                                    <span class="btn-text">Precio</span>
-                                    <span class="arrow-dwn"><i class="fa-solid fa-chevron-down"></i></span>
+
+                        <!-- Filtro Rango de Precio -->
+                        <div class="filtro">
+                            <div class="select-btn">
+                                <span class="btn-text">Precio</span>
+                                <span class="arrow-dwn"><i class="fa-solid fa-chevron-down"></i></span>
+                            </div>
+                            <div class="list-items">
+                                <div class="item">
+                                    <input type="number" name="precio_min" id="precio_min" placeholder="Precio mínimo"
+                                        value="<?php echo isset($_GET['precio_min']) ? htmlspecialchars($_GET['precio_min']) : ''; ?>"
+                                        min="0" step="0.01">
                                 </div>
-                                <div class="list-items">
-                                    <div class="item">
-                                        <input type="number" name="precio_min" id="precio_min" placeholder="Precio mínimo" value="" min="0" step="0.01">
-                                    </div>
-                                    <div class="item">
-                                        <input type="number" name="precio_max" id="precio_max" placeholder="Precio máximo" value="" min="0" step="0.01">
-                                    </div>
-                                    <div id="error-message" class="error-message"></div>
-                                    <button type="submit" onclick="return validarPrecio()">Aplicar filtro</button>
+                                <div class="item">
+                                    <input type="number" name="precio_max" id="precio_max" placeholder="Precio máximo"
+                                        value="<?php echo isset($_GET['precio_max']) ? htmlspecialchars($_GET['precio_max']) : ''; ?>"
+                                        min="0" step="0.01">
+
                                 </div>
+                                <div id="error-message" class="error-message"></div>
+                                <button type="submit" onclick="return validarPrecio()">Aplicar filtro</button>
                             </div>
 
+                        </div>
 
                     </div>
 
                     <input class="btn-buscar-filtro" type="submit" value="Buscar" name="buscar">
                 </form>
             </div>
-        </div>
+        </div>                           
+
+
+
+        
 
         <footer class="inferior2">
             <?php include("contenido-footer.php"); ?>
         </footer>
     </div>
+
 
     <script>
         function convertirAMinusculas(input) {
@@ -165,6 +174,7 @@ document.querySelectorAll('.select-btn').forEach(function (btn) {
 
 
     </script>
+
 </body>
 
 <script src="script.js"></script>

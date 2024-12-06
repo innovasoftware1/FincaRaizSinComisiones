@@ -31,3 +31,5 @@ document.querySelector('form').addEventListener('submit', function(event) {
 
     console.log('Formulario enviado:', Object.fromEntries(formData));
 });
+
+

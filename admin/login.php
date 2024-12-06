@@ -3,9 +3,10 @@ session_start();
 include("conexion.php");
 
 if (isset($_POST['iniciar'])) {
-    $usuario = $_POST['usuario'];
+    $usuario = mysqli_real_escape_string($conn, $_POST['usuario']);
     $password = $_POST['password'];
 
+    // Consulta para obtener la información del usuario
     $sql = "SELECT id, usuario, password, rol_id FROM usuarios WHERE usuario = ?";
     $stmt = mysqli_prepare($conn, $sql);
     mysqli_stmt_bind_param($stmt, "s", $usuario);
@@ -14,15 +15,23 @@ if (isset($_POST['iniciar'])) {
 
     if (mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
-        if ($password == $row['password']) {
+
+        // Verificar la contraseña encriptada
+        if (password_verify($password, $row['password'])) {
+            // Inicio de sesión exitoso
             $_SESSION['usuarioLogeado'] = $usuario;
-            $_SESSION['rol_id'] = $row['rol_id']; 
+            $_SESSION['rol_id'] = $row['rol_id'];
+            $_SESSION['rol_id'] = $row['rol_id'];
+            $_SESSION['usuarioId'] = $row['id'];
+
             header("Location: index.php");
             exit();
         } else {
+            // Contraseña incorrecta
             $mensaje = "* El nombre de usuario o la contraseña son incorrectos";
         }
     } else {
+        // Usuario no encontrado
         $mensaje = "* El nombre de usuario o la contraseña son incorrectos";
     }
 
@@ -44,7 +53,7 @@ if (isset($_POST['iniciar'])) {
     <div id="contenedor-login">
         <div class="presentacion">
             <div class="titulo">
-            <img class="logo" src="../img/logo-innova.png" alt="">
+                <img class="logo" src="../img/logo-innova.png" alt="">
                 <h1>FRSC</h1>
                 <p>Sistema de Gestión</p>
                 <p>FincaRaizSinComisiones</p>
@@ -57,8 +66,8 @@ if (isset($_POST['iniciar'])) {
                     <input type="submit" value="Iniciar Sesión" name="iniciar" class="btn">
                     <br>
 
-                    <?php if (isset($_POST['iniciar'])) : ?>
-                        <span class="msj-error-input"> <?php echo $mensaje ?></span>
+                    <?php if (isset($mensaje)) : ?>
+                        <span class="msj-error-input"><?php echo $mensaje ?></span>
                     <?php endif ?>
                 </form>
             </div>

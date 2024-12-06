@@ -309,6 +309,7 @@ body {
     cursor: pointer;    
 }
 
+
 /* Estilos para el botón "Aplicar filtro" */
 .list-items button {
     background-color: #df3424; /* Color del botón */
@@ -333,6 +334,7 @@ body {
     font-family: inherit; /* Hereda la tipografía del input */
     font-size: 14px; /* Ajusta el tamaño del texto */
     font-style: italic; /* Opcional: estilo cursiva */
+
 }
 
 /* Estilos generales de los inputs (si es necesario) */
@@ -551,7 +553,7 @@ body {
     position: relative;
 }
 
-.page-propiedades .contenedor-propiedad .contenedor-img .estado {
+.page-propiedades .contenedor-propiedad .contenedor-img .tipoUbicacion {
     position: absolute;
     top: 20px;
     left: 20px;
@@ -690,7 +692,7 @@ body {
     font-weight: bolder;
 }
 
-.page-publicacion .info-publicacion .dato1 .estado {
+.page-publicacion .info-publicacion .dato1 .tipoUbicacion {
     display: inline-block;
     background-color: #df3424;
     color: #fff;
@@ -780,8 +782,15 @@ body {
     margin: 30px 0
 }
 
-.page-publicacion .info-publicacion .descripcion .fila .dato {
-    width: 150px;
+.page-publicacion .info-publicacion .descripcion .sub-titulo,
+.page-publicacion .content-mp .sub-titulo {
+    font-size: 18px;
+    color: #2c3e50;
+}
+
+.page-publicacion .info-publicacion .descripcion .fila .dato,
+.page-publicacion .content-mp .fila .dato {
+    width: 250px;
     border-left: 5px solid #ff5d55;
     padding-left: 5px;
 }
@@ -795,9 +804,14 @@ body {
     font-weight: bold;
 }
 
-.page-publicacion .info-publicacion .descripcion .fila .dato .valor {
-    font-size: 13px;
-    color: #607d8b;
+.page-publicacion .info-publicacion .descripcion .fila .dato .header i,
+.page-publicacion .content-mp .fila .dato i {
+    color: #0e1c34;
+}
+
+.page-publicacion .info-publicacion .descripcion .fila .dato .valor,
+.page-publicacion .content-mp .valor {
+    font-size: 14px;
 }
 
 .page-publicacion .info-publicacion .descripcion .detalle {
@@ -839,7 +853,8 @@ body {
     display: block;
     width: 100%;
     margin-bottom: 6px;
-    color: #607d8b;
+    color: #2c3e50;
+    font-weight: bold;
 }
 
 .page-publicacion .form-contacto-publicacion div {
@@ -853,6 +868,12 @@ body {
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #888;
+    outline: none;
+}
+
+.page-publicacion .form-contacto-publicacion input:focus,
+.page-publicacion .form-contacto-publicacion textarea:focus {
+    border: 2px solid #f74c3c;
 }
 
 .page-publicacion .form-contacto-publicacion .btn-send {
@@ -1380,6 +1401,12 @@ body {
     border: none;
     border: 2px solid #b2babb;
     resize: none;
+    outline: none;
+}
+
+.page-contacto .formulario input:focus,
+.page-contacto .formulario textarea:focus {
+    border: 2px solid #df3424;
 }
 
 .page-contacto .formulario input:hover,
@@ -1545,7 +1572,7 @@ footer.inferior2 {
     .home .box-buscar-propiedades .box-interior select,
     .home .box-buscar-propiedades .box-interior input[type=submit],
     .home .box-buscar-propiedades .box-interior input[type=text],
-    .home .box-buscar-propiedades .box-interior .estado {
+    .home .box-buscar-propiedades .box-interior .tipoUbicacion {
         width: 100%;
         display: block;
         margin-bottom: 10px;
@@ -1566,7 +1593,7 @@ footer.inferior2 {
     .page-propiedades .box-buscar-propiedades .box-interior select,
     .page-propiedades .box-buscar-propiedades .box-interior input[type=submit],
     .page-propiedades .box-buscar-propiedades .box-interior input[type=text],
-    .page-propiedades .box-buscar-propiedades .box-interior .estado {
+    .page-propiedades .box-buscar-propiedades .box-interior .tipoUbicacion {
         width: 100%;
         display: block;
         margin-bottom: 10px;
@@ -1588,7 +1615,7 @@ footer.inferior2 {
     .page-busqueda .box-buscar-propiedades .box-interior select,
     .page-busqueda .box-buscar-propiedades .box-interior input[type=submit],
     .page-busqueda .box-buscar-propiedades .box-interior input[type=text],
-    .page-busqueda .box-buscar-propiedades .box-interior .estado {
+    .page-busqueda .box-buscar-propiedades .box-interior .tipoUbicacion {
         width: 100%;
         display: block;
         margin-bottom: 10px;
@@ -1612,6 +1639,11 @@ footer.inferior2 {
     }
 }
 
+
+    .page-publicacion .content-mp {
+        width: 100%;
+}
+}
 @media only screen and (max-width: 450px) {
     .page-publicacion .info-publicacion .descripcion .fila {
         display: block;

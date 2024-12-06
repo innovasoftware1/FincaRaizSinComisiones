@@ -1,27 +1,37 @@
 <?php
 include("conexion.php");
 
+// Obtener roles
 $query = "SELECT * FROM roles";
 $resultado_roles = mysqli_query($conn, $query);
 
 if (isset($_POST['agregar'])) {
-    $id_usuario = $_POST['id'];
-    $nombre_completo = $_POST['nombre'];
-    $usuario = $_POST['usuario'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $rol_id = $_POST['rol'];
+    $id_usuario = mysqli_real_escape_string($conn, $_POST['id']);
+    $nombre_completo = mysqli_real_escape_string($conn, $_POST['nombre']);
+    $usuario = mysqli_real_escape_string($conn, $_POST['usuario']);
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $password = mysqli_real_escape_string($conn, $_POST['password']);
+    $rol_id = mysqli_real_escape_string($conn, $_POST['rol']);
 
+    // Encriptar contraseña
+    $password_encriptada = password_hash($password, PASSWORD_DEFAULT);
+
+    // Insertar usuario
     $query = "INSERT INTO usuarios (id, nombre, usuario, email, password, rol_id, fecha_creacion)
-              VALUES ('$id_usuario', '$nombre_completo', '$usuario', '$email', '$password', '$rol_id', NOW())";
+             VALUES (?, ?, ?, ?, ?, ?, NOW())";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, "sssssi", $id_usuario, $nombre_completo, $usuario, $email, $password_encriptada, $rol_id);
 
-    if (mysqli_query($conn, $query)) {
+    if (mysqli_stmt_execute($stmt)) {
         $mensaje = "El usuario se ha agregado correctamente.";
     } else {
-        $mensaje = "No se pudo insertar en la base de datos. " . mysqli_error($conn);
+        $mensaje = "Error al agregar el usuario: " . mysqli_error($conn);
     }
+
+    mysqli_stmt_close($stmt);
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -41,7 +51,7 @@ if (isset($_POST['agregar'])) {
     <?php include("header.php"); ?>
 
     <div id="contenedor-admin">
-        <?php include("contenedor-menu.php"); ?>
+        <?php include("menu_index.php"); ?>
 
         <div class="contenedor-principal">
             <div id="configuracion">
@@ -72,7 +82,7 @@ if (isset($_POST['agregar'])) {
                         <input type="password" name="password" placeholder="Contraseña" required autocomplete="off" class="input-entrada-texto">
                         <br><br>
 
-                        <!-- Rol "List" de Usuario -->
+                        <!-- Rol -->
                         <label for="rol">Rol</label>
                         <select name="rol" id="select" required class="input-entrada-texto">
                             <?php while ($row = mysqli_fetch_assoc($resultado_roles)) : ?>
@@ -89,27 +99,16 @@ if (isset($_POST['agregar'])) {
                 <?php if (isset($_POST['agregar'])) : ?>
                     <script>
                         Swal.fire({
-                            title: '¿Estás seguro de crear el usuario ' + "<?php echo $nombre_completo; ?>" + '?',
-                            text: '¡Este usuario será agregado al sistema!',
-                            icon: 'warning',
-                            showCancelButton: false,
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: 'Sí, crear usuario'
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                Swal.fire({
-                                    title: '¡Usuario creado correctamente!',
-                                    icon: 'success',
-                                    timer: 3000,
-                                    showConfirmButton: false
-                                }).then(() => {
-                                    window.location.href = 'ver-usuarios.php';
-                                });
-                            }
+                            title: '¡Usuario creado correctamente!',
+                            text: '<?php echo $mensaje; ?>',
+                            icon: 'success',
+                            timer: 3000,
+                            showConfirmButton: false
+                        }).then(() => {
+                            window.location.href = 'ver-usuarios.php';
                         });
                     </script>
                 <?php endif ?>
-
             </div>
         </div>
     </div>

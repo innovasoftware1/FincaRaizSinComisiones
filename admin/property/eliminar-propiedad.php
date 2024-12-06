@@ -1,5 +1,5 @@
 <?php
-include("conexion.php");
+include("../conexion.php");
 
 if (isset($_GET['idPropiedad']) && !empty($_GET['idPropiedad'])) {
     $id_propiedad = $_GET['idPropiedad'];

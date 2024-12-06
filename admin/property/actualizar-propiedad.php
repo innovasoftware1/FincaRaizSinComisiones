@@ -7,7 +7,7 @@ if (!$_SESSION['usuarioLogeado']) {
 
 function obtenerPropiedadPorId($id_propiedad)
 {
-    include("conexion.php");
+    include("../conexion.php");
 
     $query = "SELECT * FROM propiedades WHERE id='$id_propiedad'";
 
@@ -22,7 +22,7 @@ $propiedad = obtenerPropiedadPorId($id_propiedad);
 
 function obtenerFotosGaleriaDePropiedad($id_propiedad)
 {
-    include("conexion.php");
+    include("../conexion.php");
 
     $query = "SELECT * FROM fotos WHERE id_propiedad='$id_propiedad'";
 
@@ -30,19 +30,19 @@ function obtenerFotosGaleriaDePropiedad($id_propiedad)
     return $galeria;
 }
 
-include("conexion.php");
+include("../conexion.php");
 
 $query = "SELECT * FROM tipos";
 
 $resultado_tipos = mysqli_query($conn, $query);
 
-include("conexion.php");
+include("../conexion.php");
 
 $query = "SELECT * FROM departamentos";
 
 $resultado_departamentos = mysqli_query($conn, $query);
 
-include("conexion.php");
+include("../conexion.php");
 
 $query = "SELECT * FROM ciudades WHERE id_departamento='$propiedad[departamento]'";
 
@@ -50,7 +50,7 @@ $resultado_ciudades = mysqli_query($conn, $query);
 
 if (isset($_POST['actualizar'])) {
 
-    include("conexion.php");
+    include("../conexion.php");
 
     $id_propiedad = $_POST['id'];
     $id = $_POST['id'];
@@ -69,8 +69,6 @@ if (isset($_POST['actualizar'])) {
     $url_galeria = "url";
     $departamento = $_POST['departamento'];
     $ciudad = $_POST['ciudad'];
-    $propietario = $_POST['nombre_propietario'];
-    $telefono_propietario = $_POST['telefono_propietario'];
     $agua = $_POST['agua'];
     $luz = $_POST['luz'];
     $gas = $_POST['gas'];
@@ -100,8 +98,6 @@ if (isset($_POST['actualizar'])) {
      moneda='$moneda', 
      departamento='$departamento',
      ciudad='$ciudad',
-     propietario='$propietario',
-     telefono_propietario='$telefono_propietario',
      agua='$agua',
      luz='$luz',
      gas='$gas',
@@ -157,7 +153,7 @@ if (isset($_POST['actualizar'])) {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="estilo.css">
+    <link rel="stylesheet" href="../estilo.css">
     <script>
         function muestraselect(str) {
             var conexion;
@@ -185,10 +181,10 @@ if (isset($_POST['actualizar'])) {
 
 <body>
 
-    <?php include("header.php"); ?>
+    <?php include("../header.php"); ?>
 
     <div id="contenedor-admin">
-        <?php include("contenedor-menu.php"); ?>
+        <?php include("../contenedor-menu.php"); ?>
 
         <div class="contenedor-principal">
 
@@ -455,7 +451,7 @@ if (isset($_POST['actualizar'])) {
                             $i = 1; ?>
                             <?php while ($foto = mysqli_fetch_assoc($galeria)) : ?>
                                 <output class="contenedor-foto-galeria" id="<?php echo $i ?>">
-                                    <img src="fotos/<?php echo $propiedad['id'] . "/" . $foto['nombre_foto'] ?>" class="foto-galeria">
+                                <img src="fotos/<?php echo $propiedad['id'] . "/" . $foto['nombre_foto'] ?>" class="foto-galeria">
 
                                     <span id="btn-eliminar-galeria" id="<?php echo $foto['id'] ?>" onclick="eliminarFoto(<?php echo $foto['id'] ?>, <?php echo $i ?>)"> Eliminar</i></span>
                                 </output>
@@ -546,25 +542,9 @@ if (isset($_POST['actualizar'])) {
                             </select>
                         </div>
 
-
-                        <div class="box">
-                            <label for="propietario">Nombre del propietario</label>
-                            <input type="text" name="nombre_propietario" value="<?php echo $propiedad['propietario'] ?>" class="input-entrada-texto">
-                        </div>
-
-
                     </div>
-
                     <div class="fila">
-                        <div class="box">
-                            <label for="id">Cedula</label>
-                            <input type="text" name="id" value="<?php echo $propiedad['id'] ?>" class="input-entrada-texto" readonly>
-                        </div>
-
-                        <div class="box">
-                            <label for="telefono_propietario">Teléfono del propietario</label>
-                            <input type="text" name="telefono_propietario" value="<?php echo $propiedad['telefono_propietario'] ?>" class="input-entrada-texto">
-                        </div>
+                        
                         <div class="box">
                             <label for="permuta">¿Permuta?</label>
                             <select name="permuta" id="" class="input-entrada-texto">
@@ -614,9 +594,9 @@ if (isset($_POST['actualizar'])) {
 
     <?php endif ?>
 
-    <script src="script.js"></script>
-    <script src="subirFoto.js"></script>
-    <script src="vista_recorrido_video.js"></script>
+    <script src="../script.js"></script>
+    <script src="../subirFoto.js"></script>
+    <script src="../vista_recorrido_video.js"></script>
 </body>
 
 </html>

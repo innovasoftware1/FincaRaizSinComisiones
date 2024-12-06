@@ -16,7 +16,7 @@ if (isset($_FILES["fotos"]))
         if ($tipo != 'image/jpeg' && $tipo != 'image/jpg' && $tipo != 'image/png' && $tipo != 'image/gif')
         {
             $reporte .= "<p style='color: red'>Error $nombre, el archivo no es una imagen.</p>";
-        }
+        }   
         else
         {
             if($tipo="image/jpeg"){
