@@ -6,8 +6,10 @@ $id_ciudad = $_GET['ciudad'] ?? null;
 $id_tipo = $_GET['tipo'] ?? null;
 $tipoUbicacion = isset($_GET['tipoUbicacion']) ? (array)$_GET['tipoUbicacion'] : [];
 
+
 $precio_min = isset($_GET['precio_min']) ? $_GET['precio_min'] : null;
 $precio_max = isset($_GET['precio_max']) ? $_GET['precio_max'] : null;
+
 
 $result_propiedades = realizarBusqueda($id_ciudad, $id_tipo, $tipoUbicacion, $precio_min, $precio_max);
 

@@ -1,6 +1,5 @@
 <?php
 
-
 function obtenerTodasLasCiudades()
 {
     include("admin/conexion.php");
@@ -27,6 +26,7 @@ function obtenerPrecioPropiedadPorId($id_propiedad) {
         return "Propiedad no encontrada";
     }
 }
+
 
 
 function obtenerTodosLosTipos()

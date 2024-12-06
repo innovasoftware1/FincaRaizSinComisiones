@@ -22,6 +22,7 @@ $tipoUbicacion = isset($_GET['tipoUbicacion']) ? $_GET['tipoUbicacion'] : 'Venta
     <link rel="stylesheet" href="estilo.css">
 </head>
 
+
 <body class="home" id="home">
 
     <!-- icono de whatsapp inicio -->
@@ -59,6 +60,7 @@ $tipoUbicacion = isset($_GET['tipoUbicacion']) ? $_GET['tipoUbicacion'] : 'Venta
                         </div>
 
                         <!-- Filtro de Tipo de Propiedad -->
+
                         <div class="filtro">
                             <div class="select-btn select-btn-filtro">
                                 <span class="btn-text">Tipo de propiedad</span>
@@ -74,7 +76,6 @@ $tipoUbicacion = isset($_GET['tipoUbicacion']) ? $_GET['tipoUbicacion'] : 'Venta
                             </div>
                         </div>
 
-                        <!-- Filtro de tipoUbicacion -->
                         <div class="filtro">
                             <div class="select-btn select-btn-filtro">
                                 <span class="btn-text">Tipo ubicacion</span>
@@ -92,6 +93,7 @@ $tipoUbicacion = isset($_GET['tipoUbicacion']) ? $_GET['tipoUbicacion'] : 'Venta
                             </div>
                         </div>
 
+
                         <!-- Filtro Rango de Precio -->
                         <div class="filtro">
                             <div class="select-btn">
@@ -108,11 +110,14 @@ $tipoUbicacion = isset($_GET['tipoUbicacion']) ? $_GET['tipoUbicacion'] : 'Venta
                                     <input type="number" name="precio_max" id="precio_max" placeholder="Precio máximo"
                                         value="<?php echo isset($_GET['precio_max']) ? htmlspecialchars($_GET['precio_max']) : ''; ?>"
                                         min="0" step="0.01">
+
                                 </div>
                                 <div id="error-message" class="error-message"></div>
                                 <button type="submit" onclick="return validarPrecio()">Aplicar filtro</button>
                             </div>
+
                         </div>
+
                     </div>
 
                     <input class="btn-buscar-filtro" type="submit" value="Buscar" name="buscar">
@@ -128,6 +133,48 @@ $tipoUbicacion = isset($_GET['tipoUbicacion']) ? $_GET['tipoUbicacion'] : 'Venta
             <?php include("contenido-footer.php"); ?>
         </footer>
     </div>
+
+
+    <script>
+        function convertirAMinusculas(input) {
+            input.value = input.value.toLowerCase();
+        }
+
+
+function actualizarFiltro() {
+
+    document.querySelectorAll('.filtro').forEach(function (filtro) {
+        const selectBtn = filtro.querySelector('.select-btn');
+        const selectedItems = filtro.querySelectorAll('.checkbox:checked');
+
+
+        let selectedText = '';
+        selectedItems.forEach(function (item) {
+            selectedText += item.nextElementSibling.textContent + ', ';
+        });
+
+
+        if (selectedText) {
+            selectedText = selectedText.slice(0, -2); 
+        } else {
+            selectedText = selectBtn.getAttribute('data-value');
+        }
+
+        selectBtn.querySelector('.btn-text').textContent = selectedText;
+    });
+}
+
+document.querySelectorAll('.checkbox').forEach(function (checkbox) {
+    checkbox.addEventListener('change', actualizarFiltro);
+});
+
+document.querySelectorAll('.select-btn').forEach(function (btn) {
+    btn.setAttribute('data-value', btn.querySelector('.btn-text').textContent);
+});
+
+
+    </script>
+
 </body>
 
 <script src="script.js"></script>
