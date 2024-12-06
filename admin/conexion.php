@@ -1,5 +1,7 @@
+
+
 <?php
-/* Conexión a la base de datos */
+
 $server = "localhost:3306"; // Servidor y puerto
 $username = "root";         // Usuario
 $password = "";             // Contraseña

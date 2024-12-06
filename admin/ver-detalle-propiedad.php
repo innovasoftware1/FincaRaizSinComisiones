@@ -182,7 +182,8 @@ function obtenerCiudad($id_ciudad)
                     <table class="descripcion">
                         <tr>
                             <td>Foto Principal</td>
-                            <td><img src="<?php echo $propiedad['url_foto_principal'] ?>" alt=""></td>
+                            <td><img src="property/<?php echo $propiedad['url_foto_principal'] ?>" alt=""></td>
+
                         </tr>
 
                         <tr>
@@ -190,7 +191,7 @@ function obtenerCiudad($id_ciudad)
                             <td>
                                 <?php $resultFotos = obtenerFotosGaleria($propiedad['id']); ?>
                                 <?php while ($foto = mysqli_fetch_assoc($resultFotos)) : ?>
-                                    <img src="fotos/<?php echo $propiedad['id'] . "/" . $foto['nombre_foto'] ?>">
+                                    <img src="property/fotos/<?php echo $propiedad['id'] . "/" . $foto['nombre_foto'] ?>">
                                 <?php endwhile ?>
                             </td>
                         </tr>
@@ -245,20 +246,11 @@ function obtenerCiudad($id_ciudad)
                         </tr>
 
                         <tr>
-                            <td>Nombre del propietario</td>
-                            <td> <?php echo $propiedad['propietario'] ?> </td>
-                        </tr>
-                        <tr>
-                            <td>Teléfono del propietario</td>
-                            <td><?php echo $propiedad['telefono_propietario'] ?> </td>
-                        </tr>
-                        <tr>
                             <td>¿Permuta?</td>
                             <td><?php echo $propiedad['permuta'] ?> </td>
                         </tr>
                     </table>
                 </div>
-
 
             </div>
         </div>
