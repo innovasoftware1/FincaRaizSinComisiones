@@ -4,15 +4,18 @@ include("funciones.php");
 $limInferior = 0;
 $id_ciudad = $_GET['ciudad'] ?? null;
 $id_tipo = $_GET['tipo'] ?? null;
-$estado = isset($_GET['estado']) ? (array)$_GET['estado'] : [];
+$tipoUbicacion = isset($_GET['tipoUbicacion']) ? (array)$_GET['tipoUbicacion'] : [];
 
-$config = obtenerConfiguracion();
+$precio_min = isset($_GET['precio_min']) ? $_GET['precio_min'] : null;
+$precio_max = isset($_GET['precio_max']) ? $_GET['precio_max'] : null;
+
+$result_propiedades = realizarBusqueda($id_ciudad, $id_tipo, $tipoUbicacion, $precio_min, $precio_max);
+
+/* $config = obtenerConfiguracion(); */
 $result_ciudades = obtenerTodasLasCiudades();
 $result_tipos = obtenerTodosLosTipos();
-
-$result_propiedades = realizarBusqueda($id_ciudad, $id_tipo, $estado);
-
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -73,6 +76,14 @@ $result_propiedades = realizarBusqueda($id_ciudad, $id_tipo, $estado);
 
 </head>
 
+<!-- icono de whatsapp inicio -->
+<a href="https://api.whatsapp.com/send?phone=573102499843&text=Quiero%20más%20información%20acerca%20de..."
+    target="_blank" class="float">
+    <i class="fab fa-whatsapp my-float"></i>
+</a>
+<div id="tooltip" class="tooltip"><b>¡Contáctanos por WhatsApp!</b></div>
+<!-- icono de whatsapp final -->
+
 <body class="page-propiedades">
     <div class="container">
         <?php include("header.php"); ?>
@@ -107,11 +118,11 @@ $result_propiedades = realizarBusqueda($id_ciudad, $id_tipo, $estado);
                             </div>
                             <div class="list-items">
                                 <div class="item">
-                                    <input type="checkbox" name="estado[]" value="campestre" id="campestre" <?php echo (in_array('campestre', $estado)) ? 'checked' : ''; ?>>
+                                    <input type="checkbox" name="tipoUbicacion[]" value="campestre" id="campestre" <?php echo (in_array('campestre', $tipoUbicacion)) ? 'checked' : ''; ?>>
                                     <span class="item-text">Campestre</span>
                                 </div>
                                 <div class="item">
-                                    <input type="checkbox" name="estado[]" value="urbano" id="urbano" <?php echo (in_array('urbano', $estado)) ? 'checked' : ''; ?>>
+                                    <input type="checkbox" name="tipoUbicacion[]" value="urbano" id="urbano" <?php echo (in_array('urbano', $tipoUbicacion)) ? 'checked' : ''; ?>>
                                     <span class="item-text">Urbano</span>
                                 </div>
                             </div>
@@ -133,57 +144,25 @@ $result_propiedades = realizarBusqueda($id_ciudad, $id_tipo, $estado);
                             </div>
                         </div>
 
-                        <!-- Filtro Más Filtros -->
+                        <!-- Filtro Rango de Precio -->
                         <div class="filtro">
                             <div class="select-btn">
-                                <span class="btn-text">Rango de precio</span>
+                                <span class="btn-text">Precio</span>
                                 <span class="arrow-dwn"><i class="fa-solid fa-chevron-down"></i></span>
                             </div>
-                            <div class="list-items list-items-wide">
-
-                                <!-- Rango de precios (min-max) -->
-                                <div style="margin-bottom: 5px; height: 60px;">
-                                    <input style="height: 30px;" type="text" id="precio_min" name="precio_min" placeholder="Valor minimo" value="<?php echo isset($_GET['precio_min']) ? $_GET['precio_min'] : ''; ?>" oninput="formatearNumero(this)" min="0" maxlength="16">
-                                    <input style="margin-top: 5px; height: 30px;" type="text" id="precio_max" name="precio_max" placeholder="Valor maximo" value="<?php echo isset($_GET['precio_max']) ? $_GET['precio_max'] : ''; ?>" oninput="formatearNumero(this)" min="0" maxlength="16">
-                                </div>
-                                <!-- Filtro Habitaciones
-                                <div class="filtro-titulo"><b>Habitaciones</b><hr></div>
+                            <div class="list-items">
                                 <div class="item">
-                                    <input type="checkbox" name="habitaciones[]" value="1" class="checkbox">
-                                    <span class="item-text">1</span>
+                                    <input type="number" name="precio_min" id="precio_min" placeholder="Precio mínimo"
+                                        value="<?php echo isset($_GET['precio_min']) ? htmlspecialchars($_GET['precio_min']) : ''; ?>"
+                                        min="0" step="0.01">
                                 </div>
                                 <div class="item">
-                                    <input type="checkbox" name="habitaciones[]" value="2" class="checkbox">
-                                    <span class="item-text">2</span>
+                                    <input type="number" name="precio_max" id="precio_max" placeholder="Precio máximo"
+                                        value="<?php echo isset($_GET['precio_max']) ? htmlspecialchars($_GET['precio_max']) : ''; ?>"
+                                        min="0" step="0.01">
                                 </div>
-                                <div class="item">
-                                    <input type="checkbox" name="habitaciones[]" value="3" class="checkbox">
-                                    <span class="item-text">3</span>
-                                </div>
-                                <div class="item">
-                                    <input type="checkbox" name="habitaciones[]" value="4" class="checkbox">
-                                    <span class="item-text">4+</span>
-                                </div>
-
-                                Filtro Baños
-                                 <br>
-                                <div class="filtro-titulo"><b>Baños</b><hr></div>
-                                <div class="item">
-                                    <input type="checkbox" name="banos[]" value="1" class="checkbox">
-                                    <span class="item-text">1</span>
-                                </div>
-                                <div class="item">
-                                    <input type="checkbox" name="banos[]" value="2" class="checkbox">
-                                    <span class="item-text">2</span>
-                                </div>
-                                <div class="item">
-                                    <input type="checkbox" name="banos[]" value="3" class="checkbox">
-                                    <span class="item-text">3</span>
-                                </div>
-                                <div class="item">
-                                    <input type="checkbox" name="banos[]" value="4" class="checkbox">
-                                    <span class="item-text">4+</span>
-                                </div> -->
+                                <div id="error-message" class="error-message"></div>
+                                <button type="submit" onclick="return validarPrecio()">Aplicar filtro</button>
                             </div>
                         </div>
                     </div>
@@ -193,39 +172,47 @@ $result_propiedades = realizarBusqueda($id_ciudad, $id_tipo, $estado);
             </div>
         </div>
 
-        <h3>Resultados de la Búsqueda: <span><?php echo obtenerCiudad($id_ciudad) . " | " . obtenerTipo($id_tipo) . " | " . implode(", ", $estado); ?></span></h3>
+        <!--  -->
         <h2 class="titulo-seccion"><b>Propiedades Destacadas</b></h2>
 
         <div class="contenedor-propiedades" id="contenedor-propiedades">
-            <?php while ($propiedad = mysqli_fetch_assoc($result_propiedades)) : ?>
-                <form action="publicacion.php" method="get" id="<?php echo $propiedad['id']; ?>">
-                    <input type="hidden" value="<?php echo $propiedad['id']; ?>" name="idPropiedad">
-                    <div class="contenedor-propiedad" onclick="document.getElementById('<?php echo $propiedad['id']; ?>').submit();">
-                        <div class="contenedor-img">
-                            <img src="<?php echo 'admin/' . $propiedad['url_foto_principal']; ?>" alt="">
-                            <div class="estado"><?php echo $propiedad['estado']; ?></div>
+            <?php if (mysqli_num_rows($result_propiedades) > 0): ?>
+                <?php while ($propiedad = mysqli_fetch_assoc($result_propiedades)) : ?>
+                    <form action="publicacion.php" method="get" id="<?php echo $propiedad['id']; ?>">
+                        <input type="hidden" value="<?php echo $propiedad['id']; ?>" name="idPropiedad">
+                        <div class="contenedor-propiedad" onclick="document.getElementById('<?php echo $propiedad['id']; ?>').submit();">
+                            <div class="contenedor-img">
+                                <img src="<?php echo 'admin/property/' . $propiedad['url_foto_principal']; ?>" alt="">
+                                <div class="tipoUbicacion"><?php echo $propiedad['tipoUbicacion']; ?></div>
+                            </div>
+                            <div class="info">
+                                <h2><?php echo $propiedad['titulo']; ?></h2>
+                                <p><i class="fa-solid fa-location-pin"></i><?php echo $propiedad['ubicacion']; ?></p>
+                                <span class="precio"><?php echo $propiedad['moneda']; ?> <?php echo number_format($propiedad['precio'], 0, '', '.'); ?></span>
+                                <hr>
+                                <table>
+                                    <tr>
+                                        <th>Habts.</th>
+                                        <th>Baños</th>
+                                        <th>Área</th>
+                                    </tr>
+                                    <tr>
+                                        <td><?php echo $propiedad['habitaciones']; ?></td>
+                                        <td><?php echo $propiedad['banios']; ?></td>
+                                        <td><?php echo $propiedad['dimensiones']; ?> <?php echo $propiedad['dimensiones_tipo'] ?></td>
+                                    </tr>
+                                </table>
+                            </div>
                         </div>
-                        <div class="info">
-                            <h2><?php echo $propiedad['titulo']; ?></h2>
-                            <p><i class="fa-solid fa-location-pin"></i><?php echo $propiedad['ubicacion']; ?></p>
-                            <span class="precio"><?php echo $propiedad['moneda']; ?> <?php echo number_format($propiedad['precio'], 0, '', '.'); ?></span>
-                            <hr>
-                            <table>
-                                <tr>
-                                    <th>Habts.</th>
-                                    <th>Baños</th>
-                                    <th>Área</th>
-                                </tr>
-                                <tr>
-                                    <td><?php echo $propiedad['habitaciones']; ?></td>
-                                    <td><?php echo $propiedad['banios']; ?></td>
-                                    <td><?php echo $propiedad['dimensiones']; ?> <?php echo $propiedad['dimensiones_tipo'] ?></td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </form>
-            <?php endwhile; ?>
+                    </form>
+                <?php endwhile; ?>
+            <?php else: ?>
+                <div class="sin-resultados" style="text-align: center;">
+                    <img src="img/none.svg" alt="Sin resultados" width="100" height="100">
+                    <p style="color: #c7c7c7; font-weight: bold;">No se encontraron propiedades con los filtros seleccionados.</p>
+                </div>
+
+            <?php endif; ?>
         </div>
 
         <button value="0" onclick="cargarMasPropiedades(this.value)" id="botonCargarMas">Ver Más</button>
@@ -238,18 +225,31 @@ $result_propiedades = realizarBusqueda($id_ciudad, $id_tipo, $estado);
     <script src="script.js"></script>
     <script src="filtros-dropdown.js"></script>
     <script>
-        function formatearNumero(input) {
-            // Eliminar todos los caracteres no numéricos
-            const valorSinFormato = input.value.replace(/\D/g, '');
+        function validarPrecio() {
+            const precioMin = document.getElementById('precio_min');
+            const precioMax = document.getElementById('precio_max');
+            const errorMessage = document.getElementById('error-message');
 
-            // Formatear el número agregando puntos
-            const valorFormateado = valorSinFormato.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+            errorMessage.textContent = '';
+            errorMessage.style.color = 'red';
+            errorMessage.style.fontSize = '12px';
 
-            // Asignar el valor formateado al input
-            input.value = valorFormateado;
+            let valid = true;
+
+            if (isNaN(precioMin.value) || isNaN(precioMax.value)) {
+                valid = false;
+                errorMessage.textContent = 'Por favor, ingrese valores numéricos válidos.';
+            } else if (precioMin.value < 0 || precioMax.value < 0) {
+                valid = false;
+                errorMessage.textContent = 'Los precios no pueden ser negativos.';
+            } else if (parseFloat(precioMin.value) > parseFloat(precioMax.value)) {
+                valid = false;
+                errorMessage.textContent = 'El precio máximo no puede ser menor al precio mínimo.';
+            }
+
+            return valid;
         }
     </script>
-
 </body>
 
 </html>

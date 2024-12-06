@@ -1,10 +1,35 @@
+<?php
+// Inicia un buffer de salida para evitar problemas con encabezados
+ob_start();
+
+// Inicia la sesión si no está iniciada
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Verifica la autenticación del usuario
+if (!isset($_SESSION['usuarioLogeado']) || !isset($_SESSION['rol_id'])) {
+    header("Location: ../login.php");
+    exit();
+}
+
+// Define la constante BASE_URL si no está definida
+if (!defined('BASE_URL')) {
+    define('BASE_URL', 'http://localhost/FincaRaizV1/fincaRaizInnova/');
+}
+?>
+
+<!-- Tu HTML comienza aquí -->
 <header>
-    <h1>Administración de Finca Riz</h1>
+    <h1>Administración de Finca Raiz</h1>
     <h2>Sistema Administrativo</h2>
 
+
+
     <button id="userBtn" class="user-btn">
-        <img src="../../img/admin.svg" alt="Icono de usuario" class="user-icon">
+    <img src="<?php echo BASE_URL; ?>img/admin.svg" alt="Icono de usuario" class="user-icon">
     </button>
+    
 </header>
 
 <div id="userModal" class="modal">
@@ -28,15 +53,22 @@
     </div>
 </div>
 
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
-    function redirectToConfig() {
-        window.location.href = 'configuracion.php';
-    }
-</script>
+    // Constante BASE_URL definida desde PHP
+    const BASE_URL = "<?php 
+        if (!defined('BASE_URL')) {
+            define('BASE_URL', 'http://localhost/FincaRaizV1/fincaRaizInnova/');
+        }
+        echo BASE_URL; 
+    ?>";
 
-<script>
+    function redirectToConfig() {
+        window.location.href = BASE_URL + 'configuracion.php';
+    }
+
     const userBtn = document.getElementById("userBtn");
     const modal = document.getElementById("userModal");
 
@@ -80,7 +112,7 @@
                     timer: 3000,
                     showConfirmButton: false
                 }).then(() => {
-                    window.location.href = 'cerrar-sesion.php';
+                    window.location.href = BASE_URL + 'admin/cerrar-sesion.php';
                 });
             }
         });

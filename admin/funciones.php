@@ -3,7 +3,7 @@
 define('BASE_URL', 'http://localhost/FincaRaizV1/fincaRaizInnova/');
 
 
-function obtenerConfiguracion()
+/* function obtenerConfiguracion()
 {
     include("conexion.php");
 
@@ -37,7 +37,7 @@ function obtenerConfiguracion()
 
     $config = mysqli_fetch_assoc($result);
     return $config;
-}
+} */
 
 function obtenerTotalRegistros($tabla)
 {
