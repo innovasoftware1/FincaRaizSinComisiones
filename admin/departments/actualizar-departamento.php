@@ -40,9 +40,9 @@ if (isset($_GET['modificar'])) {
 </head>
 
 <body>
-    <?php include("../header.php"); ?>
+    <?php include("../header-menu.php"); ?>
     <div id="contenedor-admin">
-        <?php include("../contenedor-menu.php"); ?>
+        <?php include("../menu_index_options.php"); ?>
 
         <div class="contenedor-principal">
             <div id="nuevo-departamento">

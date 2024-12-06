@@ -181,10 +181,10 @@ if (isset($_POST['actualizar'])) {
 
 <body>
 
-    <?php include("../header.php"); ?>
+    <?php include("../header-menu.php"); ?>
 
     <div id="contenedor-admin">
-        <?php include("../contenedor-menu.php"); ?>
+        <?php include("../menu_index_options.php"); ?>
 
         <div class="contenedor-principal">
 
