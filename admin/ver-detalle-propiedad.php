@@ -68,7 +68,6 @@ function obtenerCiudad($id_ciudad)
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="estilo.css">
     <title>FRSC - Admin</title>
 </head>
 
@@ -81,21 +80,26 @@ function obtenerCiudad($id_ciudad)
             <div id="detalle-propiedad">
                 <h2>Detalle de Propiedad</h2>
                 <br>
-                <hr>
+                <hr>                
+                <!-- informacion general de la propiedad - initial -->
                 <div class="contenedor-tabla">
-                    <h3>Descripción de la propiedad</h3>
-                    <table class="descripcion">
+                    <h3><i class="fa-solid fa-circle-info"></i> Información de la propiedad</h3>
+                    <br>
+                    <table class="descripcion" id="myTable">
                         <tr>
-                            <td>Cedula del propietario</td>
-                            <td><?php echo $propiedad['id'] ?></td>
+                            <td>id. Propiedad</td>
+                            <td>
+                                <p>Identificador No. (<?php echo $propiedad['id'] ?>)</p>
+                            </td>
                         </tr>
+
                         <tr>
-                            <td>Nombre de la Propiedad:</td>
+                            <td>Nombre</td>
                             <td> <?php echo $propiedad['titulo'] ?> </td>
                         </tr>
 
                         <tr>
-                            <td>Descripción de la Propiedad</td>
+                            <td>Descripción detallada</td>
                             <td> <?php echo $propiedad['descripcion'] ?> </td>
                         </tr>
 
@@ -105,40 +109,199 @@ function obtenerCiudad($id_ciudad)
                         </tr>
 
                         <tr>
-                            <td>Clasificacion</label></td>
+                            <td>Tipo de ubicación</td>
+                            <td> <?php echo $propiedad['tipoUbicacion'] ?> </td>
+                        </tr>
+
+                        <tr>
+                            <td>Estado</label></td>
                             <td> <?php echo $propiedad['estado'] ?> </td>
                         </tr>
 
+                    </table>
+                    <br>
+                    <br>
+                    <table class="descripcion">
                         <tr>
-                            <td>Ubicación</label></td>
-                            <td> <?php echo $propiedad['ubicacion'] ?> </td>
+                            <td>Nombre del propietario</td>
+                            <td><?php echo $propiedad['nombre_propietario'] ?></td>
+                        </tr>
+
+                    </table>
+                </div>
+                <!-- infromacion general de la propiedad - final -->
+
+                <!-- detalles financieros - inicial -->
+                <div class="contenedor-tabla">
+                    <h3><i class="fa-solid fa-money-check-dollar"></i> Detalles financieros</h3>
+                    <br>
+                    <table class="descripcion">
+
+                        <tr>
+                            <td>Precio</td>
+                            <td>
+                                <?php
+                                echo "(" . $propiedad['moneda'] . ") " . number_format($propiedad['precio'], 0, ',', '.');
+                                ?>
+                            </td>
                         </tr>
 
                         <tr>
+                            <td>¿Permuta?</td>
+                            <td>
+                                <p><?php echo $propiedad['permuta'] == 1 ? "Sí" : "No"; ?>, se permuta el predio</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>¿Financea?</td>
+                            <td>
+                                <p><?php echo $propiedad['financiacion'] == 1 ? "Sí" : "No" ?>, se financea el predio</p>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+                <!-- detalles financieros - final -->
+
+                <!-- caracteristicas de los predios - inicial -->
+                <div class="contenedor-tabla">
+                    <h3><i class="fa-solid fa-house-medical"></i> Caracteristicas de la propiedad</h3>
+                    <br>
+                    <table class="descripcion">
+
+                        <tr>
                             <td>No. Habitaciones</label></td>
-                            <td> <?php echo $propiedad['habitaciones'] ?> </td>
+                            <td>
+                                <p><?php echo $propiedad['habitaciones'] ?> habitaciones</p>
+                            </td>
                         </tr>
 
                         <tr>
                             <td>No. Baños</td>
 
-                            <td> <?php echo $propiedad['banios'] ?> </td>
+                            <td>
+                                <p><?php echo $propiedad['banios'] ?> baños</p>
+                            </td>
                         </tr>
 
                         <tr>
                             <td>No. Pisos</td>
-                            <td> <?php echo $propiedad['pisos'] ?> </td>
+                            <td>
+                                <p><?php echo $propiedad['pisos'] ?> niveles</p>
+                            </td>
                         </tr>
 
                         <tr>
                             <td>Garage</td>
-                            <td> <?php echo $propiedad['garage'] ?> </td>
+                            <td>
+                                <p><?php echo $propiedad['garage'] ?> garaje(s)</p>
+                            </td>
                         </tr>
 
                         <tr>
-                            <td>Area</td>
-                            <td> <?php echo $propiedad['dimensiones'] ?> <?php echo $propiedad['dimensiones_tipo'] ?></td>
+                            <td>Inventario detallado</td>
+                            <td> <?php echo $propiedad['inventario'] ?></td>
                         </tr>
+
+
+                    </table>
+                </div>
+                <!-- caracteristicas de los predios - final -->
+
+                <!-- medidas de los predios - inicial -->
+                <div class="contenedor-tabla">
+                    <h3><i class="fa-solid fa-ruler"></i> Medidas de la propiedad</h3>
+                    <br>
+                    <table class="descripcion">
+
+                        <tr>
+                            <td>Dimensiones (m²)</label></td>
+                            <td> <?php echo $propiedad['dimensiones'] ?> mts²</td>
+                        </tr>
+
+                        <tr>
+                            <td>Area en (m²)</td>
+
+                            <td>
+                                <p><?php echo $propiedad['area'] ?> <?php echo $propiedad['dimensiones_tipo'] ?></p>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+                <!-- medidas de los predios - final -->
+
+                <!-- ubicacion de los predios - inicial -->
+                <div class="contenedor-tabla">
+                    <h3><i class="fa-solid fa-map-location-dot"></i> Ubicación geográfica</h3>
+                    <br>
+                    <table class="descripcion">
+
+                        <tr>
+                            <td>Zona geográfica</label></td>
+                            <td>
+                                <p><?php echo obtenerDepartamentos($propiedad['departamento']) ?>, <?php echo obtenerCiudad($propiedad['ciudad']) ?></p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Barrio o Pueblo</td>
+
+                            <td>
+                                <p><?php echo $propiedad['ubicacion'] ?></p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Dirección</td>
+
+                            <td>
+                                <p><?php echo $propiedad['direccion'] ?></p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Distancia desde Bogotá (Km.)</td>
+
+                            <td>
+                                <p><?php echo $propiedad['distancia_desde_bogota'] ?> Kilometros</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Distancia del predio al 1er. pueblo (Km.)</td>
+
+                            <td>
+                                <p><?php echo $propiedad['distancia_pueblo'] ?> Kilometros</p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Salidas de Bogotá</td>
+
+                            <td>
+                                <p>Salida por <?php echo $propiedad['salidas_bogota'] ?></p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Vías de acceso</td>
+
+                            <td>
+                                <p> Cuenta con <?php echo $propiedad['vias_acceso'] ?></p>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+                <!-- ubicacion de los predios - final -->
+
+                <!-- servicios de los predios - inicial -->
+                <div class="contenedor-tabla">
+                    <h3><i class="fa-solid fa-lightbulb"></i> Servicios</h3>
+                    <br>
+                    <table class="descripcion">
 
                         <tr>
                             <td>Internet</td>
@@ -152,7 +315,7 @@ function obtenerCiudad($id_ciudad)
 
                         <tr>
                             <td>Agua</td>
-                            <td> <?php echo $propiedad['agua'] ?> </td>
+                            <td> <?php echo $propiedad['agua_propia'] ?> </td>
                         </tr>
 
                         <tr>
@@ -161,24 +324,118 @@ function obtenerCiudad($id_ciudad)
                         </tr>
 
                         <tr>
-                            <td>Clima y Temperatura</td>
-                            <td> <?php echo $propiedad['clima'] ?> </td>
+                            <td>Características positivas</td>
+
+                            <td>
+                                <p><?php echo $propiedad['caracteristicas_positivas'] ?></p>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+                <!-- servicios de los predios - final -->
+
+                <!-- carac. tecnicas de los predios - inicial -->
+                <div class="contenedor-tabla">
+                    <h3><i class="fa-solid fa-cloud-sun-rain"></i> Características técnicas</h3>
+                    <br>
+                    <table class="descripcion">
+
+                        <tr>
+                            <td>Construcciones aledañas</td>
+                            <td> <?php echo $propiedad['construcciones_aledañas'] ?> </td>
                         </tr>
 
                         <tr>
-                            <td>Documentos necesarios para proceso</td>
+                            <td>Altitud</td>
+                            <td>
+                                <p><?php echo number_format($propiedad['altitud'], 0, ',', '.') . " m.s.n.m"; ?> </p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Clima</td>
+                            <td> <?php echo $propiedad['clima'] ?> </td>
+                        </tr>
+
+                    </table>
+                </div>
+                <!-- carac. tecnicas de los predios - final -->
+
+                <!-- doc. juridicos de los predios - inicial -->
+                <div class="contenedor-tabla">
+                    <h3><i class="fa-solid fa-file-lines"></i> Documentos juridicos</h3>
+                    <br>
+                    <table class="descripcion">
+
+                        <tr>
+                            <td>Documentos de trasferencia</td>
                             <td> <?php echo $propiedad['documentos_transferencia'] ?> </td>
                         </tr>
 
                         <tr>
-                            <td>Precio (Venta)</td>
-                            <td> <?php echo $propiedad['moneda'] . " " . $propiedad['precio'] ?> </td>
+                            <td>Permisos</td>
+                            <td> <?php echo $propiedad['permisos'] ?> </td>
                         </tr>
+
                     </table>
                 </div>
+                <!-- doc. juridico de los predios - final -->
 
+                <!-- suelos de los predios - inicial -->
                 <div class="contenedor-tabla">
-                    <h3>Galería de Fotos</h3>
+                    <h3><i class="fa-solid fa-street-view"></i> Usos de los suelos</h3>
+                    <br>
+                    <table class="descripcion">
+
+                        <tr>
+                            <td>Usos principales</td>
+                            <td> <?php echo $propiedad['uso_principal'] ?> </td>
+                        </tr>
+
+                        <tr>
+                            <td>Usos compatibles</td>
+                            <td> <?php echo $propiedad['uso_compatibles'] ?> </td>
+                        </tr>
+
+                        <tr>
+                            <td>Usos condicionales</td>
+                            <td> <?php echo $propiedad['uso_condicionales'] ?> </td>
+                        </tr>
+
+                    </table>
+                </div>
+                <!-- suelos de los predios - final -->
+
+                <!-- espaciales de los predios - inicial -->
+                <div class="contenedor-tabla">
+                    <h3><i class="fa-solid fa-maximize"></i> Caracteristicas espaciales</h3>
+                    <br>
+                    <table class="descripcion">
+
+                        <tr>
+                            <td>Usos principales</td>
+                            <td> <?php echo $propiedad['uso_principal'] ?> </td>
+                        </tr>
+
+                        <tr>
+                            <td>Usos compatibles</td>
+                            <td> <?php echo $propiedad['uso_compatibles'] ?> </td>
+                        </tr>
+
+                        <tr>
+                            <td>Usos condicionales</td>
+                            <td> <?php echo $propiedad['uso_condicionales'] ?> </td>
+                        </tr>
+
+                    </table>
+                </div>
+                <!-- espaciales de los predios - final -->
+
+                <!-- fotoP, galeria, reocrrido, maps y video - inicial -->
+                <div class="contenedor-tabla">
+                    <h3><i class="fa-solid fa-camera-retro"></i> Galería multimedia</h3>
+                    <br>
                     <table class="descripcion">
                         <tr>
                             <td>Foto Principal</td>
@@ -197,7 +454,7 @@ function obtenerCiudad($id_ciudad)
                         </tr>
 
                         <tr>
-                        <td>Video</td>
+                            <td>Video</td>
                             <td>
                                 <?php if (!empty($propiedad['video_url'])) : ?>
                                     <?php echo $propiedad['video_url']; ?>
@@ -218,7 +475,7 @@ function obtenerCiudad($id_ciudad)
                             </td>
                         </tr>
                         <tr>
-                        <td>Url Maps</td>
+                            <td>Url Maps</td>
                             <td>
                                 <?php if (!empty($propiedad['ubicacion_url'])) : ?>
                                     <?php echo $propiedad['ubicacion_url']; ?>
@@ -229,28 +486,7 @@ function obtenerCiudad($id_ciudad)
                         </tr>
                     </table>
                 </div>
-
-
-
-                <div class="contenedor-tabla">
-                    <h3>Ubicación y Datos del propietario</h3>
-
-                    <table class="descripcion">
-                        <tr class="fila">
-                            <td><label for="departamento">Departamento</td>
-                            <td> <?php echo obtenerDepartamentos($propiedad['departamento']) ?> </td>
-                        </tr>
-                        <tr class="fila">
-                            <td>Ciudad</td>
-                            <td> <?php echo obtenerCiudad($propiedad['ciudad']) ?> </td>
-                        </tr>
-
-                        <tr>
-                            <td>¿Permuta?</td>
-                            <td><?php echo $propiedad['permuta'] ?> </td>
-                        </tr>
-                    </table>
-                </div>
+                <!-- fotoP, galeria, reocrrido, maps y video - final -->
 
             </div>
         </div>
