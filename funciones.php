@@ -1,34 +1,6 @@
 <?php
     
-function obtenerConfiguracion()
-{
-    include("admin/conexion.php");
-    $query = "SELECT COUNT(*) AS total FROM configuracion";
-    $result = mysqli_query($conn, $query);
-    $row = mysqli_fetch_assoc($result);
 
-    if ($row['total'] == '0') {
-        echo "Valor" . $row['total'];
-        $query = "INSERT INTO configuracion (id, user, password)
-                  VALUES (NULL, 'admin', 'admin')";
-
-        if (mysqli_query($conn, $query)) { 
-        } else {
-            echo "No se pudo insertar en la BD" . mysqli_error($conn);
-        }
-    }
-
-    $query = "SELECT * FROM configuracion WHERE id='1'";
-    $result = mysqli_query($conn, $query);
-    $config = mysqli_fetch_assoc($result);
-
-    if (!$config) {
-        echo "No se pudo obtener la configuración.";
-        return null;
-    }
-
-    return $config;
-}
 
 function obtenerTodasLasCiudades()
 {

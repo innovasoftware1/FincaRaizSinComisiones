@@ -19,6 +19,13 @@ body {
 
 }
 
+#ubicacionPreview iframe {
+    margin-top: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
 .container header nav.responsive {
     max-width: 95%;
     display: block;
@@ -152,7 +159,8 @@ body {
 .home .box-buscar-propiedades .box-interior {
     background-color: transparent;
     box-shadow: 2px 4px 8px 000;
-    border-radius: 10px;
+    margin-bottom: 100px; /* Ajusta este valor según la necesidad */
+    position: relative; /* Por si necesitas ajustar con "top" */
 }
 
 .home .box-buscar-propiedades .box-interior p {
@@ -208,9 +216,9 @@ body {
     border-radius: 10px;
 }
 
-.box-buscar-propiedades .box-interior .items-center {
+/* .box-buscar-propiedades .box-interior .items-center {
     left: 12%;
-}
+} */
 
 .box-buscar-propiedades .box-interior p {
     color: #424242;
@@ -298,8 +306,46 @@ body {
     justify-content: flex-start;
     align-items: center;
     padding: 8px;
-    cursor: pointer;
+    cursor: pointer;    
 }
+
+/* Estilos para el botón "Aplicar filtro" */
+.list-items button {
+    background-color: #df3424; /* Color del botón */
+    color: #ffffff; /* Texto blanco */
+    border: none; /* Sin bordes */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 10px 15px; /* Tamaño del botón */
+    font-size: 16px; /* Tamaño del texto */
+    font-family: Arial, sans-serif; /* Tipografía del botón */
+    cursor: pointer; /* Icono de mano al pasar por encima */
+    transition: background-color 0.3s ease; /* Transición para hover */
+}
+
+/* Hover para el botón */
+.list-items button:hover {
+    background-color: #c02d20; /* Color más oscuro al pasar el cursor */
+}
+
+/* Estilo del placeholder en inputs */
+.list-items input::placeholder {
+    color: #999999; /* Color del placeholder */
+    font-family: inherit; /* Hereda la tipografía del input */
+    font-size: 14px; /* Ajusta el tamaño del texto */
+    font-style: italic; /* Opcional: estilo cursiva */
+}
+
+/* Estilos generales de los inputs (si es necesario) */
+.list-items #precio_min, .list-items #precio_max {
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid #ccd1d1;
+    padding: 5px;
+    width: 100%;
+    font-family: Arial, sans-serif; /* Tipografía uniforme */
+    font-size: 14px;
+}
+
 
 .checkbox {
     margin-right: 10px;
@@ -389,6 +435,59 @@ body {
     color: #e74c3c;
     background-color: #f5b7b1;
 }
+
+/* estilos boton de whatsapp */
+.float {
+    position: fixed;
+    width: 45px;
+    height: 45px;
+    bottom: 10px;
+    right: 20px;
+    background-color: #25d366;
+    color: #FFF !important;
+    border-radius: 50px;
+    text-align: center;
+    font-size: 30px;
+    box-shadow: 2px 2px 3px #999;
+    z-index: 100;
+}
+
+.float:hover {
+    text-decoration: none;
+    color: #25d366 !important;
+    background-color: #fff;
+}
+
+.my-float {
+    margin-top: 8px;
+}
+
+.tooltip {
+    display: none;
+    position: fixed;
+    bottom: 70px; 
+    right: 20px; 
+    background-color: #25d366;
+    color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    z-index: 99;
+    font-size: 18px;
+}
+
+.tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 92%;
+    transform: translateX(-50%);
+    border-width: 12px;
+    border-style: solid;
+    border-color: #25d366 transparent transparent transparent;
+}
+
+
 
 /* P R O P I E D A D E S */
 
@@ -878,6 +977,10 @@ body {
 
 /* MAPA PUBLICACION --- UBICACION URL */
 
+.page-publicacion .content-mp {
+    width: 330px;
+}
+
 .page-publicacion .maps2 {
     max-width: 340px;
     width: 100%;
@@ -944,7 +1047,7 @@ body {
 /* Estilo para pantallas más pequeñas */
 @media (max-width: 768px) {
     .botones-galeria {
-        top: 21%;
+        top: 24% !important;
         left: 50%;
         transform: translateX(-50%);
         justify-content: center;
@@ -1206,6 +1309,26 @@ body {
     border-radius: 10px;
 }
 
+.page-contacto .contenedor-contacto .col-size {
+    width: 97%;
+    background-color: rgba(255, 221, 158, 0.7); /* Fondo ligeramente transparente */
+    border: 1px solid #f3b748;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    background-image: radial-gradient(circle at top left, rgba(187, 159, 48, 0.5), rgba(255, 221, 158, 0));
+    background-size: cover;
+    background-position: center;
+}
+
+.page-contacto .contenedor-contacto .col-size:hover {
+    background-image: radial-gradient(circle at top left, rgba(255, 204, 0, 0.6), rgba(255, 181, 44, 0)); 
+    box-shadow: 0 0 20px rgba(255, 204, 0, 0.6);
+    transform: scale(1.05);
+}
+
+
+
+
 .page-contacto .contenedor-contacto .col .maps {
     border-radius: 10px;
     height: 84%;
@@ -1277,6 +1400,27 @@ body {
     color: #df3424;
 }
 
+.contacto-item li, .contacto-item p{
+    margin-left: 5%;
+}
+
+/* Contenedor unico de venta de servicios */
+
+#contenedor {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+#contenedor>div {
+    width: 50%;
+}
+
+@media (max-width: 768px) {
+    #contenedor>div {
+        width: 100%;
+    }
+}
 /* FOOTER */
 
 footer {
@@ -1289,14 +1433,19 @@ footer {
 
 }
 
+footer a {
+    color: #fff;
+    text-decoration: none;
+}
+
 footer .inferior {
-    position: absolute !important;
-    bottom: 0 !important;
+    position: absolute;
+    bottom: 0;
 }
 
 footer.inferior2 {
-    position: absolute !important;
-    bottom: 0 !important;
+    position: absolute;
+    bottom: 0;
 }
 
 
@@ -1456,6 +1605,10 @@ footer.inferior2 {
 
     .page-busqueda p {
         font-size: 12px;
+    }
+
+    .page-publicacion .content-mp {
+        width: 390px;
     }
 }
 

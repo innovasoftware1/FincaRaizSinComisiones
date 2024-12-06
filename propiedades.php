@@ -6,7 +6,7 @@ $id_ciudad = $_GET['ciudad'] ?? null;
 $id_tipo = $_GET['tipo'] ?? null;
 $estado = isset($_GET['estado']) ? (array)$_GET['estado'] : [];
 
-$config = obtenerConfiguracion();
+
 $result_ciudades = obtenerTodasLasCiudades();
 $result_tipos = obtenerTodosLosTipos();
 
