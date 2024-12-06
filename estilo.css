@@ -159,6 +159,7 @@ body {
 .home .box-buscar-propiedades .box-interior {
     background-color: transparent;
     box-shadow: 2px 4px 8px 000;
+    border-radius: 10px;
 }
 
 .home .box-buscar-propiedades .box-interior p {
@@ -213,10 +214,6 @@ body {
     text-align: center;
     border-radius: 10px;
 }
-
-/* .box-buscar-propiedades .box-interior .items-center {
-    left: 12%;
-} */
 
 .box-buscar-propiedades .box-interior p {
     color: #424242;
@@ -307,45 +304,13 @@ body {
     cursor: pointer;    
 }
 
-
-/* Estilos para el botón "Aplicar filtro" */
-.list-items button {
-    background-color: #df3424; /* Color del botón */
-    color: #ffffff; /* Texto blanco */
-    border: none; /* Sin bordes */
-    border-radius: 5px; /* Bordes redondeados */
-    padding: 10px 15px; /* Tamaño del botón */
-    font-size: 16px; /* Tamaño del texto */
-    font-family: Arial, sans-serif; /* Tipografía del botón */
-    cursor: pointer; /* Icono de mano al pasar por encima */
-    transition: background-color 0.3s ease; /* Transición para hover */
-}
-
-/* Hover para el botón */
-.list-items button:hover {
-    background-color: #c02d20; /* Color más oscuro al pasar el cursor */
-}
-
-/* Estilo del placeholder en inputs */
-.list-items input::placeholder {
-    color: #999999; /* Color del placeholder */
-    font-family: inherit; /* Hereda la tipografía del input */
-    font-size: 14px; /* Ajusta el tamaño del texto */
-    font-style: italic; /* Opcional: estilo cursiva */
-
-}
-
-/* Estilos generales de los inputs (si es necesario) */
 .list-items #precio_min, .list-items #precio_max {
     border-radius: 5px;
     outline: none;
     border: 1px solid #ccd1d1;
     padding: 5px;
     width: 100%;
-    font-family: Arial, sans-serif; /* Tipografía uniforme */
-    font-size: 14px;
 }
-
 
 .checkbox {
     margin-right: 10px;
@@ -496,12 +461,10 @@ body {
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     padding: 20px;
-    max-width: 1200px;
+    max-width: 90%;
     margin: auto;
     overflow: hidden;
 }
-
-
 
 @media only screen and (max-width: 900px) {
     .page-propiedades .contenedor-propiedades {
@@ -537,7 +500,6 @@ body {
     border-radius: 10px;
     transition: transform .5s;
     padding-bottom: 10px;
-    
     border: 1px solid #b2babb;
 }
 
@@ -628,6 +590,7 @@ body {
     padding: 20px;
     margin-top: 50px;
     margin-bottom: 50px;
+    border: 1px solid #c7c7c7;
 }
 
 .contenedor-propiedades .mensaje-no-resultados p {
@@ -1632,12 +1595,6 @@ footer.inferior2 {
     .page-busqueda p {
         font-size: 12px;
     }
-
-    .page-publicacion .content-mp {
-        width: 390px;
-    }
-}
-
 
     .page-publicacion .content-mp {
         width: 100%;
