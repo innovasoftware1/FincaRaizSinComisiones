@@ -159,8 +159,6 @@ body {
 .home .box-buscar-propiedades .box-interior {
     background-color: transparent;
     box-shadow: 2px 4px 8px 000;
-    margin-bottom: 100px; /* Ajusta este valor según la necesidad */
-    position: relative; /* Por si necesitas ajustar con "top" */
 }
 
 .home .box-buscar-propiedades .box-interior p {
@@ -1472,6 +1470,7 @@ footer .inferior {
 
 footer.inferior2 {
     position: absolute;
+    top: 100%;
     bottom: 0;
 }
 

@@ -78,19 +78,29 @@ $result = obtenerTodasLasPropiedades();
                                 <td>
                                     <form action="../ver-detalle-propiedad.php" method="get" class="form-acciones">
                                         <input type="hidden" name="id" value="<?php echo $propiedad['id'] ?>">
-                                        <input type="submit" value="Ver Detalle" name="detalle" class="btn-detalle">
+                                        <button type="submit" name="detalle" class="btn-detalle">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
                                     </form>
-
                                     <form action="actualizar-propiedad.php" method="get" class="form-acciones">
                                         <input type="hidden" name="id" value="<?php echo $propiedad['id'] ?>">
-                                        <input type="submit" value="Actualizar" name="actualizar" class="btn-actualizar">
-                                    </form>
-                                    <form action="../subproperties/add.php" method="get" class="form-acciones">
-                                        <input type="hidden" name="id" value="<?php echo $propiedad['id'] ?>">
-                                        <input type="submit" value="registrar subpropiedad" name="actualizar" class="btn-actualizar">
+                                        <button type="submit" name="actualizar" class="btn-actualizar">
+                                            <i class="fas fa-sync-alt"></i>
+                                        </button>
                                     </form>
 
-                                    <a href="javascript:void(0);" onclick="confirmarEliminacion(<?php echo $propiedad['id'] ?>)" class="btn-eliminar">Eliminar</a>
+                                    <form action="../subproperties/add.php" method="get" class="form-acciones">
+                                        <input type="hidden" name="id" value="<?php echo $propiedad['id'] ?>">
+                                        <button type="submit" name="actualizar" class="btn-actualizar">
+                                            <i class="fas fa-home"></i> <i class="fas fa-plus"></i>
+                                        </button>
+                                    </form>
+
+
+                                    <a href="javascript:void(0);" onclick="confirmarEliminacion(<?php echo $propiedad['id'] ?>)" class="btn-eliminar">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+
 
                                 </td>
                             </tr>
