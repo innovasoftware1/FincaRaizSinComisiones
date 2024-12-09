@@ -56,10 +56,6 @@ function obtenerCiudad($id_ciudad)
 ?>
 
 
-
-
-
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -229,8 +225,6 @@ function obtenerCiudad($id_ciudad)
                         </tr>
                     </table>
                 </div>
-
-
 
                 <div class="contenedor-tabla">
                     <h3>Ubicación y Datos del propietario</h3>

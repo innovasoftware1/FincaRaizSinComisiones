@@ -26,10 +26,6 @@ $resultado_departamentos = mysqli_query($conn, $query);
 if (isset($_POST['agregar'])) {
     include("../conexion.php");
 
-
-
-
-    $id = isset($_POST['id']) ? $_POST['id'] : '';  // Valor por defecto vacío si no está definido
     $fecha_alta = $_POST['fecha_alta'];
     $titulo = $_POST['titulo'];
     $descripcion = $_POST['descripcion'];
@@ -491,10 +487,10 @@ if (isset($_POST['agregar'])) {
                         <div class="box">
                             <label for="salidas_bogota">Salidas de Bogotá</label>
                             <select name="salidas_bogota" id="salidas_bogota" class="input-entrada-texto" required>
-                                <option value="autopista_sur">Autopista Sur</option>
-                                <option value="autopista_calle_80">Autopista Calle 80</option>
-                                <option value="autopista_calle_13">Autopista Calle 13</option>
-                                <option value="autopista_via_la_calera">Autopista Via La Calera</option>
+                                <option value="autopista sur">Autopista Sur</option>
+                                <option value="autopista calle 80">Autopista Calle 80</option>
+                                <option value="autopista calle 13">Autopista Calle 13</option>
+                                <option value="autopista via la calera">Autopista Via La Calera</option>
                             </select>
                         </div>
                         <div class="box">

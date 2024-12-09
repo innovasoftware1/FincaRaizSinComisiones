@@ -85,13 +85,12 @@ $result = obtenerTodasLasPropiedades();
                                         <input type="hidden" name="id" value="<?php echo $propiedad['id'] ?>">
                                         <input type="submit" value="Actualizar" name="actualizar" class="btn-actualizar">
                                     </form>
-                                    <form action="../subproperties/add.php" method="get" class="form-acciones">
-                                        <input type="hidden" name="id" value="<?php echo $propiedad['id'] ?>">
-                                        <input type="submit" value="registrar subpropiedad" name="actualizar" class="btn-actualizar">
+                                    <form action="../subproperties/add.php" method="get">
+                                        <input type="hidden" name="id" value="<?php echo $propiedad['id']; ?>">
+                                        <input type="submit" value="Registrar Subpropiedad" class="btn-actualizar">
                                     </form>
-
+                                    
                                     <a href="javascript:void(0);" onclick="confirmarEliminacion(<?php echo $propiedad['id'] ?>)" class="btn-eliminar">Eliminar</a>
-
                                 </td>
                             </tr>
                         <?php endwhile ?>
