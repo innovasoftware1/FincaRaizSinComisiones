@@ -46,6 +46,7 @@ $result = obtenerTodasLasPropiedades();
         <div class="contenedor-principal">
             <div id="listado-propiedades">
                 <h2>Listado de Propiedades</h2>
+                <br>
                 <hr>
                 <br>
                 <div class="contenedor-tabla">
@@ -59,12 +60,12 @@ $result = obtenerTodasLasPropiedades();
                     <!-- Tabla de propiedades -->
                     <table id="myTable">
                         <tr>
-                            <th>Cedula</th>
+                            <th>Id. </th>
                             <th>Título</th>
                             <th>Tipo</th>
                             <th>Estado</th>
                             <th>Ubicación</th>
-                            <th>Fecha de Publicación</th>
+                            <th>Nombre Propietario</th>
                             <th>Acciones</th>
                         </tr>
                         <?php while ($propiedad = mysqli_fetch_assoc($result)) : ?>
@@ -74,7 +75,7 @@ $result = obtenerTodasLasPropiedades();
                                 <td> <?php echo obtenerTipo($propiedad['tipo']) ?></td>
                                 <td> <?php echo $propiedad['estado'] ?></td>
                                 <td> <?php echo $propiedad['ubicacion'] ?></td>
-                                <td> <?php echo $propiedad['fecha_alta'] ?></td>
+                                <td> <?php echo $propiedad['nombre_propietario'] ?></td>
                                 <td>
                                     <form action="../ver-detalle-propiedad.php" method="get" class="form-acciones">
                                         <input type="hidden" name="id" value="<?php echo $propiedad['id'] ?>">
@@ -92,7 +93,9 @@ $result = obtenerTodasLasPropiedades();
 
                                     <form action="../subproperties/add.php" method="get" class="form-acciones">
                                         <input type="hidden" name="id" value="<?php echo $propiedad['id'] ?>">
-                                        <button type="submit" name="actualizar" class="btn-actualizar" aria-label="Añadir Subpropiedad">
+
+                                        <button type="submit" name="actualizar" class="btn-new-subpro">
+
                                             <i class="fas fa-home"></i> <i class="fas fa-plus"></i>
                                         </button>
                                     </form>

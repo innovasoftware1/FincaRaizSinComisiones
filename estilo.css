@@ -1029,7 +1029,7 @@ body {
 /* Estilo para pantallas más pequeñas */
 @media (max-width: 768px) {
     .botones-galeria {
-        top: 24% !important;
+        top: 28% !important;
         left: 50%;
         transform: translateX(-50%);
         justify-content: center;

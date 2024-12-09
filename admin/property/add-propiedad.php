@@ -145,7 +145,7 @@ if (isset($_POST['agregar'])) {
 
         <div class="contenedor-principal">
             <div id="nueva-propiedad">
-                <h1>Nueva propiedad</h1>
+                <h2>Nueva propiedad</h2>
                 <br>
                 <hr>
                 <br>
@@ -164,27 +164,14 @@ if (isset($_POST['agregar'])) {
 
 
                     <!-- INFORMACION GENERAL-->
-                    <h3>INFORMACION GENERAL</h3>
+                    <h3><i class="fa-solid fa-circle-info"></i> INFORMACION GENERAL</h3>
+                    <br>
                     <hr>
                     <div class="fila">
                         <div class="box">
-                            <label for="titulo">Nombre del predio</label>
-                            <input type="text" name="titulo" required class="input-entrada-texto" placeholder="Nombre de la propiedad...">
+                            <label for="titulo">Nombre de la propiedad</label>
+                            <input type="text" name="titulo" required class="input-entrada-texto" placeholder="Nombre de la propiedad..." maxlength="50">
                         </div>
-                        <div class="box">
-                            <label for="descripcion">Descripción de la Propiedad</label>
-                            <textarea name="descripcion" id="" cols="30" rows="10" class="input-entrada-texto" placeholder="Descripcion detallada de la propiedad..." style="resize: none;"></textarea>
-                        </div>
-
-                        <div class="box">
-                            <label for="estado">Estado de la propiedad</label>
-                            <select name="estado" id="estado" class="input-entrada-texto">
-                                <option value="activo">Activo</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="fila">
 
                         <div class="box">
                             <label for="tipo">Seleccione tipo de propiedad</label>
@@ -205,73 +192,89 @@ if (isset($_POST['agregar'])) {
                             </select>
                         </div>
                     </div>
+
+                    <div class="fila">
+                        <div class="box">
+                            <label for="descripcion">Descripción de la Propiedad</label>
+                            <textarea name="descripcion" id="" cols="30" rows="10" class="input-entrada-texto" placeholder="Descripcion detallada de la propiedad..." style="width: 660px; height: 150px; resize: none;"></textarea>
+                        </div>
+
+                        <div class="box">
+                            <label for="estado">Estado de la propiedad</label>
+                            <select name="estado" id="estado" class="input-entrada-texto">
+                                <option value="Activo">Activo</option>
+                            </select>
+                        </div>
+                    </div>
                     <hr>
 
 
                     <!-- CARACTERISTICAS DE LOS PREDIOS-->
-                    <h3>CARACTERISTICAS DE LOS PREDIOS</h3>
+                    <h3><i class="fa-solid fa-house-medical"></i> CARACTERISTICAS DETALLADAS</h3>
+                    <br>
                     <hr>
                     <div class="fila">
                         <div class="box">
                             <label for="habitaciones">Habitaciones</label>
-                            <input type="number" name="habitaciones" class="input-entrada-texto" placeholder="Número de habitaciones" required/>
+                            <input type="text" name="habitaciones" class="input-entrada-texto" placeholder="Número de habitaciones (ej. 2, 5, etc...)" maxlength="2" required />
                         </div>
                         <div class="box">
                             <label for="banios">Baños</label>
-                            <input type="number" name="banios" class="input-entrada-texto" placeholder="Número de baños" required>
+                            <input type="text" name="banios" class="input-entrada-texto" placeholder="Número de baños (ej. 2, 5, etc...)" maxlength="2" required>
                         </div>
 
                         <div class="box">
                             <label for="pisos">Pisos</label>
-                            <input type="number" name="pisos" class="input-entrada-texto" placeholder="Número de pisos" required>
+                            <input type="text" name="pisos" class="input-entrada-texto" placeholder="Número de pisos (ej. 2, 5, etc...)" maxlength="2" required>
                         </div>
                     </div>
 
                     <div class="fila">
                         <div class="box">
-                            <label for="garage">Garaje</label>
-                            <input type="number" name="garage" class="input-entrada-texto" placeholder="Número de garages" required>
+                            <label for="inventario">Inventario</label>
+                            <textarea name="inventario" id="" cols="30" rows="10" class="input-entrada-texto" placeholder="Inventario detallado de la propiedad..." style="width: 660px; height: 150px; resize: none;"></textarea>
                         </div>
                         <div class="box">
-                            <label for="inventario">Inventario</label>
-                            <input name="inventario" id="inventario" class="input-entrada-texto" placeholder="Incluye detalles del inventario relacionado con la propiedad..."></input>
+                            <label for="garage">Garaje</label>
+                            <input type="text" name="garage" class="input-entrada-texto" placeholder="Número de garages (ej. 2, 5, etc...)" maxlength="2" required>
                         </div>
+
                     </div>
 
-
-                    <h3>MEDIDAS</h3>
+                    <hr>
+                    <h3><i class="fa-solid fa-ruler"></i> MEDIDAS Y DIMENSIONES</h3>
+                    <br>
                     <hr>
                     <div class="fila">
                         <div class="box">
-                            <label for="dimensiones">Dimensiones (m²)</label>
-                            <input type="text" name="dimensiones" class="input-entrada-texto" placeholder="Dimensiones" required>
+                            <label for="dimensiones">Dimensiones</label>
+                            <input type="text" name="dimensiones" class="input-entrada-texto" placeholder="Dimensiones (ej: Ancho x Largo)" maxlength="20" required>
                         </div>
-
+                        <div class="box">
+                            <label for="area">Área total</label>
+                            <input type="text" name="area" class="input-entrada-texto" placeholder="Área total de la propiedad (ej: 2000)" maxlength="20" required>
+                        </div>
                         <div class="box">
                             <label for="dimensiones_tipo">Tipo de Medidas</label>
                             <select name="dimensiones_tipo" id="dimensiones_tipo" class="input-entrada-texto" required>
-                                <option value="">Seleccione un tipo</option>
                                 <option value="m²">Metros cuadrados (m²)</option>
-                                <option value="hectáreas">Hectáreas</option>
-                                <option value="acres">Acres</option>
+                                <option value="hectáreas">Hectáreas (ha)</option>
+                                <option value="acres">Acres (ac)</option>
                                 <option value="pies²">Pies cuadrados (ft²)</option>
                             </select>
                         </div>
 
-                        <div class="box">
-                            <label for="area">Área en metros cuadrados</label>
-                            <input type="text" name="area" class="input-entrada-texto" placeholder="Área" required>
-                        </div>
                     </div>
                     <hr>
 
-                    <h3>UBICACION GEOGRAFICA</h3>
+                    <h3><i class="fa-solid fa-map-location-dot"></i> UBICACION GEOGRAFICA</h3>
+                    <br>
                     <hr>
                     <div class="fila">
                         <div class="box">
                             <label for="departamento">Seleccione Depart. de la Propiedad</label>
                             <select name="departamento" id="" onchange="muestraselect(this.value)" class="input-entrada-texto">
-                                <option value="">Seleccione departamento</option>
+                                <option value="">Seleccione el departamento</option>
                                 <?php while ($row = mysqli_fetch_assoc($resultado_departamentos)) : ?>
                                     <option value="<?php echo $row['id'] ?>">
                                         <?php echo $row['nombre_departamento'] ?>
@@ -299,7 +302,7 @@ if (isset($_POST['agregar'])) {
                     <div class="input-container">
                         <br>
                         <label for="ubicacion_url">Ingrese la URL de la ubicación:</label>
-                        <textarea class="input-entrada-texto" id="ubicacion_url" name="ubicacion_url" placeholder="Pegue aquí el iframe"></textarea><br>
+                        <textarea class="input-entrada-texto" id="ubicacion_url" name="ubicacion_url" placeholder="Pegue aquí el iframe" style="resize: none;"></textarea><br>
                         <div id="previewContainer"></div> <!-- Contenedor para mostrar el iframe -->
                         <div id="errorContainer" class="error-message"></div> <!-- Contenedor para mostrar errores -->
                     </div>
@@ -307,25 +310,24 @@ if (isset($_POST['agregar'])) {
 
 
 
-                    <h3> SERVICIOS DE LA PROPIEDAD</h3>
+                    <h3><i class="fa-solid fa-lightbulb"></i> SERVICIOS Y CARACTERISTICAS</h3>
+                    <br>
                     <hr>
-
                     <div class="fila">
-
                         <div class="box">
                             <label for="agua_propia">Agua</label>
                             <select name="agua_propia" id="agua_propia" class="input-entrada-texto">
                                 <option value="nacimiento propio">Nacimiento propio</option>
                                 <option value="algibe">Algibe</option>
                                 <option value="reserva_acuifera_subterranea">Reserva acuífera subterránea</option>
-                                <option value="no_aplica">No aplica / No cuenta con agua</option>
+                                <option value="no_aplica">No, pero de fácil acceso.</option>
                             </select>
                         </div>
                         <div class="box">
                             <label for="luz">Luz</label>
                             <select name="luz" id="luz" class="input-entrada-texto">
                                 <option value="si">Sí</option>
-                                <option value="no">No</option>
+                                <option value="no">No, pero de fácil acceso.</option>
                             </select>
                         </div>
 
@@ -333,84 +335,94 @@ if (isset($_POST['agregar'])) {
                             <label for="gas">Gas</label>
                             <select name="gas" id="gas" class="input-entrada-texto">
                                 <option value="si">Sí</option>
-                                <option value="no">No</option>
+                                <option value="no">No, pero de fácil acceso.</option>
                             </select>
+                        </div>
+                    </div>
+
+                    <div class="fila">
+                        <div class="box">
+                            <label for="caracteristicas_positivas">Características Positivas</label>
+                            <textarea name="caracteristicas_positivas" id="caracteristicas_positivas" cols="30" rows="5" class="input-entrada-texto" placeholder="Características positivas de la propiedad..." style="width: 660px; height: 150px; resize: none;"></textarea>
                         </div>
 
                         <div class="box">
                             <label for="internet">Internet</label>
                             <select name="internet" id="internet" class="input-entrada-texto">
                                 <option value="si">Sí</option>
-                                <option value="no">No</option>
+                                <option value="no">No, pero de fácil acceso.</option>
                             </select>
                         </div>
                     </div>
-
-                    <div class="fila-una-columna">
-                        <label for="caracteristicas_positivas">Características Positivas</label>
-                        <textarea name="caracteristicas_positivas" id="caracteristicas_positivas" cols="30" rows="5" class="input-entrada-texto" placeholder="Características positivas de la propiedad..."></textarea>
-                    </div>
                     <hr>
-
-
-                    <h3>TECNICAS</h3>
+                    <h3><i class="fa-solid fa-cloud-sun-rain"></i> PROPIEDADES TÉCNICAS</h3>
+                    <br>
                     <hr>
-
                     <div class="fila">
                         <div class="box">
                             <label for="construcciones_aledañas">Construcciones Aledañas</label>
-                            <input type="text" name="construcciones_aledañas" class="input-entrada-texto" placeholder="Describe las construcciones cercanas a la propiedad..."></input>
+                            <textarea name="construcciones_aledañas" id="" cols="30" rows="10" class="input-entrada-texto" placeholder="Construcciones aledañas a la propiedad..." style="width: 660px; height: 130px; resize: none;"></textarea>
+                        </div>
+                        <div class="box">
                         </div>
                         <div class="box">
                             <label for="altitud">Altitud</label>
-                            <input type="text" name="altitud" class="input-entrada-texto" placeholder="Altitud" required>
-                        </div>
-                        <div class="box">
+                            <input type="text" name="altitud" class="input-entrada-texto" placeholder="Cantidad de M.S.N.M (ej: 2000)" required>
+                            <br>
+                            <br>
                             <label for="clima">Clima</label>
-                            <input type="text" name="clima" class="input-entrada-texto" placeholder="clima" required>
+                            <select name="clima" id="" class="input-entrada-texto">
+                                <option value="Cálido (24 °C a 30 °C)">Cálido (24 °C a 30 °C)</option>
+                                <option value="Templado (16 °C a 24 °C)">Templado (16 °C a 24 °C)</option>
+                                <option value="Frío (0 °C a 16 °C)">Frío (0 °C a 16 °C)</option>
+                                <option value="Páramo (0 °C a 10 °C)">Páramo (0 °C a 10 °C)</option>
+                                <option value="Tropical (25 °C a 35 °C)">Tropical (25 °C a 35 °C)</option>
+                                <option value="Subpáramo (10 °C a 15 °C)">Subpáramo (10 °C a 15 °C)</option>
+                                <option value="Tierra caliente (30 °C a 38 °C)">Tierra caliente (30 °C a 38 °C)</option>
+                                <option value="Tierra fría (15 °C a 20 °C)">Tierra fría (15 °C a 20 °C)</option>
+                                <option value="Clima seco">Clima seco</option>
+                                <option value="Clima húmedo tropical">Clima húmedo tropical</option>
+                            </select>
                         </div>
                     </div>
                     <hr>
-
-
-
-                    <h3>JURIDICO</h3>
+                    <h3><i class="fa-solid fa-file-lines"></i> DOCUMENTOS JURIDICO</h3>
+                    <br>
                     <hr>
                     <div class="fila">
                         <div class="box">
                             <label for="documentos_transferencia">Documentos de trasferencia</label>
-                            <input type="text" name="documentos_transferencia" class="input-entrada-texto" placeholder="documentos_transferencia" required>
+                            <input type="text" name="documentos_transferencia" class="input-entrada-texto" placeholder="Documentos solicitados..." required>
                         </div>
-
                         <div class="box">
                             <label for="permisos">Permisos</label>
-                            <input type="text" name="permisos" class="input-entrada-texto" placeholder="Permisos de construcción" required>
+                            <input type="text" name="permisos" class="input-entrada-texto" placeholder="Permisos de la propiedad..." required>
+                        </div>
+                        <div class="box">
                         </div>
                     </div>
                     <hr>
-
-
-
-                    <h3>USOS DEL SUELO</h3>
+                    <h3><i class="fa-solid fa-street-view"></i> USOS DETALLADOS DE SUELOS</h3>
+                    <br>
                     <hr>
-
                     <div class="fila">
                         <div class="box">
                             <label for="uso_principal">Uso principal</label>
-                            <input type="text" name="uso_principal" class="input-entrada-texto" placeholder="Uso principal" required>
+                            <textarea type="text" name="uso_principal" class="input-entrada-texto" placeholder="Usos principales..." style="height: 100px; max-width: 100%; resize: none;" required></textarea>
                         </div>
                         <div class="box">
                             <label for="uso_compatibles">Usos compatibles</label>
-                            <input type="text" name="uso_compatibles" class="input-entrada-texto" placeholder="Usos compatibles" required>
+                            <textarea type="text" name="uso_compatibles" class="input-entrada-texto" placeholder="Usos compatibles..." style="height: 100px; max-width: 100%; resize: none;" required></textarea>
                         </div>
                         <div class="box">
                             <label for="uso_condicionales">Usos condicionales</label>
-                            <input type="text" name="uso_condicionales" class="input-entrada-texto" placeholder="Usos condicionales" required>
+                            <textarea type="text" name="uso_condicionales" class="input-entrada-texto" placeholder="Usos condicionales..." style="height: 100px; max-width: 100%; resize: none;" required></textarea>
                         </div>
                     </div>
                     <hr>
 
-                    <h3>GALERIA DE FOTOS</h3>
+                    <h3><i class="fa-solid fa-camera-retro"></i> GALERIA DE FOTOS</h3>
+                    <br>
                     <hr>
 
                     <div>
@@ -427,18 +439,19 @@ if (isset($_POST['agregar'])) {
                     <br>
                     <hr>
 
-                    <h3>VIDEO y RECORRIDO 360º</h3>
+                    <h3><i class="fa-solid fa-video"></i> VIDEO y RECORRIDO 360º</h3>
+                    <br>
                     <hr>
                     <div>
-                        <label for="video_url">Video del predio</label>
-                        <input class="input-entrada-texto" type="text" name="video_url" id="video_url" placeholder="Ingrese URL del video de YouTube" required>
+                        <label for="video_url">Video (Youtube.com)</label>
+                        <input class="input-entrada-texto" type="text" name="video_url" id="video_url" placeholder="Ingrese enlace iframe de Yotube..." required>
                         <div id="videoPreview"></div> <!-- Contenedor para la vista previa -->
                     </div>
                     <br>
                     <br>
                     <div>
-                        <label for="recorrido_360_url">Recorrido 360°</label>
-                        <input class="input-entrada-texto" type="text" name="recorrido_360_url" id="recorrido_360_url" placeholder="Ingrese URL del recorrido 360" required>
+                        <label for="recorrido_360_url">Recorrido 360° (Webobook.com)</label>
+                        <input class="input-entrada-texto" type="text" name="recorrido_360_url" id="recorrido_360_url" placeholder="Ingrese URL del recorrido 360..." required>
                         <div id="recorridoPreview"></div> <!-- Mantenemos la vista previa -->
                     </div>
                     <br>
@@ -446,21 +459,13 @@ if (isset($_POST['agregar'])) {
                     <br>
 
 
-                    <h3>DETALLES FINANCIEROS DE LA PROPIEDAD</h3>
+                    <h3><i class="fa-solid fa-money-check-dollar"></i> INFORMACIÓN FINANCIERA</h3>
+                    <br>
                     <hr>
                     <div class="fila">
                         <div class="box">
                             <label for="precio">Precio</label>
-                            <input type="text" name="precio" class="input-entrada-texto" placeholder="Precio de la propiedad" required>
-                        </div>
-                    </div>
-
-                    <div class="fila">
-                        <div class="box">
-                            <label for="moneda">Moneda</label>
-                            <select name="moneda" class="input-entrada-texto" required>
-                                <option value="COP">COP</option>
-                            </select>
+                            <input type="text" name="precio" class="input-entrada-texto" placeholder="Precio de la propiedad (sin puntos)" required>
                         </div>
                         <div class="box">
                             <label for="permuta">¿Permuta disponible?</label>
@@ -477,38 +482,50 @@ if (isset($_POST['agregar'])) {
                             </select>
                         </div>
                     </div>
+
+                    <div class="fila">
+                        <div class="box">
+                            <label for="moneda">Moneda</label>
+                            <select name="moneda" class="input-entrada-texto" required>
+                                <option value="COP">COP</option>
+                            </select>
+                        </div>
+                    </div>
                     <hr>
                     <br>
 
-                    <h3>ESPACIALES</h3>
+                    <h3><i class="fa-solid fa-maximize"></i> PROPIEDADES ESPACIALES</h3>
+                    <br>
                     <hr>
-
                     <div class="fila">
                         <div class="box">
                             <label for="salidas_bogota">Salidas de Bogotá</label>
                             <select name="salidas_bogota" id="salidas_bogota" class="input-entrada-texto" required>
-                                <option value="autopista sur">Autopista Sur</option>
-                                <option value="autopista calle 80">Autopista Calle 80</option>
-                                <option value="autopista calle 13">Autopista Calle 13</option>
-                                <option value="autopista via la calera">Autopista Via La Calera</option>
+
+                                <option value="Autopista Sur">Autopista Sur</option>
+                                <option value="Autopista Calle 80">Autopista Calle 80</option>
+                                <option value="Autopista Calle 13">Autopista Calle 13</option>
+                                <option value="Autopista Via La Calera">Autopista Vía La Calera</option>
+                                <option value="Autopista Norte">Autopista Norte</option>
+                                <option value="Autopista Norte Calle 192">Autopista Norte (Calle 192)</option>
+                                <option value="Autopista Sur Calle 13">Autopista Sur (Calle 13)</option>
+
                             </select>
                         </div>
                         <div class="box">
                             <label for="distancia_pueblo">Distancia al Pueblo</label>
-                            <input type="number" name="distancia_pueblo" class="input-entrada-texto" placeholder="Distancia en km" required>
+                            <input type="number" name="distancia_pueblo" class="input-entrada-texto" placeholder="Distancia en Km. (sin puntos)" required>
                         </div>
-
+                        <div class="box">
+                            <label for="distancia_desde_bogota">Distancia desde Bogotá (km)</label>
+                            <input type="number" name="distancia_desde_bogota" id="distancia_desde_bogota" class="input-entrada-texto" placeholder="Distancia en Km. (sin puntos)" required>
+                        </div>
                     </div>
 
                     <div class="fila">
                         <div class="box">
-                            <label for="distancia_desde_bogota">Distancia desde Bogotá (km)</label>
-                            <input type="number" name="distancia_desde_bogota" id="distancia_desde_bogota" class="input-entrada-texto" placeholder="Distancia en km" required>
-                        </div>
-
-                        <div class="box">
                             <label for="vias_acceso">Vías de acceso</label>
-                            <input type="text" name="vias_acceso" class="input-entrada-texto" placeholder="Vías de acceso" required>
+                            <textarea name="vias_acceso" id="" cols="30" rows="10" class="input-entrada-texto" placeholder="Descripción de las vias de acceso relacionadas a la propiedad..." style="width: 660px; height: 150px; resize: none;"></textarea>
                         </div>
                         <div class="box">
                             <label for="nombre_propietario">Nombre Propietario</label>

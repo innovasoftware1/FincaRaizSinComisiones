@@ -498,36 +498,53 @@ header h2 {
 
 }
 
-/* estilos de tooltips generales para botones-acciones */
 
-form button {
-    position: relative;
-    border: none;
-    background: none;
+/* botones de agregar usuario */
+
+.grafico-lineas {
+    width: 80%;
+    margin: 0 auto;
 }
 
-form button::after {
-    content: attr(aria-label);
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #333;
-    color: #fff;
-    padding: 10px 10px;
+canvas {
+    max-width: 100%;
+    height: 400px;
+}
+
+.contenedor-cajas-info {
+    margin-top: 30px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: 1px solid #4CAF50;
+    text-align: center;
+    text-decoration: none;
     border-radius: 5px;
-    visibility: hidden;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    font-size: 12px;
-    white-space: nowrap;
-    z-index: 999;
+    margin: 10px;
+    font-size: 16px;
 }
 
-form button:hover::after {
-    visibility: visible;
-    opacity: 1;
-    background-color: #2e4053;
+.btn:hover {
+    color: #4CAF50;
+    background-color: #fff;
+    border: 1px solid #4CAF50;
+}
+
+.contenedor-botones {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.btn-container {
+    text-align: center;
+    margin-top: 20px;
+
 }
 
 /*** ESTILOS DE NUEVA PROPIEDAD     *********************************/
@@ -627,6 +644,7 @@ form button:hover::after {
 #nueva-propiedad .contenedor-foto-principal img,
 #actualizar-propiedad .contenedor-foto-principal img {
     width: 100%;
+    border-radius: 5px;
 }
 
 #nueva-propiedad .contenedor-foto-galeria,
@@ -639,7 +657,11 @@ form button:hover::after {
 
 #nueva-propiedad .foto-galeria,
 #actualizar-propiedad .foto-galeria {
-    width: 100%;
+    width: 200px;
+    max-width: 200px;
+    height: 150px;
+    max-height: 150;
+    border-radius: 5px;
 }
 
 #nueva-propiedad hr {
@@ -845,6 +867,23 @@ th {
     background-color: #d0ece7;
     border: 1px solid #1e8449;
     color: #1e8449;
+}
+
+#listado-propiedades table .btn-new-subpro {
+    font-size: 14px;
+    text-decoration: none;
+    background-color: #2471a3;
+    border: 1px solid #2471a3;
+    color: #fff;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+#listado-propiedades table .btn-new-subpro:hover {
+    background-color: #d0ece7;
+    border: 1px solid #2471a3;
+    color: #2471a3;
 }
 
 #listado-propiedades table .btn-detalle {

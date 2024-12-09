@@ -28,50 +28,7 @@ $totaCiudades = obtenerTotalRegistros('ciudades');
     <link rel="stylesheet" href="estilo.css">
     <title>FRSC - Admin</title>
     <style>
-        .grafico-lineas {
-            width: 80%;
-            margin: 0 auto;
-        }
-
-        canvas {
-            max-width: 100%;
-            height: 400px;
-        }
-
-        .contenedor-cajas-info {
-            margin-top: 30px;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: 1px solid #4CAF50;
-            text-align: center;
-            text-decoration: none;
-            border-radius: 5px;
-            margin: 10px;
-            font-size: 16px;
-        }
-
-        .btn:hover {
-            color: #4CAF50;
-            background-color: #fff;
-            border: 1px solid #4CAF50;
-        }
-
-        .contenedor-botones {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        .btn-container {
-            text-align: center;
-            margin-top: 20px;
-        }
+        
     </style>
 </head>
 
@@ -83,6 +40,9 @@ $totaCiudades = obtenerTotalRegistros('ciudades');
         <div class="contenedor-principal">
             <div id="dashboard">
                 <h2>Dashboard Principal</h2>
+                <br>
+                <hr>
+                <h3>Detalles globales</h3>
                 <br>
                 <hr>
                 <div class="contenedor-cajas-info">
@@ -115,7 +75,10 @@ $totaCiudades = obtenerTotalRegistros('ciudades');
                         <a href="listado-ciudades.php">Ver Detalles</a>
                     </div>
                 </div>
-
+                <br>
+                <h3>Ingreso de usuarios</h3>
+                <br>
+                <hr>
                 <!-- Contenedor para los botones (solo visible para el rol 1 - Administrador) -->
                 <?php if ($rol == 1) : ?>
                     <div class="contenedor-cajas-info">
@@ -133,6 +96,10 @@ $totaCiudades = obtenerTotalRegistros('ciudades');
                     </div>
                 <?php endif; ?>
 
+                <br>
+                <h3>Graficas globales</h3>
+                <br>
+                <hr>
                 <div class="contenedor-cajas-info">
                     <div class="grafico-lineas">
                         <canvas id="graficoLineas"></canvas>
@@ -143,55 +110,55 @@ $totaCiudades = obtenerTotalRegistros('ciudades');
             </div>
         </div>
     </div>
+</body>
 
-    <script>
-        $('#link-dashboard').addClass('pagina-activa');
+<script>
+    $('#link-dashboard').addClass('pagina-activa');
 
-        var ctx = document.getElementById('graficoLineas').getContext('2d');
-        var graficoLineas = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ['Propiedades', 'Tipos', 'Departamentos', 'Ciudades'],
-                datasets: [{
-                        label: 'Propiedades',
-                        data: [<?php echo $totalPropiedades ?>, 0, 0, 0],
-                        fill: false,
-                        borderColor: 'rgb(255, 99, 132)',
-                        tension: 0.1
-                    },
-                    {
-                        label: 'Tipos',
-                        data: [0, <?php echo $totalTipos ?>, 0, 0],
-                        fill: false,
-                        borderColor: 'rgb(54, 162, 235)',
-                        tension: 0.1
-                    },
-                    {
-                        label: 'Departamentos',
-                        data: [0, 0, <?php echo $totalDepartamentos ?>, 0],
-                        fill: false,
-                        borderColor: 'rgb(75, 192, 192)',
-                        tension: 0.1
-                    },
-                    {
-                        label: 'Ciudades',
-                        data: [0, 0, 0, <?php echo $totaCiudades ?>],
-                        fill: false,
-                        borderColor: 'rgb(153, 102, 255)',
-                        tension: 0.1
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
+    var ctx = document.getElementById('graficoLineas').getContext('2d');
+    var graficoLineas = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Propiedades', 'Tipos', 'Departamentos', 'Ciudades'],
+            datasets: [{
+                    label: 'Propiedades',
+                    data: [<?php echo $totalPropiedades ?>, 0, 0, 0],
+                    fill: false,
+                    borderColor: 'rgb(255, 99, 132)',
+                    tension: 0.1
+                },
+                {
+                    label: 'Tipos',
+                    data: [0, <?php echo $totalTipos ?>, 0, 0],
+                    fill: false,
+                    borderColor: 'rgb(54, 162, 235)',
+                    tension: 0.1
+                },
+                {
+                    label: 'Departamentos',
+                    data: [0, 0, <?php echo $totalDepartamentos ?>, 0],
+                    fill: false,
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1
+                },
+                {
+                    label: 'Ciudades',
+                    data: [0, 0, 0, <?php echo $totaCiudades ?>],
+                    fill: false,
+                    borderColor: 'rgb(153, 102, 255)',
+                    tension: 0.1
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
                 }
             }
-        });
-    </script>
-</body>
+        }
+    });
+</script>
 
 </html>
