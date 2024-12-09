@@ -8,57 +8,56 @@ if (!$_SESSION['usuarioLogeado']) {
 include("conexion.php");
 $id_propiedad = $_GET['id'];
 
+// Consulta para obtener los datos de la propiedad principal
 $query = "SELECT * FROM propiedades WHERE id='$id_propiedad'";
-
 $resultado_propiedad = mysqli_query($conn, $query);
 $propiedad = mysqli_fetch_assoc($resultado_propiedad);
 
+// Consulta para obtener las subpropiedades relacionadas con la propiedad principal
+$query_subpropiedades = "SELECT * FROM subpropiedades WHERE propiedad_id = '$id_propiedad'";
+$resultado_subpropiedades = mysqli_query($conn, $query_subpropiedades);
+$subpropiedades = mysqli_fetch_all($resultado_subpropiedades, MYSQLI_ASSOC);
 
+// Función para obtener el tipo de propiedad
 function obtenerTipo($id_tipo)
 {
     include("conexion.php");
     $query = "SELECT * FROM tipos WHERE id='$id_tipo'";
-
     $resultado_tipo = mysqli_query($conn, $query);
     $row = mysqli_fetch_assoc($resultado_tipo);
     return $row['nombre_tipo'];
 }
 
+// Función para obtener las fotos de la galería de la propiedad
 function obtenerFotosGaleria($id_propiedad)
 {
     include("conexion.php");
     $query = "SELECT * FROM fotos WHERE id_propiedad='$id_propiedad'";
-
     $resultado_fotos = mysqli_query($conn, $query);
     return $resultado_fotos;
 }
 
+// Función para obtener el nombre del departamento
 function obtenerDepartamentos($id_departamento)
 {
     include("conexion.php");
     $query = "SELECT * FROM departamentos WHERE id='$id_departamento'";
-
     $resultado_departamento = mysqli_query($conn, $query);
     $row = mysqli_fetch_assoc($resultado_departamento);
     return $row['nombre_departamento'];
 }
 
+// Función para obtener el nombre de la ciudad
 function obtenerCiudad($id_ciudad)
 {
     include("conexion.php");
     $query = "SELECT * FROM ciudades WHERE id='$id_ciudad'";
-
     $resultado_ciudad = mysqli_query($conn, $query);
     $row = mysqli_fetch_assoc($resultado_ciudad);
     return $row['nombre_ciudad'];
 }
 
 ?>
-
-
-
-
-
 
 <!DOCTYPE html>
 <html lang="es">
@@ -71,6 +70,15 @@ function obtenerCiudad($id_ciudad)
     <title>FRSC - Admin</title>
 </head>
 
+
+<style>
+    .botones-acciones a {
+        margin-left: 20px;
+    }
+</style>
+
+
+
 <body>
     <?php include("header.php"); ?>
     <div id="contenedor-admin">
@@ -80,7 +88,7 @@ function obtenerCiudad($id_ciudad)
             <div id="detalle-propiedad">
                 <h2>Detalle de Propiedad</h2>
                 <br>
-                <hr>                
+                <hr>
                 <!-- informacion general de la propiedad - initial -->
                 <div class="contenedor-tabla">
                     <h3><i class="fa-solid fa-circle-info"></i> Información de la propiedad</h3>
@@ -263,12 +271,10 @@ function obtenerCiudad($id_ciudad)
 
                         <tr>
                             <td>Distancia desde Bogotá (Km.)</td>
-
                             <td>
-                                <p><?php echo $propiedad['distancia_desde_bogota'] ?> Kilometros</p>
+                                <p><?php echo $propiedad['distancia_desde_bogota'] ?> Kilómetros</p>
                             </td>
                         </tr>
-
                         <tr>
                             <td>Distancia del predio al 1er. pueblo (Km.)</td>
 
@@ -487,6 +493,53 @@ function obtenerCiudad($id_ciudad)
                     </table>
                 </div>
                 <!-- fotoP, galeria, reocrrido, maps y video - final -->
+
+                <!-- subpropiedades de los predios - inicial -->
+                <div class="contenedor-tabla" id="listado-propiedades">
+                    <h3><i class="fa-solid fa-house-laptop"></i> Subpropiedades</h3>
+                    <br>
+                    <table class="descripcion">
+                        <thead>
+                            <tr>
+                                <th>Id. Propiedad</th>
+                                <th>Título y Descripción</th>
+                                <th>Precio</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            if ($subpropiedades) {
+                                foreach ($subpropiedades as $subpropiedad) {
+                                    echo "<tr>";
+                                    // Propiedad No.
+                                    echo "<td>Propiedad No. " . $subpropiedad['id'] . "</td>";
+                                    // Título y Descripción
+                                    echo "<td><p><b>" . $subpropiedad['titulo'] . "</b><br>" . $subpropiedad['descripcion'] . "</p></td>";
+                                    // Precio
+                                    echo "<td><p><b>COP</b> " . number_format($subpropiedad['precio']) . "</p></td>"; // Asegúrate de que 'precio' sea el nombre correcto en tu base de datos
+                                    // Botones de acción
+                                    echo "<td class='botones-acciones'>
+                            <a href='ver-detalle-subpropiedad.php?id=" . $subpropiedad['id'] . "' class='btn-detalle'>
+                                <i class='fas fa-eye'></i>
+                            </a>
+                            <a href='actualizar-subpropiedad.php?id=" . $subpropiedad['id'] . "' class='btn-actualizar'>
+                                <i class='fas fa-sync-alt'></i>
+                            </a>
+                            <a href='javascript:void(0);' onclick='confirmarEliminacion(" . $subpropiedad['id'] . ")' class='btn-eliminar'>
+                                <i class='fas fa-trash-alt'></i>
+                            </a>
+                        </td>";
+                                    echo "</tr>";
+                                }
+                            } else {
+                                echo "<tr><td colspan='4'>La propiedad no cuenta con subpropiedades relacionadas.</td></tr>";
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- subpropiedades de los predios - final -->
 
             </div>
         </div>
