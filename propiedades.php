@@ -217,7 +217,7 @@ $result_tipos = obtenerTodosLosTipos();
             <?php endif; ?>
         </div>
 
-        <button value="0" onclick="cargarMasPropiedades(this.value)" id="botonCargarMas">Ver Más</button>
+        <!-- <button value="0" onclick="cargarMasPropiedades(this.value)" id="botonCargarMas">Ver Más</button> -->
     </div>
 
     <footer class="inferior">
