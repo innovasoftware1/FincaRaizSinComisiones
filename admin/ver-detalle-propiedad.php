@@ -59,6 +59,7 @@ function obtenerCiudad($id_ciudad)
 
 ?>
 
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -494,10 +495,12 @@ function obtenerCiudad($id_ciudad)
                 </div>
                 <!-- fotoP, galeria, reocrrido, maps y video - final -->
 
+
                 <!-- subpropiedades de los predios - inicial -->
                 <div class="contenedor-tabla" id="listado-propiedades">
                     <h3><i class="fa-solid fa-house-laptop"></i> Subpropiedades</h3>
                     <br>
+
                     <table class="descripcion">
                         <thead>
                             <tr>

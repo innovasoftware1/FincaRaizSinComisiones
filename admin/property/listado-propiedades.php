@@ -89,6 +89,7 @@ $result = obtenerTodasLasPropiedades();
                                         </button>
                                     </form>
 
+
                                     <form action="../subproperties/add.php" method="get" class="form-acciones">
                                         <input type="hidden" name="id" value="<?php echo $propiedad['id'] ?>">
                                         <button type="submit" name="actualizar" class="btn-actualizar" aria-label="Añadir Subpropiedad">
