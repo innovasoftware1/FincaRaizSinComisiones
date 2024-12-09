@@ -34,7 +34,7 @@ $rol = $_SESSION['rol_id'];
 
                 <?php if ($rol == 1 || $rol == 2) : ?>
                     <li id="link-dashboard">
-                        <a href="../index.php">
+                        <a href="index.php">
                             <i class="fa-solid fa-user"></i>
                             Dashboard
                         </a>
