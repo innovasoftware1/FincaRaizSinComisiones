@@ -52,12 +52,14 @@ CREATE TABLE `ciudades` (
 -- Tabla propiedades
 CREATE TABLE `propiedades` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `fecha_alta` DATETIME NOT NULL DEFAULT current_timestamp(),
+  `fecha_alta` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `titulo` VARCHAR(100) NOT NULL,
   `descripcion` TEXT NOT NULL,
   `tipo` INT(11) NOT NULL,
+  `tipoUbicacion` VARCHAR(200) NOT NULL,
   `estado` VARCHAR(15) NOT NULL,
   `ubicacion` VARCHAR(200) NOT NULL,
+  `direccion` VARCHAR(200) NOT NULL,
   `habitaciones` VARCHAR(2) NOT NULL,
   `banios` VARCHAR(2) NOT NULL,
   `pisos` VARCHAR(1) NOT NULL,
@@ -82,12 +84,20 @@ CREATE TABLE `propiedades` (
   `uso_condicionales` VARCHAR(300) DEFAULT NULL,
   `departamento` INT(11) NOT NULL,
   `ciudad` INT(11) NOT NULL,
-  `usuario_id` INT(11) DEFAULT NULL,  
-  `agua` TINYINT(1) DEFAULT NULL,
-  `luz` TINYINT(1) DEFAULT NULL,
-  `gas` TINYINT(1) DEFAULT NULL,
-  `internet` TINYINT(1) DEFAULT NULL,
+  `usuario_id` INT(11) DEFAULT NULL,
+  `agua_propia` VARCHAR(300) DEFAULT NULL,
+  `luz` VARCHAR(300) DEFAULT NULL,
+  `gas` VARCHAR(300) DEFAULT NULL,
+  `internet` VARCHAR(300) DEFAULT NULL,
   `permuta` TINYINT(1) NOT NULL,
+  `caracteristicas_positivas` VARCHAR(255) DEFAULT NULL,
+  `distancia_desde_bogota` INT DEFAULT NULL,
+  `fecha_de_venta` DATE DEFAULT NULL,
+  `financiacion` BOOLEAN DEFAULT NULL,
+  `salidas_bogota` VARCHAR(255) DEFAULT NULL,
+  `inventario` VARCHAR(255) DEFAULT NULL,
+  `construcciones_aledañas` VARCHAR(255) DEFAULT NULL,
+  `nombre_propietario` VARCHAR(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_propiedades_tipos` (`tipo`),
   KEY `fk_propiedades_ciudades` (`ciudad`),
@@ -96,6 +106,7 @@ CREATE TABLE `propiedades` (
   CONSTRAINT `fk_propiedades_ciudades` FOREIGN KEY (`ciudad`) REFERENCES `ciudades` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_propiedades_usuarios` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 
 -- Tabla configuracion
 CREATE TABLE `configuracion` (
@@ -116,14 +127,14 @@ CREATE TABLE `subpropiedades` (
   `titulo` VARCHAR(100) NOT NULL,
   `descripcion` TEXT NOT NULL,
   `dimensiones` VARCHAR(50) NOT NULL,
-  `dimensiones_tipo` VARCHAR(10) DEFAULT NULL,
+  `area_tipo` VARCHAR(10) DEFAULT NULL,
   `area` FLOAT DEFAULT NULL,
   `precio` INT(11) NOT NULL,
   `moneda` VARCHAR(5) NOT NULL,
   `url_foto_principal` VARCHAR(200) NOT NULL,
   `video_url` TEXT DEFAULT NULL,
-  `recorrido_360_url` VARCHAR(300) DEFAULT NULL,
-  `documentos_transferencia` VARCHAR(300) DEFAULT NULL,
+  `recorrido_360_url` VARCHAR(300) DEFAULT NULL, 
+  `estado` VARCHAR(15) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_subpropiedades_propiedades` (`propiedad_id`),
   CONSTRAINT `fk_subpropiedades_propiedades` FOREIGN KEY (`propiedad_id`) REFERENCES `propiedades` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -153,62 +164,55 @@ CREATE TABLE `subfotos` (
 
 
 
-INSERSIONES 
+INSERT INTO `roles` (`id`, `nombre_rol`, `descripcion`) VALUES
+(1, 'administrador', 'Rol con todos los permisos: administrar propiedades, usuarios, configuraciones, etc.'),
+(2, 'moderador', 'Rol con permisos limitados: puede crear y editar propiedades, pero no gestionar usuarios o configuraciones.'),
+(3, 'usuario', 'Rol para usuarios comunes, con acceso restringido a ver propiedades y realizar acciones limitadas.');
 
-INSERT INTO `tipos` (`nombre_tipo`)
-VALUES ('Lote');
 
--- Insertar en departamentos
-INSERT INTO `departamentos` (`nombre_departamento`)
-VALUES ('Tolima');
+INSERT INTO `tipos` (`id`, `nombre_tipo`) VALUES
+(1, 'Casa'),
+(2, 'Casa Lote'),
+(3, 'Casa Quinta'),
+(4, 'Lotes'),
+(5, 'Fincas'),
+(6, 'Proyectos');
+
+
+
+INSERT INTO `departamentos` (`id`, `nombre_departamento`) VALUES
+(1, 'Bogotá D.C.'),
+(2, 'Antioquia'),
+(3, 'Valle del Cauca'),
+(4, 'Atlántico'),
+(5, 'Cundinamarca'),
+(6, 'Santander');
 
 -- Insertar en ciudades (suponiendo que el departamento de Tolima tiene el id 1)
-INSERT INTO `ciudades` (`id_departamento`, `nombre_ciudad`)
-VALUES (1, 'Melgar');
+INSERT INTO `ciudades` (`id`, `id_departamento`, `nombre_ciudad`) VALUES
+(1, 1, 'Bogotá'),
+(2, 2, 'Medellín'),
+(3, 2, 'Bello'),
+(4, 2, 'Itagüí'),
+(5, 3, 'Cali'),
+(6, 3, 'Palmira'),
+(7, 3, 'Buenaventura'),
+(8, 4, 'Barranquilla'),
+(9, 4, 'Soledad'),
+(10, 4, 'Malambo'),
+(11, 5, 'Soacha'),
+(12, 5, 'Zipaquirá'),
+(13, 5, 'Girardot'),
+(14, 6, 'Bucaramanga'),
+(15, 6, 'Floridablanca'),
+(16, 6, 'Piedecuesta');
+
+INSERT INTO `usuarios` (`id`, `nombre`, `email`, `usuario`, `password`, `rol_id`, `fecha_creacion`) VALUES
+(1014274668, 'Sergio Pinzon', 'sergio@gmail.com', 'sergpinz68', '101010', 2, '2024-11-14 10:34:55'),
+(1014274669, 'Feldan D. Rodriguez', 'admininnova@example.com', 'Admin10.', '123456', 1, '2024-11-12 11:06:39');
 
 
 
-INSERT INTO `propiedades` (
-  `titulo`, `descripcion`, `tipo`, `estado`, `ubicacion`, `habitaciones`, `banios`, `pisos`, 
-  `garage`, `dimensiones`, `dimensiones_tipo`, `area`, `altitud`, `distancia_pueblo`, `vias_acceso`, 
-  `clima`, `precio`, `moneda`, `url_foto_principal`, `video_url`, `recorrido_360_url`, 
-  `ubicacion_url`, `documentos_transferencia`, `permisos`, `uso_principal`, `uso_compatibles`, 
-  `uso_condicionales`, `departamento`, `ciudad`, `usuario_id`, `agua`, `luz`, `gas`, `internet`, `permuta`
-) 
-VALUES (
-  'LOTE CAMPESTRE', 
-  'Excelente Lote con gran ubicación dentro del Condominio Campestre El Palmar - Melgar, para casa de descanso.', 
-  1, -- Tipo de propiedad, asumiendo que "1" es el ID del tipo correspondiente (ajustar según tu base de datos)
-  'Disponible', -- Estado de la propiedad (Disponible, Vendido, etc.)
-  'El Salero - Melgar (Condominio Campestre El Palmar)', -- Ubicación
-  '0', -- Habitaciones
-  '0', -- Baños
-  '1', -- Pisos
-  '0', -- Garage
-  '12.5 x 25 Mts', -- Dimensiones
-  'M2', -- Tipo de dimensiones (m², mts, etc.)
-  312.5, -- Área en m²
-  323, -- Altitud en metros sobre el nivel del mar
-  83, -- Distancia desde el peaje Chusacá - Bogotá en Km
-  'Carretera pavimentada y destapada 3 Minutos', -- Vías de acceso
-  'Entre 28C° - 32C°', -- Clima
-  90000000, -- Precio en la moneda local
-  'COP', -- Moneda (Colombianos Pesos)
-  'url_foto_principal.jpg', -- URL de la foto principal
-  'video_url_here', -- URL del video
-  'recorrido_360_url_here', -- URL del recorrido 360
-  'ubicacion_url_here', -- URL de ubicación en maps
-  'Escritura pública por el 100 % del predio', -- Documentos de transferencia
-  'Ninguno', -- Permisos
-  'Construcciones hasta 3 pisos', -- Uso principal
-  'Actividades industriales, recreativas y/o de vivienda', -- Usos compatibles
-  'Infraestructura vial', -- Usos condicionados
-  1, -- Departamento ID (suponiendo que "1" es el ID de Tolima)
-  1, -- Ciudad ID (suponiendo que "1" es el ID de Melgar)
-  1, -- Usuario ID (suponiendo que el ID del usuario sea "1")
-  0, -- Agua
-  0, -- Luz
-  0, -- Gas
-  0, -- Internet
-  0 -- Permuta
-);
+INSERT INTO `usuarios` (`id`, `nombre`, `email`, `usuario`, `password`, `rol_id`, `fecha_creacion`) VALUES
+(1027524040, 'sergio alejandro saavedra rojas', 'saavedrarojass41@gmail.com', 'checho', '$2y$10$WM6zFp8jy1tYTbwfeb92S.q17envIvJJASgYPdMBHzGkkpYDdKYJa', 1, '2024-12-05 12:24:44');
+
