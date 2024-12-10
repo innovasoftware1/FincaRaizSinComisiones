@@ -1,17 +1,30 @@
 <?php
 session_start();
 
-if (!$_SESSION['usuarioLogeado']) {
-    header("Location:login.php");
+// Verifica si el usuario está logueado
+if (!isset($_SESSION['usuarioLogeado']) || !$_SESSION['usuarioLogeado']) {
+    header("Location: login.php");
+    exit();
 }
 
 include("conexion.php");
-$id_propiedad = $_GET['id'];
+
+// Obtiene el ID de la propiedad, priorizando 'propiedad_id'
+$id_propiedad = isset($_GET['propiedad_id']) ? $_GET['propiedad_id'] : (isset($_GET['id']) ? $_GET['id'] : null);
+
+if (!$id_propiedad) {
+    // Manejo del caso donde no se recibe ningún ID
+    die("No se ha especificado un ID válido.");
+}
 
 // Consulta para obtener los datos de la propiedad principal
 $query = "SELECT * FROM propiedades WHERE id='$id_propiedad'";
 $resultado_propiedad = mysqli_query($conn, $query);
 $propiedad = mysqli_fetch_assoc($resultado_propiedad);
+
+if (!$propiedad) {
+    die("Propiedad no encontrada.");
+}
 
 // Consulta para obtener las subpropiedades relacionadas con la propiedad principal
 $query_subpropiedades = "SELECT * FROM subpropiedades WHERE propiedad_id = '$id_propiedad'";
@@ -56,6 +69,7 @@ function obtenerCiudad($id_ciudad)
     $row = mysqli_fetch_assoc($resultado_ciudad);
     return $row['nombre_ciudad'];
 }
+
 
 ?>
 
@@ -526,7 +540,7 @@ function obtenerCiudad($id_ciudad)
                             <a href='ver-detalle-subpropiedad.php?id=" . $subpropiedad['id'] . "' class='btn-detalle'>
                                 <i class='fas fa-eye'></i>
                             </a>
-                            <a href='actualizar-subpropiedad.php?id=" . $subpropiedad['id'] . "' class='btn-actualizar'>
+                            <a href='subproperties/update.php?id=" . $subpropiedad['id'] . "' class='btn-actualizar'>
                                 <i class='fas fa-sync-alt'></i>
                             </a>
                             <a href='javascript:void(0);' onclick='confirmarEliminacion(" . $subpropiedad['id'] . ")' class='btn-eliminar'>
@@ -542,11 +556,48 @@ function obtenerCiudad($id_ciudad)
                         </tbody>
                     </table>
                 </div>
-                <!-- subpropiedades de los predios - final -->
 
             </div>
         </div>
     </div>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function confirmarEliminacion(idPropiedad) {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "No podrás revertir esta acción",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, eliminar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Llamada a la función que realiza la eliminación
+                eliminarPropiedad(idPropiedad);
+            }
+        });
+    }
+
+    function eliminarPropiedad(idPropiedad) {
+    Swal.fire({
+        icon: 'success',
+        title: '¡Eliminado correctamente!',
+        text: 'El registro ha sido eliminado con éxito.',
+        confirmButtonText: 'Aceptar',
+        timer: 5000, // La alerta se cerrará automáticamente después de 5 segundos
+        timerProgressBar: true
+    });
+
+    // Retrasa la redirección para que dé tiempo de ver la alerta
+    setTimeout(() => {
+        window.location.href = `subproperties/drop.php?id=${idPropiedad}&id_propiedad=${<?php echo $id_propiedad; ?>}`;
+    }, 3000); // Retraso de 5 segundos
+}
+
+</script>
+
+
 
 </html>

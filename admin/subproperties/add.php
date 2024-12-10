@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 
 if (!(isset($_SESSION['usuarioLogeado']) && isset($_SESSION['usuarioId']) && $_SESSION['usuarioLogeado'] != '')) {
@@ -8,8 +7,10 @@ if (!(isset($_SESSION['usuarioLogeado']) && isset($_SESSION['usuarioId']) && $_S
 }
 
 $usuarioId = $_SESSION['usuarioId'];
-
 include("../conexion.php");
+
+// Inicializamos la variable $titulo_propiedad
+$titulo_propiedad = "";
 
 // Verificamos si se ha recibido el id de la propiedad
 if (isset($_GET['id'])) {
@@ -22,7 +23,11 @@ if (isset($_GET['id'])) {
     // Obtener los datos de la propiedad principal
     if ($row = mysqli_fetch_assoc($result)) {
         $titulo_propiedad = $row['titulo'];
+    } else {
+        $titulo_propiedad = "Propiedad no encontrada";
     }
+} else {
+    $titulo_propiedad = "No se ha especificado una propiedad";
 }
 
 // Guardamos la subpropiedad
@@ -33,7 +38,7 @@ if (isset($_POST['agregar'])) {
     $titulo = $_POST['titulo'];
     $descripcion = $_POST['descripcion'];
     $area_tipo = $_POST['area_tipo'];
-    $dimensiones =$_POST['dimensiones'];
+    $dimensiones = $_POST['dimensiones'];
     $area = $_POST['area'];
     $precio = $_POST['precio'];
     $moneda = $_POST['moneda'];
@@ -72,7 +77,6 @@ if (isset($_POST['agregar'])) {
         '$recorrido_360_url', 
         '$estado'
     )";
-    
 
     // Ejecutamos el query
     if (mysqli_query($conn, $query)) {
@@ -99,17 +103,7 @@ if (isset($_POST['agregar'])) {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../estilo.css">
-    <script>
-        function muestraselect(str) {
-            var conexion;
-
-            if (window.XMLHttpRequest) {
-                conexion = new XMLHttpRequest();
-            }
-        }
-    </script>
     <style>
-
         #info-propiedad {
             position: fixed;
             bottom: 0;
@@ -134,20 +128,18 @@ if (isset($_POST['agregar'])) {
             max-width: 200px;
             height: auto;
         }
-
     </style>
-
 </head>
+
 <body>
     <?php include("../header-menu.php"); ?>
 
     <div id="contenedor-admin">
         <?php include("../menu_index_options.php"); ?>
 
-
         <div class="contenedor-principal">
             <div id="nueva-propiedad">
-                <h2>deseas registrar una subpropiedad a la propiedad: <?php echo $titulo_propiedad; ?>.</h2>
+                <h2>deseas registrar una subpropiedad a la propiedad: <?php echo htmlspecialchars($titulo_propiedad); ?>.</h2>
                 <br>
                 
                 
@@ -251,18 +243,24 @@ if (isset($_POST['agregar'])) {
                 </form>
 
                 <?php if (isset($_POST['agregar'])) : ?>
-                    <script>
-                        Swal.fire({
-                            icon: 'success',
-                            title: '¡Subpropiedad Agregada!',
-                            text: '<?php echo $mensaje; ?>',
-                            showConfirmButton: false,
-                            timer: 3000
-                        }).then(function() {
-                            window.location.href = '../ver-detalle-propiedad.php';
-                        });
-                    </script>
-                <?php endif; ?>
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: '¡Subpropiedad Agregada!',
+            text: '<?php echo $mensaje; ?>',
+            showConfirmButton: false,
+            timer: 3000
+        }).then(function() {
+            // Obtener el ID de la subpropiedad recién insertada y el propiedad_id desde PHP
+            var subpropiedadId = <?php echo mysqli_insert_id($conn); ?>;
+            var propiedadId = <?php echo $propiedad_id; ?>;
+
+            // Redirigir a detalles.php con ambos parámetros en la URL
+            window.location.href = '../ver-detalle-propiedad.php?id=' + subpropiedadId + '&propiedad_id=' + propiedadId;
+        });
+    </script>
+<?php endif; ?>         
+
             </div>
         </div>
     </div>
