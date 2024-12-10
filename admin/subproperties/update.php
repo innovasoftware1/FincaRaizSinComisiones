@@ -215,9 +215,9 @@ if (isset($_POST['actualizar'])) {
                         $i = 1;
                         ?>
                         <?php while ($foto = mysqli_fetch_assoc($galeria)) : ?>
-                            <output class="contenedor-foto-galeria" id="<?php echo $i ?>">
+                            <output class="contenedor-foto-galeria" id="foto-<?php echo $i ?>">
                                 <img src="fotos/<?php echo $subpropiedad_id . "/" . $foto['nombre_foto'] ?>" class="foto-galeria">
-                                <span id="btn-eliminar-galeria" id="<?php echo $foto['id'] ?>" onclick="eliminarFoto(<?php echo $foto['id'] ?>, <?php echo $i ?>)"> Eliminar</span>
+                                <span class="btn-eliminar-galeria" data-id="<?php echo $foto['id'] ?>" data-index="<?php echo $i ?>" onclick="eliminarFoto(<?php echo $foto['id'] ?>, <?php echo $i ?>)">Eliminar</span>
                             </output>
                         <?php
                             $i++;
@@ -227,9 +227,11 @@ if (isset($_POST['actualizar'])) {
 
                     <div id="contenedor-fotos-nuevas"></div>
 
-                    <input type="file" id="fotos" accept="image/*" name="fotos[]" value="Foto" multiple="" style="display:none">
+                    <!-- El input de archivo está oculto -->
+                    <input type="file" id="fotos" accept="image/*" name="fotos[]" value="Foto" multiple="" style="display:none" onchange="agregarFotosNuevas()">
                     <input type="hidden" id="fotosGaleriaActualizada" name="fotosGaleriaActualizada">
                 </div>
+
 
                 <br>
                 <br>
