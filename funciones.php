@@ -38,6 +38,33 @@ function obtenerTodosLosTipos()
     return $result;
 }
 
+/** */
+
+/* function cargarPropiedades($limInferior)
+{
+    include("admin/conexion.php");
+    $config = obtenerConfiguracion();
+
+    if (!$config) {
+        echo "No se pudo obtener la configuración.";
+        return null;
+    }
+
+    if ($config['tipo_visualizacion_propiedades'] == "f") { // Visualizamos por fecha de carga
+        $query = "SELECT * FROM propiedades ORDER BY fecha_alta DESC LIMIT $limInferior, 6";
+        $result = mysqli_query($conn, $query);
+        return $result;
+    } else {
+        $query = "SELECT * FROM propiedades WHERE id IN ('$config[propiedad1]', '$config[propiedad2]', '$config[propiedad3]', '$config[propiedad4]', '$config[propiedad5]', '$config[propiedad6]')
+                  UNION
+                  SELECT * FROM propiedades WHERE id NOT IN ('$config[propiedad1]', '$config[propiedad2]', '$config[propiedad3]', '$config[propiedad4]', '$config[propiedad5]', '$config[propiedad6]')
+                  LIMIT $limInferior, 6";
+        $result = mysqli_query($conn, $query);
+        return $result;
+    }
+} */
+
+
 function obtenerPropiedadPorId($id_propiedad)
 {
     include("admin/conexion.php");
@@ -224,6 +251,7 @@ function realizarBusqueda($id_ciudad, $id_tipo, $tipoUbicacion, $precio_min = nu
 
     return mysqli_query($conn, $query);
 }
+
 
 function obtenerPropiedades()
 {

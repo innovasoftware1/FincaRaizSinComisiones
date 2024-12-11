@@ -1,48 +1,44 @@
 <?php
-if (isset($_FILES["foto1"])) {
+include("../conexion.php");
+
+// Verifica si se recibieron los datos necesarios
+if (isset($_FILES["foto1"]) && isset($_POST['id_subpropiedad'])) {
     $id_subpropiedad = intval($_POST['id_subpropiedad']);
 
-    // Verificar si existe la subpropiedad
-    $query = "SELECT * FROM subpropiedades WHERE id = '$id_subpropiedad'";
-    $resultado = mysqli_query($conn, $query);
+    // Crear directorio para las fotos si no existe
+    $directorio = "../subproperties/fotos/" . $id_subpropiedad;
+    if (!file_exists($directorio)) {
+        mkdir($directorio, 0777, true);
+    }
 
-    if ($resultado && mysqli_num_rows($resultado)) {
-        $directorio = "../subproperties/fotos/" . $id_subpropiedad;
+    $file = $_FILES["foto1"];
+    $nombre = $file['name'];
+    $tipo = $file['type'];
+    $ruta_provisional = $file['tmp_name'];
 
-        // Crear el directorio si no existe
-        if (!file_exists($directorio)) {
-            mkdir($directorio, 0777, true);
-        }
+    // Validar tipo de archivo
+    $extensionesValidas = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+    if (!in_array($tipo, $extensionesValidas)) {
+        die("Error: El archivo no es una imagen válida.");
+    }
 
-        $file = $_FILES["foto1"];
-        $nombre = $file['name'];
-        $tipo = $file['type'];
-        $ruta_provisional = $file['tmp_name'];
+    // Generar un nombre único para la imagen
+    $nuevoNombre = uniqid('foto_', true) . '.' . pathinfo($nombre, PATHINFO_EXTENSION);
+    $rutaCompleta = $directorio . '/' . $nuevoNombre;
 
-        // Validar tipo de archivo
-        if ($tipo != 'image/jpeg' && $tipo != 'image/jpg' && $tipo != 'image/png' && $tipo != 'image/gif') {
-            die("Error: El archivo no es una imagen válida.");
-        }
-
-        $nuevoNombre = uniqid('foto_', true) . '.' . pathinfo($nombre, PATHINFO_EXTENSION);
-        $rutaCompleta = $directorio . '/' . $nuevoNombre;
-
-        // Mover el archivo al directorio
-        if (move_uploaded_file($ruta_provisional, $rutaCompleta)) {
-            // Actualizar la URL en la base de datos
-            $query_update = "UPDATE subpropiedades SET url_foto_principal = '$rutaCompleta' WHERE id = '$id_subpropiedad'";
-            if (mysqli_query($conn, $query_update)) {
-                echo "Foto principal procesada correctamente.";
-            } else {
-                echo "Error al actualizar la base de datos: " . mysqli_error($conn);
-            }
+    // Mover el archivo al directorio
+    if (move_uploaded_file($ruta_provisional, $rutaCompleta)) {
+        // Actualizar la URL de la foto principal en la base de datos
+        $query_update = "UPDATE subpropiedades SET url_foto_principal = '$rutaCompleta' WHERE id = '$id_subpropiedad'";
+        if (mysqli_query($conn, $query_update)) {
+            echo "Foto principal procesada correctamente.";
         } else {
-            echo "Error al mover la foto al directorio.";
+            echo "Error al actualizar la base de datos: " . mysqli_error($conn);
         }
     } else {
-        echo "Error: La subpropiedad no existe.";
+        echo "Error al mover la foto al directorio.";
     }
 } else {
-    echo "No se detectó ninguna foto principal para subir.";
+    die("Error: No se recibió el ID de la subpropiedad o no se detectó foto principal.");
 }
 ?>
