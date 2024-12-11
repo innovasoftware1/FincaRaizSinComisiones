@@ -52,7 +52,18 @@ $restul_fotos_galeria = obtenerFotosGaleria($id_propiedad);
                 <section class="info-principal-galeria">
                     <div class="dato1">
                         <span class="tipoUbicacion"><?php echo $propiedad['tipoUbicacion'] ?></span>
-                        <span class="precio"><?php echo $propiedad['moneda'] ?> <?php echo number_format($propiedad['precio'], 0, '', '.') ?></span>
+                        <span class="precio">
+                            <?php 
+                                if ($propiedad['valor_fijo'] == 1) {
+                                    echo "Desde $"; // Si valor_fijo es 1, muestra "Desde"
+                                } else {
+                                    // Si valor_fijo no es 1, muestra la moneda
+                                    echo ($propiedad['moneda'] == "COP" ? "$" : $propiedad['moneda']);
+                                }
+                            ?>
+                            <?php echo number_format($propiedad['precio'], 0, '', '.'); ?>
+                        </span>
+
                     </div>
                     <h2><?php echo $propiedad['titulo'] ?></h2>
                     <p>
