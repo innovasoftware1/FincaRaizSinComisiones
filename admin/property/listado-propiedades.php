@@ -8,7 +8,7 @@ if (!$_SESSION['usuarioLogeado']) {
 function obtenerTodasLasPropiedades()
 {
     include("../conexion.php");
-    $query = "SELECT * FROM propiedades ORDER BY fecha_alta DESC";
+    $query = "SELECT * FROM propiedades ORDER BY id ASC";
     $result = mysqli_query($conn, $query);
     return $result;
 }

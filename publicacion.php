@@ -12,7 +12,6 @@ $propiedad = obtenerPropiedadPorId($id_propiedad);
 
 $restul_fotos_galeria = obtenerFotosGaleria($id_propiedad);
 
-
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -24,7 +23,7 @@ $restul_fotos_galeria = obtenerFotosGaleria($id_propiedad);
     <title><?php echo $propiedad['titulo']; ?></title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
-    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="estilo.css">
 </head>
 
@@ -137,7 +136,7 @@ $restul_fotos_galeria = obtenerFotosGaleria($id_propiedad);
                         </div>
                         <div class="dato">
                             <span class="header">
-                                <i class="fa-solid fa-ruler-combined"><span>Area</span></i> <!-- Ícono de dimensiones -->
+                                <i class="fa-solid fa-ruler-combined"><span>Dimensiones</span></i> <!-- Ícono de dimensiones -->
                             </span>
                             <span class="valor"><?php echo $propiedad['dimensiones'] ?> <?php echo $propiedad['dimensiones_tipo'] ?></span>
                         </div>
@@ -188,7 +187,83 @@ $restul_fotos_galeria = obtenerFotosGaleria($id_propiedad);
                 </section>
 
 
-                <section class="descripcion">
+                <div class="info-publicacion">
+                    <?php
+                    $id_propiedad = $_GET['idPropiedad'];
+
+                    $propiedad = obtenerPropiedadPorId($id_propiedad);
+
+                    $subpropiedades = obtenerSubpropiedadesPorIdPropiedad($id_propiedad);
+
+                    if (!empty($subpropiedades)) {
+                        echo '<section class="info-principal-galeria subpro">';
+
+                        foreach ($subpropiedades as $subpropiedad) {
+                            $id_subpropiedad = $subpropiedad['id'];
+                            $titulo_subpro = htmlspecialchars($subpropiedad['titulo']);
+                            $descripcion_subpro = htmlspecialchars($subpropiedad['descripcion']);
+                            $area_subpro = htmlspecialchars($subpropiedad['area']);
+                            $area_tipo_subpro = htmlspecialchars($subpropiedad['area_tipo']);
+                            $dimensiones_subpro = htmlspecialchars($subpropiedad['dimensiones']);
+                            $precio_subpro = htmlspecialchars($subpropiedad['moneda']) . " " . number_format($subpropiedad['precio'], 0, '', '.');
+                            $imagen_subpro = "admin/subproperties/" . htmlspecialchars($subpropiedad['url_foto_principal']);
+                            $video_url_subpro = htmlspecialchars($subpropiedad['video_url']);
+                            $recorrido_360_url_subpro = htmlspecialchars($subpropiedad['recorrido_360_url']);
+
+                            $galeria_fotos_subpro = obtenerFotosSubpropiedad($id_subpropiedad);
+
+                            $galeria_fotos_urls_subpro = [];
+
+                            while ($foto = mysqli_fetch_assoc($galeria_fotos_subpro)) {
+                                $foto_url_subpro = "admin/subproperties/fotos/" . $id_subpropiedad . "/" . htmlspecialchars($foto['nombre_foto']);
+                                $galeria_fotos_urls_subpro[] = $foto_url_subpro;
+                            }
+
+                            $galeria_fotos_json_subpro = json_encode($galeria_fotos_urls_subpro);
+                    ?>
+
+                            <!-- Card de la subpropiedad -->
+                            <div class="card-subpropiedad" style="background-image: url('<?php echo $imagen_subpro; ?>'); 
+        background-size: cover; 
+        background-position: center; 
+        opacity: 0.8; 
+        position: relative; 
+        border-radius: 10px;">
+                                <div class="contenido">
+                                    <h2 class="titulo-subpro"><?php echo $titulo_subpro; ?></h2>
+                                    <p class="precio-subpro"><?php echo $precio_subpro; ?></p>
+
+                                    <!-- Botones de iconos -->
+                                    <button class="btn-icon" onclick="abrirModalDetalles(<?php echo $id_subpropiedad; ?>, '<?php echo $titulo_subpro; ?>', '<?php echo $descripcion_subpro; ?>', '<?php echo $area_subpro; ?>', '<?php echo $area_tipo_subpro; ?>', '<?php echo $dimensiones_subpro; ?>')">
+                                        <i class="fa fa-file"></i> <!-- Detalles -->
+                                    </button>
+
+                                    <!-- Botón de la galería -->
+                                    <button class="btn-icon" onclick='abrirModalGaleriaSubpro(<?php echo $id_subpropiedad; ?>, <?php echo $galeria_fotos_json_subpro; ?>)'>
+                                        <i class="fa fa-image"></i>
+                                    </button>
+
+                                    <!-- Botón de recorrido 360 -->
+                                    <button class="btn-icon" onclick="abrirModalRecorrido360('<?php echo $recorrido_360_url_subpro; ?>')">
+                                        <i class="fa-solid fa-person"></i> <!-- Recorrido 360 -->
+                                        <div class="circle-below"></div> <!-- Círculo debajo -->
+                                    </button>
+
+                                    <!-- Botón del video -->
+                                    <button class="btn-icon" onclick="abrirModalVideo('<?php echo $video_url_subpro; ?>')">
+                                        <i class="fa fa-video-camera"></i> <!-- Video -->
+                                    </button>
+                                </div>
+                            </div>
+
+                    <?php
+                        }
+                        echo '</section>';
+                    }
+                    ?>
+                </div>
+
+                <section class="descripcion" style="margin-top: 2.5%;">
                     <h3>Usos de suelos</h3>
 
                     <?php
@@ -225,8 +300,6 @@ $restul_fotos_galeria = obtenerFotosGaleria($id_propiedad);
                         <?php echo $uso_condicionales; ?>
                     </div>
                 </section>
-
-
                 <!-- valor agregado de la propiedad -inicial -->
                 <section class="descripcion">
                     <h3>Valor agregado del predio</h3>
@@ -254,10 +327,6 @@ $restul_fotos_galeria = obtenerFotosGaleria($id_propiedad);
                     </div>
                 </section>
                 <!-- valor agregado de la propiedad -final -->
-
-                <!-- sub-propiedades inicio -->
-
-                <!-- sub-propiedades final -->
 
                 <section class="compartir">
                     <h3>Compartir esta propiedad</h3>
@@ -434,9 +503,9 @@ $restul_fotos_galeria = obtenerFotosGaleria($id_propiedad);
                 </div>
             </div>
 
-            <!-- The Modal para visualizar la galería de fotos -->
+
+            <!-- Modal para visualizar la galería de fotos -->
             <div id="myModal" class="modal">
-                <!-- Modal content -->
                 <div class="modal-content">
                     <img src="" alt="" id="fotoModal">
                     <span class="close"></span>
@@ -444,6 +513,48 @@ $restul_fotos_galeria = obtenerFotosGaleria($id_propiedad);
                     <span onclick="proxima()"><i class="fa-solid fa-angles-right"></i></span>
                 </div>
             </div>
+
+            <!-- Modal para visualizar la galería de fotos de la subpropiedad -->
+            <div id="myModalGaleriaSubpro" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <img id="fotoModalGaleriaSubpro" class="modal-content" src="">
+                    <div id="galeriaGaleriaSubpro"></div>
+                    <span onclick="anteriorSubpro()"><i class="fa-solid fa-angles-left"></i></span>
+                    <span onclick="proximaSubpro()"><i class="fa-solid fa-angles-right"></i></span>
+                </div>
+            </div>
+
+            <!-- Modal para ver los detalles de la subpropiedad -->
+            <div id="myModalDetalles" class="modal">
+                <div class="modal-content">
+                    <h2 id="tituloModalDetalles"></h2>
+                    <p><strong>Titulo:</strong> <span id="titulo"></span></p>
+                    <p><strong>Descripción:</strong> <span id="descripcion"></span></p>
+                    <p><strong>Área:</strong> <span id="area"></span> m²</p>
+                    <p><strong>Tipo:</strong> <span id="area_tipo"></span></p>
+                    <p><strong>Dimensiones:</strong> <span id="dimensiones"></span></p>
+                    <span class="close" onclick="cerrarModalDetalles()">&times;</span>
+                </div>
+            </div>
+
+            <!-- Modal para el video -->
+            <div id="myModalVideo" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="cerrarModalVideo()">&times;</span>
+                    <iframe style="border-radius: 5px;" id="videoModal" width="100%" height="100%" border-radius="10px" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <!-- Modal para el recorrido 360 -->
+            <div id="myModalRecorrido360" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="cerrarModalRecorrido360()">&times;</span>
+                    <iframe style="border-radius: 5px;" id="recorrido360Modal" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+
+
+
         </div>
 
     </div>
@@ -456,6 +567,11 @@ $restul_fotos_galeria = obtenerFotosGaleria($id_propiedad);
     <script src="galeria-slider.js"></script>
     <script src="cambio_multimedia.js"></script>
     <script src="tooltip-whatsapp.js"></script>
+    <script src="modal-galeria.js"></script>
+
+    <script>
+
+    </script>
 </body>
 
 </html>
