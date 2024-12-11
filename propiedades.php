@@ -190,7 +190,17 @@ $result_tipos = obtenerTodosLosTipos();
                             <div class="info">
                                 <h2><?php echo $propiedad['titulo']; ?></h2>
                                 <p><i class="fa-solid fa-location-pin"></i><?php echo $propiedad['ubicacion']; ?></p>
-                                <span class="precio"><?php echo $propiedad['moneda']; ?> <?php echo number_format($propiedad['precio'], 0, '', '.'); ?></span>
+                                <span class="precio">
+                                    <?php 
+                                        if ($propiedad['valor_fijo'] == 1) {
+                                            echo "Desde $"; // Si valor_fijo es 1, muestra "Desde"
+                                        } else {
+                                            // Si valor_fijo no es 1, muestra la moneda
+                                            echo ($propiedad['moneda'] == "COP" ? "$" : $propiedad['moneda']);
+                                        }
+                                    ?>
+                                    <?php echo number_format($propiedad['precio'], 0, '', '.'); ?>
+                                </span>
                                 <hr>
                                 <table>
                                     <tr>

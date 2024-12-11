@@ -422,20 +422,24 @@ if (isset($_POST['agregar'])) {
                     <hr>
 
                     <h3><i class="fa-solid fa-camera-retro"></i> GALERIA DE FOTOS</h3>
-                    <br>
-                    <hr>
+<br>
+<hr>
 
-                    <div>
-                        <label for="foto1" class="btn-fotos">Foto Principal</label>
-                        <output id="list" class="contenedor-foto-principal">
-                            <img src="<?php echo $propiedad['url_foto_principal'] ?>" alt="">
-                        </output>
-                        <input type="file" id="foto1" accept="image/*" name="foto1" style="display:none">
-                        <label for="fotos" class="btn-fotos"> Galería de Fotos </label>
-                        <div id="contenedor-fotos-publicacion">
-                        </div>
-                        <input type="file" id="fotos" accept="image/*" name="fotos[]" value="Foto" multiple="" required style="display:none">
-                    </div>
+<div>
+    <label for="foto1" class="btn-fotos">Foto Principal</label>
+    <output id="list" class="contenedor-foto-principal">
+        <img src="<?php echo $propiedad['url_foto_principal'] ?>" alt="">
+    </output>
+    <input type="file" id="foto1" accept="image/*" name="foto1" style="display:none">
+
+    <label for="fotos" class="btn-fotos"> Galería de Fotos </label>
+    <div id="contenedor-fotos-publicacion">
+        <!-- Las imágenes seleccionadas se mostrarán aquí con un botón de eliminación -->
+    </div>
+
+    <input type="file" id="fotos" accept="image/*" name="fotos[]" value="Foto" multiple="" required style="display:none">
+</div>
+
                     <br>
                     <hr>
                     <h3><i class="fa-solid fa-video"></i> VIDEO y RECORRIDO 360º</h3>
@@ -540,6 +544,37 @@ if (isset($_POST['agregar'])) {
                 </form>
 
                 <style>
+
+.foto-container {
+    position: relative;
+    display: inline-block;
+    margin: 10px;
+}
+
+.foto-container img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.btn-eliminar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: red;
+    color: white;
+    border: none;
+    padding: 5px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.btn-eliminar:hover {
+    background: darkred;
+}
+
+
                     .input-container {
                         margin-bottom: 20px;
                     }
@@ -580,6 +615,50 @@ if (isset($_POST['agregar'])) {
                             errorContainer.textContent = 'El código ingresado no contiene un iframe válido o no tiene el atributo "src".';
                         }
                     });
+
+// Variable para almacenar las fotos seleccionadas
+let fotosSeleccionadas = [];
+
+document.getElementById('fotos').addEventListener('change', function(e) {
+    // Obtener los archivos seleccionados
+    const archivos = e.target.files;
+
+    // Mostrar las imágenes en el contenedor
+    const contenedorFotos = document.getElementById('contenedor-fotos-publicacion');
+    
+    // Limpiar contenedor de fotos previas
+    contenedorFotos.innerHTML = '';
+
+    // Iterar sobre las fotos seleccionadas y mostrarlas en el DOM
+    for (let i = 0; i < archivos.length; i++) {
+        const archivo = archivos[i];
+        
+        // Crear un contenedor para cada foto con un botón de eliminación
+        const divFoto = document.createElement('div');
+        divFoto.classList.add('foto-container');
+
+        const img = document.createElement('img');
+        img.src = URL.createObjectURL(archivo); // Mostrar la imagen
+
+        const btnEliminar = document.createElement('button');
+        btnEliminar.innerHTML = 'X';
+        btnEliminar.classList.add('btn-eliminar');
+        btnEliminar.addEventListener('click', function() {
+            // Eliminar la foto seleccionada
+            divFoto.remove();
+            fotosSeleccionadas = fotosSeleccionadas.filter(f => f !== archivo);
+        });
+
+        divFoto.appendChild(img);
+        divFoto.appendChild(btnEliminar);
+        contenedorFotos.appendChild(divFoto);
+
+        // Almacenar las fotos seleccionadas en el array para enviar al servidor
+        fotosSeleccionadas.push(archivo);
+    }
+});
+
+
                 </script>
 
 

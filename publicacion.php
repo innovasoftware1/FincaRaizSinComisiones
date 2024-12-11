@@ -50,9 +50,12 @@ $restul_fotos_galeria = obtenerFotosGaleria($id_propiedad);
         <div class="contenedor-principal">
             <div class="info-publicacion">
                 <section class="info-principal-galeria">
+
                     <div class="dato1 datoresponsive">
                         <span class="tipoUbicacion"><?php echo obtenerTipo($propiedad['tipo']) ?> - <?php echo $propiedad['tipoUbicacion'] ?></span>
                         <span class="precio"><?php echo $propiedad['moneda'] ?> <?php echo number_format($propiedad['precio'], 0, '', '.') ?></span>
+
+
                     </div>
                     <h2><?php echo $propiedad['titulo'] ?></h2>
                     <p>
