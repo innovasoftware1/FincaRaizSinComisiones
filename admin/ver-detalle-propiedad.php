@@ -12,10 +12,6 @@ include("conexion.php");
 // Obtiene el ID de la propiedad, priorizando 'propiedad_id'
 $id_propiedad = isset($_GET['propiedad_id']) ? $_GET['propiedad_id'] : (isset($_GET['id']) ? $_GET['id'] : null);
 
-if (!$id_propiedad) {
-    // Manejo del caso donde no se recibe ningún ID
-    die("No se ha especificado un ID válido.");
-}
 
 // Consulta para obtener los datos de la propiedad principal
 $query = "SELECT * FROM propiedades WHERE id='$id_propiedad'";
@@ -429,31 +425,6 @@ function obtenerCiudad($id_ciudad)
                 </div>
                 <!-- suelos de los predios - final -->
 
-                <!-- espaciales de los predios - inicial -->
-                <div class="contenedor-tabla">
-                    <h3><i class="fa-solid fa-maximize"></i> Caracteristicas espaciales</h3>
-                    <br>
-                    <table class="descripcion">
-
-                        <tr>
-                            <td>Usos principales</td>
-                            <td> <?php echo $propiedad['uso_principal'] ?> </td>
-                        </tr>
-
-                        <tr>
-                            <td>Usos compatibles</td>
-                            <td> <?php echo $propiedad['uso_compatibles'] ?> </td>
-                        </tr>
-
-                        <tr>
-                            <td>Usos condicionales</td>
-                            <td> <?php echo $propiedad['uso_condicionales'] ?> </td>
-                        </tr>
-
-                    </table>
-                </div>
-                <!-- espaciales de los predios - final -->
-
                 <!-- fotoP, galeria, reocrrido, maps y video - inicial -->
                 <div class="contenedor-tabla">
                     <h3><i class="fa-solid fa-camera-retro"></i> Galería multimedia</h3>
@@ -538,7 +509,7 @@ function obtenerCiudad($id_ciudad)
                                     echo "<td><p><b>COP</b> " . number_format($subpropiedad['precio']) . "</p></td>"; // Asegúrate de que 'precio' sea el nombre correcto en tu base de datos
                                     // Botones de acción
                                     echo "<td class='botones-acciones'>
-                            <a href='ver-detalle-subpropiedad.php?id=" . $subpropiedad['id'] . "' class='btn-detalle'>
+                            <a href='subproperties/details.php?id=" . $subpropiedad['id'] . "' class='btn-detalle'>
                                 <i class='fas fa-eye'></i>
                             </a>
                             <a href='subproperties/update.php?id=" . $subpropiedad['id'] . "' class='btn-actualizar'>
@@ -551,8 +522,20 @@ function obtenerCiudad($id_ciudad)
                                     echo "</tr>";
                                 }
                             } else {
-                                echo "<tr><td colspan='4'>La propiedad no cuenta con subpropiedades relacionadas.</td></tr>";
+                                echo "<tr>
+                                        <td colspan='4'>
+                                            La propiedad no cuenta con subpropiedades relacionadas.
+                                            <br>
+                                            <a href='subproperties/add.php?id=" . htmlspecialchars($id_propiedad) . "' 
+                                               class='btn-registrar' 
+                                               style='margin-top: 10px; display: inline-block; padding: 5px 10px; background-color: #28a745; color: white; text-decoration: none; border-radius: 3px; font-size: 14px;'>
+                                                <i class='fas fa-plus-circle'></i> Registrar una nueva subpropiedad
+                                            </a>
+                                        </td>
+                                      </tr>";
                             }
+                            
+                            
                             ?>
                         </tbody>
                     </table>
