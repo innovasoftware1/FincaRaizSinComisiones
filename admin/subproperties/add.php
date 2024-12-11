@@ -21,6 +21,8 @@ if (isset($_GET['id'])) {
     $result = mysqli_query($conn, $query);
 
     // Obtener los datos de la propiedad principal
+
+    
     if ($row = mysqli_fetch_assoc($result)) {
         $titulo_propiedad = $row['titulo'];
     } else {
@@ -322,7 +324,7 @@ if (isset($_POST['agregar'])) {
             var propiedadId = <?php echo $propiedad_id; ?>;
 
             // Redirigir a detalles.php con ambos parámetros en la URL
-            window.location.href = '../ver-detalle-propiedad.php?id=' + subpropiedadId + '&propiedad_id=' + propiedadId;
+            window.location.href = 'details.php?id=' + subpropiedadId + '&propiedad_id=' + propiedadId;
         });
     </script>
 <?php endif; ?>         
