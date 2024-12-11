@@ -8,7 +8,8 @@ function obtenerTodasLasCiudades()
     return $result;
 }
 
-function obtenerPrecioPropiedadPorId($id_propiedad) {
+function obtenerPrecioPropiedadPorId($id_propiedad)
+{
     include("admin/conexion.php");
 
     $query = "SELECT precio FROM propiedades WHERE id='$id_propiedad'";
@@ -63,6 +64,7 @@ function obtenerTodosLosTipos()
     }
 } */
 
+
 function obtenerPropiedadPorId($id_propiedad)
 {
     include("admin/conexion.php");
@@ -74,12 +76,30 @@ function obtenerPropiedadPorId($id_propiedad)
     return $propiedad;
 }
 
+function obtenerSubpropiedadesPorIdPropiedad($id_propiedad)
+{
+    include("admin/conexion.php");
+
+    $query = "SELECT * FROM subpropiedades WHERE propiedad_id='$id_propiedad'";
+
+    $resultado_subpropiedades = mysqli_query($conn, $query);
+
+    $subpropiedades = [];
+    while ($subpropiedad = mysqli_fetch_assoc($resultado_subpropiedades)) {
+        $subpropiedades[] = $subpropiedad;
+    }
+
+    return $subpropiedades;
+}
+
+
+
+
 function obtenerCiudad($id_ciudad)
 {
     include("admin/conexion.php");
     $query = "SELECT * FROM ciudades WHERE id='$id_ciudad'";
 
-    // Ejecutamos la consulta
     $resultado_ciudad = mysqli_query($conn, $query);
     $row = mysqli_fetch_assoc($resultado_ciudad);
 
@@ -105,6 +125,8 @@ function obtenerDepartamento($id_Departamento)
     }
 }
 
+
+/* fotos principales de propiedades */
 function obtenerFotosGaleria($id_propiedad)
 {
     include("admin/conexion.php");
@@ -113,6 +135,19 @@ function obtenerFotosGaleria($id_propiedad)
     $resultado_fotos = mysqli_query($conn, $query);
     return $resultado_fotos;
 }
+
+/* /* fotos principales de sub-propiedades */
+function obtenerFotosSubpropiedad($id_subpropiedad)
+{
+    include("admin/conexion.php");
+    $query = "SELECT * FROM subfotos WHERE id_subpropiedad='$id_subpropiedad'";
+
+    $resultado_fotos_subpropiedad = mysqli_query($conn, $query);
+    return $resultado_fotos_subpropiedad;
+}
+ 
+
+
 
 function obtenerTipo($id_tipo)
 {
@@ -132,7 +167,7 @@ function obtenerTipo($id_tipo)
     $query = "SELECT * FROM tipos WHERE id = ?";
 
     if ($stmt = mysqli_prepare($conn, $query)) {
-        // Vincula el parámetro de manera segura
+        
         mysqli_stmt_bind_param($stmt, "i", $id_tipo); // "i" para integer
 
         mysqli_stmt_execute($stmt);
@@ -170,7 +205,7 @@ function realizarBusqueda($id_ciudad, $id_tipo, $tipoUbicacion, $precio_min = nu
     include("admin/conexion.php");
 
     $conditions = [];
-    
+
     if ($id_ciudad) {
         if (is_array($id_ciudad)) {
             $id_ciudad = implode(',', array_map('intval', $id_ciudad));
@@ -191,7 +226,7 @@ function realizarBusqueda($id_ciudad, $id_tipo, $tipoUbicacion, $precio_min = nu
 
     if ($tipoUbicacion) {
         if (is_array($tipoUbicacion)) {
-            $tipoUbicacion = "'" . implode("','", array_map(function($item) use ($conn) {
+            $tipoUbicacion = "'" . implode("','", array_map(function ($item) use ($conn) {
                 return mysqli_real_escape_string($conn, $item);
             }, $tipoUbicacion)) . "'";
             $conditions[] = "tipoUbicacion IN ($tipoUbicacion)";
@@ -211,7 +246,7 @@ function realizarBusqueda($id_ciudad, $id_tipo, $tipoUbicacion, $precio_min = nu
     }
 
     $where = implode(' AND ', $conditions);
-    
+
     $query = "SELECT * FROM propiedades" . (count($conditions) ? " WHERE $where" : "");
 
     return mysqli_query($conn, $query);
