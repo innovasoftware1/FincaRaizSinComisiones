@@ -229,7 +229,7 @@ body {
     justify-content: flex-start;
     gap: 15px;
     margin-bottom: 20px;
-    position: relative; 
+    position: relative;
 }
 
 .select-btn {
@@ -248,7 +248,7 @@ body {
 
 .filtro {
     position: relative;
-    display: inline-block; 
+    display: inline-block;
 }
 
 .list-items {
@@ -263,8 +263,8 @@ body {
     overflow-y: scroll;
     position: absolute;
     top: 100%;
-    left: 0; 
-    margin-top: 4px; 
+    left: 0;
+    margin-top: 4px;
     z-index: 10;
 }
 
@@ -291,7 +291,7 @@ body {
     background: #fff;
 }
 
-.select-btn.open + .list-items {
+.select-btn.open+.list-items {
     display: block;
 }
 
@@ -301,10 +301,11 @@ body {
     justify-content: flex-start;
     align-items: center;
     padding: 8px;
-    cursor: pointer;    
+    cursor: pointer;
 }
 
-.list-items #precio_min, .list-items #precio_max {
+.list-items #precio_min,
+.list-items #precio_max {
     border-radius: 5px;
     outline: none;
     border: 1px solid #ccd1d1;
@@ -335,7 +336,7 @@ body {
 }
 
 .select-btn.open .arrow-dwn {
-    transform: rotate(180deg); 
+    transform: rotate(180deg);
 }
 
 
@@ -430,8 +431,8 @@ body {
 .tooltip {
     display: none;
     position: fixed;
-    bottom: 70px; 
-    right: 20px; 
+    bottom: 70px;
+    right: 20px;
     background-color: #25d366;
     color: #fff;
     padding: 20px;
@@ -601,7 +602,7 @@ body {
 }
 
 .contenedor-propiedades .imagen-no-resultados {
-    width: 100px; 
+    width: 100px;
     height: auto;
     margin-bottom: 20px;
 }
@@ -670,6 +671,17 @@ body {
 .page-publicacion .info-publicacion .contenedor-imagen-principal img {
     width: 100%;
     height: 450px;
+    border-radius: 10px;
+}
+
+.page-publicacion .info-publicacion .contenedor-imagen-principal-sub {
+    width: 100%;
+    margin-top: 15px;
+}
+
+.page-publicacion .info-publicacion .contenedor-imagen-principal-sub img {
+    width: 30%;
+    height: 150px;
     border-radius: 10px;
 }
 
@@ -785,10 +797,10 @@ body {
     height: auto;
     padding: 5px;
     box-sizing: border-box;
-    word-wrap: break-word;  
+    word-wrap: break-word;
     overflow-wrap: break-word;
     word-break: break-word;
-    white-space: normal; 
+    white-space: normal;
     line-height: 1.2;
     font-size: 16px;
 }
@@ -849,23 +861,6 @@ body {
     border: 1px solid #5566ff;
     background-color: #fff;
 }
-
-/* .page-publicacion .compartir a {
-            font-size: 24px;
-            padding: 5px 0;
-            display: inline-block;
-            width: 60px;
-            background-color: #ff5d55;
-            color: #fff;
-            text-decoration: none;
-            text-align: center;
-            margin-right: 20px;
-            transition: .5s;
-        }
-
-        .page-publicacion .compartir a:hover {
-            background-color: #e53935;
-        } */
 
 /* BOTONES REDES SOCILES (COMPARTIR) */
 
@@ -1009,6 +1004,24 @@ body {
     transition: background-color 0.3s, color 0.3s;
 }
 
+.botones-galeria-subgaleria {
+    position: absolute;
+    top: 18%;
+    left: 4%;
+    display: flex;
+    justify-content: flex-start;
+    margin: 15px 0;
+    gap: 10px;
+}
+
+/* Estilos para los botones */
+.botones-galeria-subgaleria button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
 .btn-general {
     border: 1px solid #2196F3;
     background-color: #fff;
@@ -1026,10 +1039,97 @@ body {
     opacity: 0.8;
 }
 
-/* Estilo para pantallas más pequeñas */
+/* --------------------------(INICIO) TARJETAS SUB-PROPIEDADES--------------------------------------------- */
+
+/* Sección principal de las tarjetas */
+.info-principal-galeria.subpro {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 20px;
+    max-width: 100%;
+    margin: auto;
+}
+
+/* Estilos para las tarjetas de subpropiedades */
+.card-subpropiedad {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #fff;
+    padding: 15px;  
+    text-align: center;
+    background-color: #fadbd8;
+    max-height: 250px;
+}
+
+/* Imagen dentro de las tarjetas */
+.card-subpropiedad img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+/* Título de la subpropiedad */
+.card-subpropiedad .titulo-subpro {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 10px 0;
+    color: #333;
+}
+
+/* Precio de la subpropiedad */
+.card-subpropiedad .precio-subpro {
+    font-size: 1.2em;
+    color: #fff;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.card-subpropiedad .contenido button {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 10PX;
+    margin-bottom: 0;
+    transition: background-color 0.3s;
+}
+
+.card-subpropiedad button:hover {
+    background-color: #217dbb;
+}
+
+/* ------------RESPONSIVO DE TARJETAS--------------- */
 @media (max-width: 768px) {
+    .info-principal-galeria.subpro {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .info-principal-galeria.subpro {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* --------------------------(FINAL) TARJETAS SUB-PROPIEDADES--------------------------------------------- */
+
+
+/* 
+@media (max-width: 768px) {
+    .info-principal-galeria {
+        grid-template-columns: 1fr; 
+        width: 100%; 
+        gap: 15px; 
+    }
+
     .botones-galeria {
-        top: 28% !important;
+        top: 28%;
         left: 50%;
         transform: translateX(-50%);
         justify-content: center;
@@ -1038,6 +1138,11 @@ body {
 
 
 @media (max-width: 480px) {
+    .info-principal-galeria {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
     .botones-galeria {
         top: 21%;
     }
@@ -1045,7 +1150,9 @@ body {
     .botones-galeria button {
         padding: 8px 15px;
     }
-}
+} */
+
+
 
 
 /* Recorrido 360 y video */
@@ -1102,7 +1209,8 @@ body {
     border-radius: 5px;
 }
 
-.modal-content #fotoModal {
+.modal-content #fotoModal,
+.modal-content #fotoModalGaleria {
     width: 100%;
     max-width: 1000px;
     max-height: 450px;
@@ -1152,7 +1260,8 @@ body {
         max-width: 400px;
     }
 
-    .modal-content #fotoModal {
+    .modal-content #fotoModal,
+    .modal-content #fotoModalGaleria {
         max-height: 200px;
         max-width: 400px;
     }
@@ -1164,7 +1273,8 @@ body {
         max-width: 400px;
     }
 
-    .modal-content #fotoModal {
+    .modal-content #fotoModal,
+    .modal-content #fotoModalGaleria {
         max-height: 200px;
         max-width: 400px;
     }
@@ -1293,7 +1403,8 @@ body {
 
 .page-contacto .contenedor-contacto .col-size {
     width: 97%;
-    background-color: rgba(255, 221, 158, 0.7); /* Fondo ligeramente transparente */
+    background-color: rgba(255, 221, 158, 0.7);
+    /* Fondo ligeramente transparente */
     border: 1px solid #f3b748;
     border-radius: 10px;
     transition: all 0.3s ease;
@@ -1303,7 +1414,7 @@ body {
 }
 
 .page-contacto .contenedor-contacto .col-size:hover {
-    background-image: radial-gradient(circle at top left, rgba(255, 204, 0, 0.6), rgba(255, 181, 44, 0)); 
+    background-image: radial-gradient(circle at top left, rgba(255, 204, 0, 0.6), rgba(255, 181, 44, 0));
     box-shadow: 0 0 20px rgba(255, 204, 0, 0.6);
     transform: scale(1.05);
 }
@@ -1388,7 +1499,8 @@ body {
     color: #df3424;
 }
 
-.contacto-item li, .contacto-item p{
+.contacto-item li,
+.contacto-item p {
     margin-left: 5%;
 }
 
@@ -1409,6 +1521,7 @@ body {
         width: 100%;
     }
 }
+
 /* FOOTER */
 
 footer {
@@ -1598,8 +1711,9 @@ footer.inferior2 {
 
     .page-publicacion .content-mp {
         width: 100%;
+    }
 }
-}
+
 @media only screen and (max-width: 450px) {
     .page-publicacion .info-publicacion .descripcion .fila {
         display: block;

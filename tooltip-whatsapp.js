@@ -13,10 +13,3 @@ setInterval(() => {
     showTooltip();
     setTimeout(hideTooltip, 5000);
 }, 10000);
-
-
-// Tooltip fijo
-/* const tooltip = document.getElementById('tooltip');
-
-tooltip.style.display = 'block';
- */

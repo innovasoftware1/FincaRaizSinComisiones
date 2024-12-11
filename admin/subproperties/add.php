@@ -14,7 +14,7 @@ include("../conexion.php");
 // Verificamos si se ha recibido el id de la propiedad
 if (isset($_GET['id'])) {
     $propiedad_id = $_GET['id'];
-    
+
     // Realizamos la consulta para obtener los datos de la propiedad principal
     $query = "SELECT * FROM propiedades WHERE id = '$propiedad_id'";
     $result = mysqli_query($conn, $query);
@@ -33,7 +33,7 @@ if (isset($_POST['agregar'])) {
     $titulo = $_POST['titulo'];
     $descripcion = $_POST['descripcion'];
     $area_tipo = $_POST['area_tipo'];
-    $dimensiones =$_POST['dimensiones'];
+    $dimensiones = $_POST['dimensiones'];
     $area = $_POST['area'];
     $precio = $_POST['precio'];
     $moneda = $_POST['moneda'];
@@ -72,7 +72,7 @@ if (isset($_POST['agregar'])) {
         '$recorrido_360_url', 
         '$estado'
     )";
-    
+
 
     // Ejecutamos el query
     if (mysqli_query($conn, $query)) {
@@ -109,7 +109,6 @@ if (isset($_POST['agregar'])) {
         }
     </script>
     <style>
-
         #info-propiedad {
             position: fixed;
             bottom: 0;
@@ -134,10 +133,10 @@ if (isset($_POST['agregar'])) {
             max-width: 200px;
             height: auto;
         }
-
     </style>
 
 </head>
+
 <body>
     <?php include("../header-menu.php"); ?>
 
@@ -147,15 +146,16 @@ if (isset($_POST['agregar'])) {
 
         <div class="contenedor-principal">
             <div id="nueva-propiedad">
-                <h2>deseas registrar una subpropiedad a la propiedad: <?php echo $titulo_propiedad; ?>.</h2>
+                <h2>Registro de subpropiedad para la propiedad: <?php echo $titulo_propiedad; ?></h2>
                 <br>
-                
-                
+                <hr>
+
+
                 <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" enctype="multipart/form-data">
-                    
+
                     <input type="hidden" name="propiedad_id" value="<?php echo $propiedad_id; ?>">
                     <input type="hidden" name="fecha_alta" id="fecha_alta">
-                    
+
                     <script>
                         window.onload = function() {
                             const fechaActual = new Date();
@@ -163,18 +163,21 @@ if (isset($_POST['agregar'])) {
                             document.getElementById('fecha_alta').value = formatoISO;
                         };
                     </script>
-
+                    <h3><i class="fa-solid fa-circle-info"></i> INFORMACION GENERAL</h3>
+                    <br>
+                    <hr>
                     <!-- Mostrar Titulo de la propiedad principal -->
                     <div class="fila-una-columna">
                         <label for="titulo">Título de la Propiedad</label>
-                        <input type="text" name="titulo" required class="input-entrada-texto" placeholder="Nombre de la propiedad...">
+                        <input type="text" name="titulo" required class="input-entrada-texto" placeholder="Nombre de la sub-propiedad..." maxlength="50">
                     </div>
 
                     <!-- Mostrar Descripción -->
                     <div class="fila-una-colummna">
                         <label for="descripcion">Descripción de la Propiedad</label>
-                        <textarea name="descripcion" id="" cols="30" rows="10" class="input-entrada-texto" placeholder="Descripcion detallada de la propiedad..." style="resize: none;"></textarea>
+                        <textarea name="descripcion" id="" cols="30" rows="10" class="input-entrada-texto" placeholder="Descripcion detallada de la sub-propiedad..." style="resize: none;"></textarea>
                     </div>
+                    <br>
 
                     <!-- Estado -->
                     <div class="box">
@@ -187,16 +190,16 @@ if (isset($_POST['agregar'])) {
                     <!-- Tipo de medidas -->
                     <div class="fila">
                         <div class="box">
-                            <label for="area">dimensiones</label>
-                            <input type="text" name="dimensiones" class="input-entrada-texto" placeholder="dimensiones del predio" required>
+                            <label for="area">Dimensiones</label>
+                            <input type="text" name="dimensiones" class="input-entrada-texto" placeholder="Dimensiones (ej: Ancho x Largo)" required>
                         </div>
 
                         <div class="box">
-                            <label for="area">Área en metros cuadrados</label>
-                            <input type="text" name="area" class="input-entrada-texto" placeholder="Área" required>
+                            <label for="area">Área total</label>
+                            <input type="text" name="area" class="input-entrada-texto" placeholder="Área total de la propiedad (ej: 2000)" required>
                         </div>
                         <div class="box">
-                            <label for="area_tipo">Tipo de Medidas</label>
+                            <label for="area_tipo">Tipo de Medida</label>
                             <select name="area_tipo" id="area_tipo" class="input-entrada-texto" required>
                                 <option value="">Seleccione un tipo</option>
                                 <option value="m²">Metros cuadrados (m²)</option>
@@ -206,13 +209,11 @@ if (isset($_POST['agregar'])) {
                             </select>
                         </div>
                     </div>
-
-                    <div class="box">
-                        <label for="precio">Precio</label>
-                        <input type="text" name="precio" class="input-entrada-texto" placeholder="Precio de la propiedad" required>
-                    </div>
-
                     <div class="fila">
+                        <div class="box">
+                            <label for="precio">Precio</label>
+                            <input type="text" name="precio" class="input-entrada-texto" placeholder="Precio de la propiedad (sin puntos)" required>
+                        </div>
                         <div class="box">
                             <label for="moneda">Moneda</label>
                             <select name="moneda" class="input-entrada-texto" required>
@@ -220,11 +221,13 @@ if (isset($_POST['agregar'])) {
                                 <option value="USD">USD</option>
                             </select>
                         </div>
+                        <div class="box">
+                        </div>
                     </div>
-
-                    <h3>GALERIA DE FOTOS</h3>
                     <hr>
-
+                    <h3><i class="fa-solid fa-camera-retro"></i> GALERIA DE FOTOS</h3>
+                    <br>
+                    <hr>
                     <div>
                         <label for="foto1" class="btn-fotos">Foto Principal</label>
                         <output id="list" class="contenedor-foto-principal">
@@ -236,17 +239,24 @@ if (isset($_POST['agregar'])) {
                         </div>
                         <input type="file" id="fotos" accept="image/*" name="fotos[]" value="Foto" multiple="" required style="display:none">
                     </div>
-
+                    <br>
+                    <hr>
+                    <h3><i class="fa-solid fa-video"></i> VIDEO y RECORRIDO 360º</h3>
+                    <br>
+                    <hr>
                     <div class="box">
-                        <label for="video_url">URL del Video</label>
-                        <input type="text" name="video_url" class="input-entrada-texto" placeholder="URL del video">
+                        <label for="video_url">Video (Youtube.com)</label>
+                        <input type="text" name="video_url" class="input-entrada-texto" placeholder="Ingrese enlace iframe de Yotube...">
                     </div>
-
+                    <br>
+                    <br>
                     <div class="box">
-                        <label for="recorrido_360_url">URL del Recorrido 360</label>
-                        <input type="text" name="recorrido_360_url" class="input-entrada-texto" placeholder="URL del recorrido 360">
+                        <label for="recorrido_360_url">Recorrido 360° (Webobook.com)</label>
+                        <input type="text" name="recorrido_360_url" class="input-entrada-texto" placeholder="Ingrese URL del recorrido 360...">
                     </div>
-
+                    <br>
+                    <hr>
+                    <br>
                     <input type="submit" value="Agregar Subpropiedad" name="agregar" class="btn-accion">
                 </form>
 
@@ -277,4 +287,5 @@ if (isset($_POST['agregar'])) {
     <script src="../subir_v_r.js"></script>
     <script src="../vista_recorrido_video.js"></script>
 </body>
+
 </html>

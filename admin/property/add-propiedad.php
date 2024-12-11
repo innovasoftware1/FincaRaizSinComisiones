@@ -255,7 +255,7 @@ if (isset($_POST['agregar'])) {
                             <input type="text" name="area" class="input-entrada-texto" placeholder="Área total de la propiedad (ej: 2000)" maxlength="20" required>
                         </div>
                         <div class="box">
-                            <label for="dimensiones_tipo">Tipo de Medidas</label>
+                            <label for="dimensiones_tipo">Tipo de Medida</label>
                             <select name="dimensiones_tipo" id="dimensiones_tipo" class="input-entrada-texto" required>
                                 <option value="m²">Metros cuadrados (m²)</option>
                                 <option value="hectáreas">Hectáreas (ha)</option>
@@ -438,7 +438,6 @@ if (isset($_POST['agregar'])) {
                     </div>
                     <br>
                     <hr>
-
                     <h3><i class="fa-solid fa-video"></i> VIDEO y RECORRIDO 360º</h3>
                     <br>
                     <hr>
