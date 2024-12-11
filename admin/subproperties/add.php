@@ -104,6 +104,48 @@ if (isset($_POST['agregar'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../estilo.css">
     <style>
+
+        
+
+.contenedor-foto-galeria {
+    position: relative;
+    display: inline-block;
+    margin: 10px;  /* Espaciado entre las fotos */
+}
+
+.foto-galeria {
+    max-width: 100%; /* Asegura que la imagen no se desborde */
+    height: auto;
+    display: block; /* Evita que la imagen tenga márgenes extra */
+}
+
+/* Estilo para el botón de eliminar */
+.eliminar-foto {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: rgba(255, 0, 0, 0.7); /* Fondo rojo con algo de transparencia */
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 50%;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 16px;
+    z-index: 10; /* Asegura que el botón esté sobre la imagen */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.eliminar-foto:hover {
+    background-color: rgba(255, 0, 0, 1); /* Fondo rojo sólido al pasar el mouse */
+}
+
+.eliminar-foto:focus {
+    outline: none; /* Quitar el borde de enfoque cuando se hace clic */
+}
+
         #info-propiedad {
             position: fixed;
             bottom: 0;
