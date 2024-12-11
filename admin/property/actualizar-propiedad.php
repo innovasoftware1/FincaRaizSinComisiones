@@ -15,7 +15,7 @@ function obtenerPropiedadPorId($id_propiedad)
     $propiedad = mysqli_fetch_assoc($resultado_propiedad);
     return $propiedad;
 }
-$id_propiedad = $_GET['id'];
+$id_propiedad = $_GET['id'];    
 $propiedad = obtenerPropiedadPorId($id_propiedad);
 
 /************************************************************* */
@@ -694,8 +694,8 @@ if (isset($_POST['actualizar'])) {
                     <div class="box">
                         <label for="permuta">¿Permuta?</label>
                         <select name="permuta" id="" class="input-entrada-texto">
-                            <option value="No" <?php if ($propiedad['permuta'] == "No") { echo "selected"; } ?>>No</option>
-                            <option value="Si" <?php if ($propiedad['permuta'] == "Si") { echo "selected"; } ?>>Sí</option>
+                            <option value="0" <?php if ($propiedad['permuta'] == "No") { echo "selected"; } ?>>No</option>
+                            <option value="1" <?php if ($propiedad['permuta'] == "Si") { echo "selected"; } ?>>Sí</option>
                         </select>
                     </div>
                 </div>  
