@@ -646,6 +646,22 @@ body {
     justify-content: space-between;
 }
 
+/* responsive tamaño de botones y precio */
+@media (min-width: 350px) and (max-width: 768px) {
+    .page-publicacion .info-publicacion .dato1 .precio,
+    .page-publicacion .info-publicacion .dato1 .tipoUbicacion {
+        font-size: 15px !important;
+    }
+}
+
+/* responsive botones de galeria */
+@media (min-width: 350px) and (max-width: 768px) {
+    .botones-galeria {
+        top: 30% !important;
+        right: 6% !important;
+    }
+}
+
 .page-publicacion .info-publicacion .dato1 .precio {
     display: inline-block;
     font-size: 26px;
@@ -662,6 +678,7 @@ body {
     font-weight: bold;
     border-radius: 5px;
 }
+
 
 .page-publicacion .info-publicacion .contenedor-imagen-principal {
     width: 100%;
@@ -988,7 +1005,7 @@ body {
 
 .botones-galeria {
     position: absolute;
-    top: 22%;
+    top: 26%;
     right: 4%;
     display: flex;
     justify-content: flex-start;
@@ -1120,41 +1137,6 @@ body {
 /* --------------------------(FINAL) TARJETAS SUB-PROPIEDADES--------------------------------------------- */
 
 
-/* 
-@media (max-width: 768px) {
-    .info-principal-galeria {
-        grid-template-columns: 1fr; 
-        width: 100%; 
-        gap: 15px; 
-    }
-
-    .botones-galeria {
-        top: 28%;
-        left: 50%;
-        transform: translateX(-50%);
-        justify-content: center;
-    }
-}
-
-
-@media (max-width: 480px) {
-    .info-principal-galeria {
-        grid-template-columns: 1fr;
-        gap: 10px;
-    }
-
-    .botones-galeria {
-        top: 21%;
-    }
-
-    .botones-galeria button {
-        padding: 8px 15px;
-    }
-} */
-
-
-
-
 /* Recorrido 360 y video */
 
 #video-container,
@@ -1202,7 +1184,7 @@ body {
     background-color: #fefefe;
     border: 1px solid #888;
     width: 100%;
-    max-width: 1000px;
+    max-width: 800px;
     height: 100%;
     max-height: 450px;
     text-align: center;

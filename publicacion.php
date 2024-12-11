@@ -50,19 +50,11 @@ $restul_fotos_galeria = obtenerFotosGaleria($id_propiedad);
         <div class="contenedor-principal">
             <div class="info-publicacion">
                 <section class="info-principal-galeria">
-                    <div class="dato1">
-                        <span class="tipoUbicacion"><?php echo $propiedad['tipoUbicacion'] ?></span>
-                        <span class="precio">
-                            <?php 
-                                if ($propiedad['valor_fijo'] == 1) {
-                                    echo "Desde $"; // Si valor_fijo es 1, muestra "Desde"
-                                } else {
-                                    // Si valor_fijo no es 1, muestra la moneda
-                                    echo ($propiedad['moneda'] == "COP" ? "$" : $propiedad['moneda']);
-                                }
-                            ?>
-                            <?php echo number_format($propiedad['precio'], 0, '', '.'); ?>
-                        </span>
+
+                    <div class="dato1 datoresponsive">
+                        <span class="tipoUbicacion"><?php echo obtenerTipo($propiedad['tipo']) ?> - <?php echo $propiedad['tipoUbicacion'] ?></span>
+                        <span class="precio"><?php echo $propiedad['moneda'] ?> <?php echo number_format($propiedad['precio'], 0, '', '.') ?></span>
+
 
                     </div>
                     <h2><?php echo $propiedad['titulo'] ?></h2>
@@ -70,8 +62,15 @@ $restul_fotos_galeria = obtenerFotosGaleria($id_propiedad);
                         <i class="fa-solid fa-location-pin"></i>
                         <?php echo $propiedad['ubicacion'] . ", " . obtenerCiudad($propiedad['ciudad']) . ", " . obtenerDepartamento($propiedad['departamento']) ?>
                     </p>
+                    <br>
+                    <div class="dato1">
+                        <span class="tipoUbicacion">Permuta: <?php echo $propiedad['permuta'] == 1 ? 'Sí' : 'No'; ?></span>
+                        <span class="tipoUbicacion">
+                            <p>Financiaciòn: <?php echo $propiedad['financiacion'] == 1 ? 'Sí' : 'No'; ?>
+                        </span>
+                    </div>
                     <div class="botones-galeria">
-                        <button class="btn-general" onclick="mostrarFotos()">Portada</button>
+                        <button class="btn-general" onclick="mostrarFotos()">Fotografia</button>
                         <button class="btn-general" onclick="mostrarRecorrido()">Recorrido 360</button>
                         <button class="btn-general" onclick="mostrarVideo()">Video</button>
                     </div>
@@ -99,12 +98,22 @@ $restul_fotos_galeria = obtenerFotosGaleria($id_propiedad);
                             <button class="slider-button right" onclick="moveSlide(1)">&#10095;</button> <!-- Flecha derecha -->
                         </div>
                     </div>
-
-
                 </section>
                 <section class="descripcion">
                     <h3>Descripción general</h3>
                     <div class="fila">
+                        <div class="dato">
+                            <span class="header">
+                                <i class="fa-solid fa-chart-area"><span>Area</span></i> <!-- Ícono de dimensiones -->
+                            </span>
+                            <span class="valor"><?php echo $propiedad['dimensiones'] ?></span>
+                        </div>
+                        <div class="dato">
+                            <span class="header">
+                                <i class="fa-solid fa-ruler-combined"><span>Dimensiones</span></i> <!-- Ícono de dimensiones -->
+                            </span>
+                            <span class="valor"><?php echo $propiedad['area'] ?> <?php echo $propiedad['dimensiones_tipo'] ?></span>
+                        </div>
                         <div class="dato">
                             <span class="header">
                                 <i class="fa-solid fa-house"></class><span>Tipo propiedad</span></i> <!-- Ícono de tipo (casa) -->
@@ -117,6 +126,8 @@ $restul_fotos_galeria = obtenerFotosGaleria($id_propiedad);
                             </span>
                             <span class="valor"><?php echo $propiedad['tipoUbicacion'] ?></span>
                         </div>
+                    </div>
+                    <div class="fila">
                         <div class="dato">
                             <span class="header">
                                 <i class="fa-solid fa-dollar-sign"><span>Valor propiedad</span></i> <!-- Ícono de precio -->
@@ -127,16 +138,14 @@ $restul_fotos_galeria = obtenerFotosGaleria($id_propiedad);
                             <span class="header">
                                 <i class="fa-solid fa-bed"><span>Habts.</span></i> <!-- Ícono de habitaciones -->
                             </span>
-                            <span class="valor"><?php echo $propiedad['habitaciones'] ?></span>
+                            <span class="valor"><?php echo $propiedad['habitaciones'] ?> habitacion(es)</span>
                         </div>
                         <div class="dato">
                             <span class="header">
                                 <i class="fa-solid fa-bath"><span>Baños</span></i> <!-- Ícono de baños -->
                             </span>
-                            <span class="valor"><?php echo $propiedad['banios'] ?></span>
+                            <span class="valor"><?php echo $propiedad['banios'] ?> baño(s)</span>
                         </div>
-                    </div>
-                    <div class="fila">
                         <div class="dato">
                             <span class="header">
                                 <i class="fa-solid fa-car"><span>Garage</span></i> <!-- Ícono de garage -->
@@ -145,17 +154,13 @@ $restul_fotos_galeria = obtenerFotosGaleria($id_propiedad);
                                 <P><?php echo $propiedad['garage'] ?> garaje(s)</P>
                             </span>
                         </div>
-                        <div class="dato">
-                            <span class="header">
-                                <i class="fa-solid fa-ruler-combined"><span>Dimensiones</span></i> <!-- Ícono de dimensiones -->
-                            </span>
-                            <span class="valor"><?php echo $propiedad['dimensiones'] ?> <?php echo $propiedad['dimensiones_tipo'] ?></span>
-                        </div>
+                    </div>
+                    <div class="fila">
                         <div class="dato">
                             <span class="header">
                                 <i class="fa-solid fa-layer-group"><span>No. Pisos</span></i> <!-- Ícono de pisos -->
                             </span>
-                            <span class="valor"><?php echo $propiedad['pisos'] ?></span>
+                            <span class="valor"><?php echo $propiedad['pisos'] ?> plantas</span>
                         </div>
                         <div class="dato">
                             <span class="header">
@@ -168,6 +173,14 @@ $restul_fotos_galeria = obtenerFotosGaleria($id_propiedad);
                                 <i class="fa-solid fa-flag"><span>Departamento</span></i> <!-- Ícono de país -->
                             </span>
                             <span class="valor"><?php echo obtenerDepartamento($propiedad['departamento']) ?></span>
+                        </div>
+                        <div class="dato">
+                            <span class="header">
+                                <i class="fa-solid fa-exchange-alt"><span> ¿Permuta?</span></i> <!-- Ícono de Permuta -->
+                            </span>
+                            <span>
+                                <p><?php echo $propiedad['permuta'] == 1 ? 'Sí' : 'No'; ?>, permuta.</p>
+                            </span>
                         </div>
                     </div>
 
@@ -197,7 +210,7 @@ $restul_fotos_galeria = obtenerFotosGaleria($id_propiedad);
                     </div>
                 </section>
 
-
+                <!-- contenedor sub-propiedades en caso de haber -->
                 <div class="info-publicacion">
                     <?php
                     $id_propiedad = $_GET['idPropiedad'];
@@ -234,20 +247,16 @@ $restul_fotos_galeria = obtenerFotosGaleria($id_propiedad);
                     ?>
 
                             <!-- Card de la subpropiedad -->
-                            <div class="card-subpropiedad" style="background-image: url('<?php echo $imagen_subpro; ?>'); 
-        background-size: cover; 
-        background-position: center; 
-        opacity: 0.8; 
-        position: relative; 
-        border-radius: 10px;">
+                            <div class="card-subpropiedad" style="background-image: url('<?php echo $imagen_subpro; ?>'); background-size: cover; background-position: center; opacity: 0.8; position: relative; border-radius: 10px;">
                                 <div class="contenido">
                                     <h2 class="titulo-subpro"><?php echo $titulo_subpro; ?></h2>
                                     <p class="precio-subpro"><?php echo $precio_subpro; ?></p>
 
                                     <!-- Botones de iconos -->
-                                    <button class="btn-icon" onclick="abrirModalDetalles(<?php echo $id_subpropiedad; ?>, '<?php echo $titulo_subpro; ?>', '<?php echo $descripcion_subpro; ?>', '<?php echo $area_subpro; ?>', '<?php echo $area_tipo_subpro; ?>', '<?php echo $dimensiones_subpro; ?>')">
+                                    <button class="btn-icon" onclick="abrirModalDetalles( '<?php echo $titulo_subpro; ?>', '<?php echo $descripcion_subpro; ?>', '<?php echo $area_subpro; ?>', '<?php echo $area_tipo_subpro; ?>', '<?php echo $dimensiones_subpro; ?>', '<?php echo $precio_subpro; ?>')">
                                         <i class="fa fa-file"></i> <!-- Detalles -->
                                     </button>
+
 
                                     <!-- Botón de la galería -->
                                     <button class="btn-icon" onclick='abrirModalGaleriaSubpro(<?php echo $id_subpropiedad; ?>, <?php echo $galeria_fotos_json_subpro; ?>)'>
@@ -282,7 +291,7 @@ $restul_fotos_galeria = obtenerFotosGaleria($id_propiedad);
                     $uso_principal = str_replace("\n", "<br>", $propiedad['uso_principal']);
                     ?>
                     <br>
-                    <h3 class="sub-titulo"><i class="fa-solid fa-file-powerpoint"></i> Descripción Usos Principales</h3>
+                    <h3 class="sub-titulo"><i class="fa-solid fa-file-powerpoint"></i> Usos Principales</h3>
                     <div class="descripcion-detallada">
                         <?php echo $uso_principal; ?>
                     </div>
@@ -294,7 +303,7 @@ $restul_fotos_galeria = obtenerFotosGaleria($id_propiedad);
                     <br>
                     <hr>
                     <br>
-                    <h3 class="sub-titulo"><i class="fa-solid fa-file-code"></i> Descripción Usos Compatibles</h3>
+                    <h3 class="sub-titulo"><i class="fa-solid fa-file-code"></i> Usos Compatibles</h3>
                     <div class="descripcion-detallada">
                         <?php echo $uso_compatibles; ?>
                     </div>
@@ -306,7 +315,7 @@ $restul_fotos_galeria = obtenerFotosGaleria($id_propiedad);
                     <br>
                     <hr>
                     <br>
-                    <h3 class="sub-titulo"><i class="fa-solid fa-file-excel"></i> </i>Descripción Usos Condicionales</h3>
+                    <h3 class="sub-titulo"><i class="fa-solid fa-file-excel"></i> </i> Usos Condicionales</h3>
                     <div class="descripcion-detallada">
                         <?php echo $uso_condicionales; ?>
                     </div>
@@ -417,23 +426,6 @@ $restul_fotos_galeria = obtenerFotosGaleria($id_propiedad);
                             <br>
                             <span><?php echo $propiedad['documentos_transferencia'] ?></span>
                         </div>
-                        <div class="dato">
-                            <span class="header">
-                                <i class="fa-solid fa-exchange-alt"><span> ¿Permuta?</span></i> <!-- Ícono de Permuta -->
-                            </span>
-                            <span>
-                                <p><?php echo $propiedad['permuta'] == 1 ? 'Sí' : 'No'; ?>, permuta el predio</p>
-                            </span>
-                        </div>
-                        <div class="dato">
-                            <span class="header">
-                                <i class="fa-solid fa-money-bill-wave"><span> ¿Se financia?</span></i> <!-- Ícono de Permuta -->
-                            </span>
-                            <span>
-                                <p><?php echo $propiedad['financiacion'] == 1 ? 'Sí' : 'No'; ?>, ofrece sevicio de financiación</p>
-                            </span>
-                        </div>
-
                     </div>
                 </div>
                 <!-- datos tecnicos - final -->
@@ -536,17 +528,20 @@ $restul_fotos_galeria = obtenerFotosGaleria($id_propiedad);
             </div>
 
             <!-- Modal para ver los detalles de la subpropiedad -->
-            <div id="myModalDetalles" class="modal">
-                <div class="modal-content">
-                    <h2 id="tituloModalDetalles"></h2>
-                    <p><strong>Titulo:</strong> <span id="titulo"></span></p>
-                    <p><strong>Descripción:</strong> <span id="descripcion"></span></p>
-                    <p><strong>Área:</strong> <span id="area"></span> m²</p>
-                    <p><strong>Tipo:</strong> <span id="area_tipo"></span></p>
-                    <p><strong>Dimensiones:</strong> <span id="dimensiones"></span></p>
-                    <span class="close" onclick="cerrarModalDetalles()">&times;</span>
+            <div id="myModalDetalles" class="modal" style="display: none;">
+                <div class="modal-content" style="max-width: 400px; max-height: 300px; padding: 50px;">
+                    <p style="font-size: 16px; color: #555; line-height: 1.6;"><strong>Titulo:</strong> <span id="titulo"></span></p>
+                    <p style="font-size: 16px; color: #555; line-height: 1.6;"><strong>Descripcion:</strong> <span id="descripcion"></span></p>
+                    <p style="font-size: 16px; color: #555; line-height: 1.6;"><strong>Area:</strong> <span id="area"></span> <span id="area_tipo"></span></p>
+                    <p style="font-size: 16px; color: #555; line-height: 1.6;"><strong>Dimensiones:</strong> <span id="dimensiones"></span></p>
+                    <p style="font-size: 16px; color: #555; line-height: 1.6;"><strong>Precio:</strong> <span id="precio"></span></p>
                 </div>
             </div>
+
+
+
+
+
 
             <!-- Modal para el video -->
             <div id="myModalVideo" class="modal">
