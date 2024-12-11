@@ -80,14 +80,18 @@ if (isset($_POST['agregar'])) {
 
     // Ejecutamos el query
     if (mysqli_query($conn, $query)) {
-        // Procesar fotos (si aplica)
+        $id_subpropiedad = mysqli_insert_id($conn); // Obtén el ID generado
+        // Procesar fotos (pasa $id_subpropiedad a los scripts)
+        $_POST['id_subpropiedad'] = $id_subpropiedad; // Agregarlo manualmente para los scripts
         include("../scripts_subpropiedades_fotos/procesar-foto-principal.php");
         include("../scripts_subpropiedades_fotos/procesar-fotos-galeria.php");
-
+        
         $mensaje = "La subpropiedad se insertó correctamente";
     } else {
         $mensaje = "Error al insertar en la BD: " . mysqli_error($conn);
     }
+    
+    
 }
 
 ?>
@@ -189,6 +193,8 @@ if (isset($_POST['agregar'])) {
                     
                     <input type="hidden" name="propiedad_id" value="<?php echo $propiedad_id; ?>">
                     <input type="hidden" name="fecha_alta" id="fecha_alta">
+                    <input type="hidden" name="id_subpropiedad" value="<?php echo isset($id_subpropiedad) ? $id_subpropiedad : ''; ?>">
+
                     
                     <script>
                         window.onload = function() {

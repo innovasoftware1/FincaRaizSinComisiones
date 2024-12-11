@@ -37,6 +37,8 @@ function obtenerTodosLosTipos()
     return $result;
 }
 
+/** */
+
 /* function cargarPropiedades($limInferior)
 {
     include("admin/conexion.php");
@@ -214,10 +216,6 @@ function realizarBusqueda($id_ciudad, $id_tipo, $tipoUbicacion, $precio_min = nu
 
     return mysqli_query($conn, $query);
 }
-
-
-
-
 
 
 function obtenerPropiedades()
