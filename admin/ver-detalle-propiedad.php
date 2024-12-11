@@ -1,17 +1,26 @@
 <?php
 session_start();
 
-if (!$_SESSION['usuarioLogeado']) {
-    header("Location:login.php");
+// Verifica si el usuario está logueado
+if (!isset($_SESSION['usuarioLogeado']) || !$_SESSION['usuarioLogeado']) {
+    header("Location: login.php");
+    exit();
 }
 
 include("conexion.php");
-$id_propiedad = $_GET['id'];
+
+// Obtiene el ID de la propiedad, priorizando 'propiedad_id'
+$id_propiedad = isset($_GET['propiedad_id']) ? $_GET['propiedad_id'] : (isset($_GET['id']) ? $_GET['id'] : null);
+
 
 // Consulta para obtener los datos de la propiedad principal
 $query = "SELECT * FROM propiedades WHERE id='$id_propiedad'";
 $resultado_propiedad = mysqli_query($conn, $query);
 $propiedad = mysqli_fetch_assoc($resultado_propiedad);
+
+if (!$propiedad) {
+    die("Propiedad no encontrada.");
+}
 
 // Consulta para obtener las subpropiedades relacionadas con la propiedad principal
 $query_subpropiedades = "SELECT * FROM subpropiedades WHERE propiedad_id = '$id_propiedad'";
@@ -56,6 +65,7 @@ function obtenerCiudad($id_ciudad)
     $row = mysqli_fetch_assoc($resultado_ciudad);
     return $row['nombre_ciudad'];
 }
+
 
 ?>
 
@@ -415,31 +425,6 @@ function obtenerCiudad($id_ciudad)
                 </div>
                 <!-- suelos de los predios - final -->
 
-                <!-- espaciales de los predios - inicial -->
-                <div class="contenedor-tabla">
-                    <h3><i class="fa-solid fa-maximize"></i> Caracteristicas espaciales</h3>
-                    <br>
-                    <table class="descripcion">
-
-                        <tr>
-                            <td>Usos principales</td>
-                            <td> <?php echo $propiedad['uso_principal'] ?> </td>
-                        </tr>
-
-                        <tr>
-                            <td>Usos compatibles</td>
-                            <td> <?php echo $propiedad['uso_compatibles'] ?> </td>
-                        </tr>
-
-                        <tr>
-                            <td>Usos condicionales</td>
-                            <td> <?php echo $propiedad['uso_condicionales'] ?> </td>
-                        </tr>
-
-                    </table>
-                </div>
-                <!-- espaciales de los predios - final -->
-
                 <!-- fotoP, galeria, reocrrido, maps y video - inicial -->
                 <div class="contenedor-tabla">
                     <h3><i class="fa-solid fa-camera-retro"></i> Galería multimedia</h3>
@@ -524,10 +509,10 @@ function obtenerCiudad($id_ciudad)
                                     echo "<td><p><b>COP</b> " . number_format($subpropiedad['precio']) . "</p></td>"; // Asegúrate de que 'precio' sea el nombre correcto en tu base de datos
                                     // Botones de acción
                                     echo "<td class='botones-acciones'>
-                            <a href='ver-detalle-subpropiedad.php?id=" . $subpropiedad['id'] . "' class='btn-detalle'>
+                            <a href='subproperties/details.php?id=" . $subpropiedad['id'] . "' class='btn-detalle'>
                                 <i class='fas fa-eye'></i>
                             </a>
-                            <a href='actualizar-subpropiedad.php?id=" . $subpropiedad['id'] . "' class='btn-actualizar'>
+                            <a href='subproperties/update.php?id=" . $subpropiedad['id'] . "' class='btn-actualizar'>
                                 <i class='fas fa-sync-alt'></i>
                             </a>
                             <a href='javascript:void(0);' onclick='confirmarEliminacion(" . $subpropiedad['id'] . ")' class='btn-eliminar'>
@@ -537,17 +522,66 @@ function obtenerCiudad($id_ciudad)
                                     echo "</tr>";
                                 }
                             } else {
-                                echo "<tr><td colspan='4'>La propiedad no cuenta con subpropiedades relacionadas.</td></tr>";
+                                echo "<tr>
+                                        <td colspan='4'>
+                                            La propiedad no cuenta con subpropiedades relacionadas.
+                                            <br>
+                                            <a href='subproperties/add.php?id=" . htmlspecialchars($id_propiedad) . "' 
+                                               class='btn-registrar' 
+                                               style='margin-top: 10px; display: inline-block; padding: 5px 10px; background-color: #28a745; color: white; text-decoration: none; border-radius: 3px; font-size: 14px;'>
+                                                <i class='fas fa-plus-circle'></i> Registrar una nueva subpropiedad
+                                            </a>
+                                        </td>
+                                      </tr>";
                             }
+                            
+                            
                             ?>
                         </tbody>
                     </table>
                 </div>
-                <!-- subpropiedades de los predios - final -->
 
             </div>
         </div>
     </div>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function confirmarEliminacion(idPropiedad) {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "No podrás revertir esta acción",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, eliminar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Llamada a la función que realiza la eliminación
+                eliminarPropiedad(idPropiedad);
+            }
+        });
+    }
+
+    function eliminarPropiedad(idPropiedad) {
+    Swal.fire({
+        icon: 'success',
+        title: '¡Eliminado correctamente!',
+        text: 'El registro ha sido eliminado con éxito.',
+        confirmButtonText: 'Aceptar',
+        timer: 5000, // La alerta se cerrará automáticamente después de 5 segundos
+        timerProgressBar: true
+    });
+
+    // Retrasa la redirección para que dé tiempo de ver la alerta
+    setTimeout(() => {
+        window.location.href = `subproperties/drop.php?id=${idPropiedad}&id_propiedad=${<?php echo $id_propiedad; ?>}`;
+    }, 3000); // Retraso de 5 segundos
+}
+
+</script>
+
+
 
 </html>

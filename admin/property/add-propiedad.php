@@ -73,7 +73,7 @@ if (isset($_POST['agregar'])) {
     $usuarioId = $_SESSION['usuarioId'];
 
     $query = "INSERT INTO propiedades (
-        id, fecha_alta, titulo, descripcion, tipo, tipoUbicacion, estado, ubicacion, direccion, habitaciones, banios, pisos, 
+        fecha_alta, titulo, descripcion, tipo, tipoUbicacion, estado, ubicacion, direccion, habitaciones, banios, pisos, 
         garage, dimensiones, dimensiones_tipo, area, altitud, distancia_pueblo, vias_acceso, clima, 
         precio, moneda, url_foto_principal, video_url, recorrido_360_url, ubicacion_url, 
         documentos_transferencia, permisos, uso_principal, uso_compatibles, uso_condicionales, 
@@ -81,7 +81,7 @@ if (isset($_POST['agregar'])) {
         distancia_desde_bogota, financiacion, salidas_bogota, agua_propia, construcciones_aledañas, 
         inventario, fecha_de_venta, nombre_propietario , usuario_id
     ) VALUES (
-        '$id', CURRENT_TIMESTAMP, '$titulo', '$descripcion', '$tipo', '$tipoUbicacion', 'activo', '$ubicacion', '$direccion', 
+        CURRENT_TIMESTAMP, '$titulo', '$descripcion', '$tipo', '$tipoUbicacion', 'activo', '$ubicacion', '$direccion', 
         '$habitaciones', '$banios', '$pisos', '$garage', '$dimensiones', '$dimensiones_tipo', '$area', '$altitud', 
         '$distancia_pueblo', '$vias_acceso', '$clima', '$precio', '$moneda', '$url_foto_principal', '$video_url', 
         '$recorrido_360_url', '$ubicacion_url', '$documentos_transferencia', '$permisos', '$uso_principal', 

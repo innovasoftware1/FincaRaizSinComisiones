@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 
 if (!(isset($_SESSION['usuarioLogeado']) && isset($_SESSION['usuarioId']) && $_SESSION['usuarioLogeado'] != '')) {
@@ -8,8 +7,10 @@ if (!(isset($_SESSION['usuarioLogeado']) && isset($_SESSION['usuarioId']) && $_S
 }
 
 $usuarioId = $_SESSION['usuarioId'];
-
 include("../conexion.php");
+
+// Inicializamos la variable $titulo_propiedad
+$titulo_propiedad = "";
 
 // Verificamos si se ha recibido el id de la propiedad
 if (isset($_GET['id'])) {
@@ -22,7 +23,11 @@ if (isset($_GET['id'])) {
     // Obtener los datos de la propiedad principal
     if ($row = mysqli_fetch_assoc($result)) {
         $titulo_propiedad = $row['titulo'];
+    } else {
+        $titulo_propiedad = "Propiedad no encontrada";
     }
+} else {
+    $titulo_propiedad = "No se ha especificado una propiedad";
 }
 
 // Guardamos la subpropiedad
@@ -99,16 +104,50 @@ if (isset($_POST['agregar'])) {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../estilo.css">
-    <script>
-        function muestraselect(str) {
-            var conexion;
-
-            if (window.XMLHttpRequest) {
-                conexion = new XMLHttpRequest();
-            }
-        }
-    </script>
     <style>
+
+
+       
+
+.contenedor-foto-galeria {
+    position: relative;
+    display: inline-block;
+    margin: 10px;  /* Espaciado entre las fotos */
+}
+
+.foto-galeria {
+    max-width: 100%; /* Asegura que la imagen no se desborde */
+    height: auto;
+    display: block; /* Evita que la imagen tenga márgenes extra */
+}
+
+/* Estilo para el botón de eliminar */
+.eliminar-foto {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: rgba(255, 0, 0, 0.7); /* Fondo rojo con algo de transparencia */
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 50%;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 16px;
+    z-index: 10; /* Asegura que el botón esté sobre la imagen */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.eliminar-foto:hover {
+    background-color: rgba(255, 0, 0, 1); /* Fondo rojo sólido al pasar el mouse */
+}
+
+.eliminar-foto:focus {
+    outline: none; /* Quitar el borde de enfoque cuando se hace clic */
+}
+
         #info-propiedad {
             position: fixed;
             bottom: 0;
@@ -134,7 +173,6 @@ if (isset($_POST['agregar'])) {
             height: auto;
         }
     </style>
-
 </head>
 
 <body>
@@ -143,10 +181,12 @@ if (isset($_POST['agregar'])) {
     <div id="contenedor-admin">
         <?php include("../menu_index_options.php"); ?>
 
-
         <div class="contenedor-principal">
             <div id="nueva-propiedad">
                 <h2>Registro de subpropiedad para la propiedad: <?php echo $titulo_propiedad; ?></h2>
+
+                <h2>deseas registrar una subpropiedad a la propiedad: <?php echo htmlspecialchars($titulo_propiedad); ?>.</h2>
+
                 <br>
                 <hr>
 
@@ -261,18 +301,24 @@ if (isset($_POST['agregar'])) {
                 </form>
 
                 <?php if (isset($_POST['agregar'])) : ?>
-                    <script>
-                        Swal.fire({
-                            icon: 'success',
-                            title: '¡Subpropiedad Agregada!',
-                            text: '<?php echo $mensaje; ?>',
-                            showConfirmButton: false,
-                            timer: 3000
-                        }).then(function() {
-                            window.location.href = '../ver-detalle-propiedad.php';
-                        });
-                    </script>
-                <?php endif; ?>
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: '¡Subpropiedad Agregada!',
+            text: '<?php echo $mensaje; ?>',
+            showConfirmButton: false,
+            timer: 3000
+        }).then(function() {
+            // Obtener el ID de la subpropiedad recién insertada y el propiedad_id desde PHP
+            var subpropiedadId = <?php echo mysqli_insert_id($conn); ?>;
+            var propiedadId = <?php echo $propiedad_id; ?>;
+
+            // Redirigir a detalles.php con ambos parámetros en la URL
+            window.location.href = '../ver-detalle-propiedad.php?id=' + subpropiedadId + '&propiedad_id=' + propiedadId;
+        });
+    </script>
+<?php endif; ?>         
+
             </div>
         </div>
     </div>
