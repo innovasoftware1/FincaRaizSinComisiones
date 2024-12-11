@@ -14,7 +14,7 @@
 
     <footer class="footer-inicio">
         Fincaraizsincomisiones.com</b> <br>
-        <p>(+57)3102499843 - supata@fincaraizsincomisiones.com</p> 
+        <p>(+57)3102499843 - fincaraizsincomisiones@gmail.com</p> 
         <p> <a href="admin/login.php">Ingreso de Funcionarios</a></p>
     </footer>
 </body>

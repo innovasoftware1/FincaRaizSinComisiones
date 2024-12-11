@@ -93,12 +93,13 @@ function anteriorSubpro() {
 /* ------------------------------------------------------------------------------------------------ */
 
 /* Modal de ver detalles de sub-propiedad */
-function abrirModalDetalles(titulo, descripcion, area, area_tipo, dimensiones) {
+function abrirModalDetalles(titulo, descripcion, area, area_tipo, dimensiones, precio) {
     document.getElementById("titulo").innerText = titulo;
     document.getElementById("descripcion").innerText = descripcion;
     document.getElementById("area").innerText = area;
     document.getElementById("area_tipo").innerText = area_tipo;
     document.getElementById("dimensiones").innerText = dimensiones;
+    document.getElementById("precio").innerText = precio;
 
     var modalDetalles = document.getElementById("myModalDetalles");
     modalDetalles.style.display = "block";
