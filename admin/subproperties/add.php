@@ -320,11 +320,11 @@ if (isset($_POST['agregar'])) {
             timer: 3000
         }).then(function() {
             // Obtener el ID de la subpropiedad recién insertada y el propiedad_id desde PHP
-            var subpropiedadId = <?php echo mysqli_insert_id($conn); ?>;
             var propiedadId = <?php echo $propiedad_id; ?>;
 
             // Redirigir a detalles.php con ambos parámetros en la URL
-            window.location.href = 'details.php?id=' + subpropiedadId + '&propiedad_id=' + propiedadId;
+            window.location.href = '../ver-detalle-propiedad.php?id=' + propiedadId;
+            
         });
     </script>
 <?php endif; ?>         
