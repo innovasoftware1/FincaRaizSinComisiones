@@ -622,6 +622,9 @@ if (isset($_POST['actualizar'])) {
                             ?>
                         </div>
 
+                        <br>
+                        <br>
+
                         <div id="contenedor-fotos-nuevas">
                             <p><b>(Opcional) Fotos nuevas de galeria</b></p>       
                         </div>
