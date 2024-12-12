@@ -71,6 +71,7 @@ if (isset($_POST['agregar'])) {
     $inventario = $_POST['inventario'];
     $nombre_propietario = $_POST['nombre_propietario'];
     $usuarioId = $_SESSION['usuarioId'];
+    $valor_fijo=$_POST['valor_fijo'];
 
     $query = "INSERT INTO propiedades (
         fecha_alta, titulo, descripcion, tipo, tipoUbicacion, estado, ubicacion, direccion, habitaciones, banios, pisos, 
@@ -79,7 +80,7 @@ if (isset($_POST['agregar'])) {
         documentos_transferencia, permisos, uso_principal, uso_compatibles, uso_condicionales, 
         departamento, ciudad, luz, gas, internet, permuta, caracteristicas_positivas, 
         distancia_desde_bogota, financiacion, salidas_bogota, agua_propia, construcciones_aledañas, 
-        inventario, fecha_de_venta, nombre_propietario , usuario_id
+        inventario, fecha_de_venta, nombre_propietario , usuario_id,valor_fijo
     ) VALUES (
         CURRENT_TIMESTAMP, '$titulo', '$descripcion', '$tipo', '$tipoUbicacion', 'activo', '$ubicacion', '$direccion', 
         '$habitaciones', '$banios', '$pisos', '$garage', '$dimensiones', '$dimensiones_tipo', '$area', '$altitud', 
@@ -87,7 +88,7 @@ if (isset($_POST['agregar'])) {
         '$recorrido_360_url', '$ubicacion_url', '$documentos_transferencia', '$permisos', '$uso_principal', 
         '$uso_compatibles', '$uso_condicionales', '$departamento', '$ciudad', '$luz', '$gas', '$internet', '$permuta', 
         '$caracteristicas_positivas', '$distancia_desde_bogota', '$financiacion', '$salidas_bogota', '$agua_propia', 
-        '$construcciones_aledañas', '$inventario', NULL,'$nombre_propietario','$usuarioId'
+        '$construcciones_aledañas', '$inventario', NULL,'$nombre_propietario','$usuarioId','$valor_fijo'
     )";
 
 
@@ -470,7 +471,30 @@ if (isset($_POST['agregar'])) {
                             <label for="precio">Precio</label>
                             <input type="text" name="precio" class="input-entrada-texto" placeholder="Precio de la propiedad (sin puntos)" required>
                         </div>
+
                         <div class="box">
+                            <label for="valor_fijo">¿Es valor fijo?</label>
+                            <select name="valor_fijo" id="valor_fijo" class="input-entrada-texto">
+                                <option value="1">Sí</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+
+                        <div class="box">
+                            <label for="moneda">Moneda</label>
+                            <select name="moneda" class="input-entrada-texto" required>
+                                <option value="COP">COP</option>
+                            </select>
+                        </div>
+
+
+ 
+                    </div>
+
+
+
+                    <div class="fila">
+                    <div class="box">
                             <label for="permuta">¿Permuta disponible?</label>
                             <select name="permuta" id="permuta" class="input-entrada-texto" required>
                                 <option value="1">Sí</option>
@@ -482,15 +506,6 @@ if (isset($_POST['agregar'])) {
                             <select name="financiacion" id="financiacion" class="input-entrada-texto" required>
                                 <option value="1">Sí</option>
                                 <option value="0">No</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="fila">
-                        <div class="box">
-                            <label for="moneda">Moneda</label>
-                            <select name="moneda" class="input-entrada-texto" required>
-                                <option value="COP">COP</option>
                             </select>
                         </div>
                     </div>
