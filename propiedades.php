@@ -175,47 +175,47 @@ $result_tipos = obtenerTodosLosTipos();
         </div>
 
         <!--  -->
-        <h2 class="titulo-seccion"><b>Propiedades Destacadas</b></h2>
+        <h2 class="titulo-seccion"><b>Propiedades filtradas</b></h2>
 
-        <div class="contenedor-propiedades" id="contenedor-propiedades">
-            <?php if (mysqli_num_rows($result_propiedades) > 0): ?>
-                <?php while ($propiedad = mysqli_fetch_assoc($result_propiedades)) : ?>
-                    <form action="publicacion.php" method="get" id="<?php echo $propiedad['id']; ?>">
-                        <input type="hidden" value="<?php echo $propiedad['id']; ?>" name="idPropiedad">
-                        <div class="contenedor-propiedad" onclick="document.getElementById('<?php echo $propiedad['id']; ?>').submit();">
-                            <div class="contenedor-img">
-                                <img src="<?php echo 'admin/property/' . $propiedad['url_foto_principal']; ?>" alt="">
-                                <div class="tipoUbicacion"><?php echo $propiedad['tipoUbicacion']; ?></div>
-                            </div>
-                            <div class="info">
-                                <h2><?php echo $propiedad['titulo']; ?></h2>
-                                <p><i class="fa-solid fa-location-pin"></i><?php echo $propiedad['ubicacion']; ?></p>
-                                <span class="precio">
-                                    <?php 
-                                        if ($propiedad['valor_fijo'] == 1) {
-                                            echo "Desde $"; // Si valor_fijo es 1, muestra "Desde"
-                                        } else {
-                                            // Si valor_fijo no es 1, muestra la moneda
-                                            echo ($propiedad['moneda'] == "COP" ? "$" : $propiedad['moneda']);
-                                        }
-                                    ?>
-                                    <?php echo number_format($propiedad['precio'], 0, '', '.'); ?>
-                                </span>
-                                <hr>
-                                <table>
-                                    <tr>
-                                        <th>Habts.</th>
-                                        <th>Baños</th>
-                                        <th>Área</th>
-                                    </tr>
-                                    <tr>
-                                        <td><?php echo $propiedad['habitaciones']; ?></td>
-                                        <td><?php echo $propiedad['banios']; ?></td>
-                                        <td><?php echo $propiedad['dimensiones']; ?> <?php echo $propiedad['dimensiones_tipo'] ?></td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
+                <div class="contenedor-propiedades" id="contenedor-propiedades">
+                    <?php if (mysqli_num_rows($result_propiedades) > 0): ?>
+                        <?php while ($propiedad = mysqli_fetch_assoc($result_propiedades)) : ?>
+                            <form action="publicacion.php" method="get" id="<?php echo $propiedad['id']; ?>">
+                                <input type="hidden" value="<?php echo $propiedad['id']; ?>" name="idPropiedad">
+                                <div class="contenedor-propiedad" onclick="document.getElementById('<?php echo $propiedad['id']; ?>').submit();">
+                                    <div class="contenedor-img">
+                                        <img src="<?php echo 'admin/property/' . $propiedad['url_foto_principal']; ?>" alt="">
+                                        <div class="tipoUbicacion"><?php echo obtenerTipo($propiedad['tipo']) ?> - <?php echo $propiedad['tipoUbicacion']; ?></div>
+                                    </div>
+                                    <div class="info">
+                                        <h2><?php echo $propiedad['titulo']; ?></h2>
+                                        <p><i class="fa-solid fa-location-pin"></i><?php echo $propiedad['ubicacion']; ?></p>
+                                        <span class="precio">
+                                            <?php 
+                                                if ($propiedad['valor_fijo'] == 1) {
+                                                    echo "Desde $"; // Si valor_fijo es 1, muestra "Desde"
+                                                } else {
+                                                    // Si valor_fijo no es 1, muestra la moneda
+                                                    echo ($propiedad['moneda'] == "COP" ? "$" : $propiedad['moneda']);
+                                                }
+                                            ?>
+                                            <?php echo number_format($propiedad['precio'], 0, '', '.'); ?>
+                                        </span>
+                                        <hr>
+                                        <table>
+                                            <tr>
+                                                <th>Habts.</th>
+                                                <th>Área</th>   
+                                                <th>Área</th>
+                                            </tr>
+                                            <tr>
+                                                <td><?php echo $propiedad['habitaciones']; ?></td>
+                                                <td><?php echo $propiedad['area']; ?> <?php echo $propiedad['dimensiones_tipo'] ?></td>
+                                                <td><?php echo $propiedad['salidas_bogota']; ?></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
                     </form>
                 <?php endwhile; ?>
             <?php else: ?>
@@ -230,7 +230,7 @@ $result_tipos = obtenerTodosLosTipos();
         <!-- <button value="0" onclick="cargarMasPropiedades(this.value)" id="botonCargarMas">Ver Más</button> -->
     </div>
 
-    <footer class="inferior">
+    <footer>
         <?php include("contenido-footer.php"); ?>
     </footer>
 

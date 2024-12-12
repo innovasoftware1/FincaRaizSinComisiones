@@ -71,7 +71,7 @@ $restul_fotos_galeria = obtenerFotosGaleria($id_propiedad);
                         <div class="col">
                             <h2><?php echo $propiedad['titulo']; ?></h2>
                             <p>
-                                <i class="fa-solid fa-location-pin"></i>
+                                <i class="fa-solid fa-location-dot"></i>
                                 <?php echo $propiedad['ubicacion'] . ", " . obtenerCiudad($propiedad['ciudad']) . ", " . obtenerDepartamento($propiedad['departamento']); ?>
                             </p>
                         </div>
@@ -220,16 +220,22 @@ $restul_fotos_galeria = obtenerFotosGaleria($id_propiedad);
 
                     <?php
                     // Inventario del predio
-                    $inventario = str_replace("\n", "<br>", $propiedad['inventario']);
+                    $inventario = explode("\n", $propiedad['inventario']);
                     ?>
+
                     <br>
                     <hr>
                     <br>
                     <h3 class="sub-titulo"><i class="fa-solid fa-check-to-slot"></i> Inventario detallado</h3>
                     <br>
                     <div class="descripcion-detallada">
-                        <?php echo $inventario; ?>
+                        <ul>
+                            <?php foreach ($inventario as $item): ?>
+                                <li style="margin-left: 20px;"> <?php echo htmlspecialchars($item); ?></li>
+                            <?php endforeach; ?>
+                        </ul>
                     </div>
+
 
                     <?php
                     // usos compatibles
@@ -365,20 +371,6 @@ $restul_fotos_galeria = obtenerFotosGaleria($id_propiedad);
                         <?php echo $uso_condicionales; ?>
                     </div>
                 </section>
-                <!-- valor agregado de la propiedad -inicial -->
-                <section class="descripcion">
-                    <h3>Valor agregado del predio</h3>
-
-                    <?php
-                    // usos principales
-                    $construcciones_aledañas = str_replace("\n", "<br>", $propiedad['construcciones_aledañas']);
-                    ?>
-                    <br>
-                    <h3 class="sub-titulo"><i class="ri-community-fill"></i> Geograficas y del entorno</h3>
-                    <div class="descripcion-detallada">
-                        <?php echo $construcciones_aledañas; ?>
-                    </div>
-                </section>
                 <!-- valor agregado de la propiedad -final -->
 
                 <!-- <section class="compartir">
@@ -495,7 +487,7 @@ $restul_fotos_galeria = obtenerFotosGaleria($id_propiedad);
                     <br>
                     <h3 class="sub-titulo"><i class="fa-solid fa-folder"></i> Permisos del predio</h3>
                     <div class="descripcion-detallada">
-                        <p><b>Cuenta con perisos de:</b> <?php echo $permisos; ?></p>
+                        <p><b>Cuenta con permisos de:</b> <?php echo $permisos; ?></p>
                     </div>
 
                     <?php
@@ -506,6 +498,16 @@ $restul_fotos_galeria = obtenerFotosGaleria($id_propiedad);
                     <h3 class="sub-titulo"><i class="ri-pin-distance-fill"></i> Distancia desde Bogotá</h3>
                     <div class="descripcion-detallada">
                         <p>a <b><?php echo $distancia_desde_bogota; ?></b> kilometros de Bogotá</p>
+                    </div>
+
+                    <?php
+                    // geograficas y del entorno
+                    $construcciones_aledañas = str_replace("\n", "<br>", $propiedad['construcciones_aledañas']);
+                    ?>
+                    <br>
+                    <h3 class="sub-titulo"><i class="ri-pin-distance-fill"></i> Geograficas y del entorno</h3>
+                    <div class="descripcion-detallada">
+                        <p><?php echo $construcciones_aledañas; ?></p>
                     </div>
                 </div>
                 <!-- condiciones adicionales del predio - final -->

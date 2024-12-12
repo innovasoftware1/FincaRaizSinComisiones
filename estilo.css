@@ -705,7 +705,12 @@ body {
     display: flex;
     flex-wrap: wrap;
     gap: 200px;
-    justify-content: space-between;
+    justif
+    y-content: space-between;
+}
+
+.col i {
+    color: #df3424;
 }
 
 .col {
@@ -826,7 +831,7 @@ h2 {
 
 .page-publicacion .info-publicacion .descripcion .fila {
     display: flex;
-    margin: 30px 0
+    margin: 30px 0;
 }
 
 .page-publicacion .info-publicacion .descripcion .sub-titulo,
@@ -840,6 +845,15 @@ h2 {
     width: 250px;
     border-left: 5px solid #ff5d55;
     padding-left: 5px;
+}
+
+@media (max-width: 768px) {
+    .page-publicacion .info-publicacion .descripcion .fila .dato,
+.page-publicacion .content-mp .fila .dato {
+    width: 250px;
+    border-left: 5px solid #ff5d55;
+    padding-left: 5px;
+}
 }
 
 .page-publicacion .info-publicacion .descripcion .fila .dato span {
@@ -958,14 +972,14 @@ h2 {
     width: 50%; 
 }
 
-.page-publicacion .compartir {
+.compartir {
     display: flex;
     justify-content: flex-start;
     width: auto; 
     margin: 0 20px;
 }
 
-.page-publicacion .compartir a {
+.compartir a {
     width: 30px;
     height: 30px;
     font-size: 18px;
@@ -981,48 +995,48 @@ h2 {
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.page-publicacion .compartir .facebook {
+.compartir .facebook {
     background-color: #0861f2;
 }
 
-.page-publicacion .compartir .facebook:hover {
+.compartir .facebook:hover {
     color: #0861f2;
     background-color: #fff;
     border: 1px solid #0861f2;
 }
 
-.page-publicacion .compartir .whatsapp {
+.compartir .whatsapp {
     background-color: #25d366;
 }
 
-.page-publicacion .compartir .whatsapp:hover {
+.compartir .whatsapp:hover {
     color: #25d366;
     background-color: #fff;
     border: 1px solid #25d366;
 }
 
-.page-publicacion .compartir .instagram {
+.compartir .instagram {
     background-color: #fe0c77;
 }
 
-.page-publicacion .compartir .instagram:hover {
+.compartir .instagram:hover {
     color: #fe0c77;
     background-color: #fff;
     border: 1px solid #fe0c77;
 }
 
-.page-publicacion .compartir .x {
+.compartir .x {
     background-color: #000;
 }
 
-.page-publicacion .compartir .x:hover {
+.compartir .x:hover {
     color: #000;
     background-color: #fff;
     border: 1px solid #000;
 }
 
 @media (max-width: 768px) {
-    .page-publicacion .compartir a {
+    .compartir a {
         width: 35px;
         height: 35px;
         font-size: 16px;
@@ -1039,6 +1053,7 @@ h2 {
     .footer-left {
         width: 80%;
         margin-right: 0;
+        text-align: center;
         margin-bottom: 15px;
     }
 }
@@ -1941,6 +1956,10 @@ footer.inferior2 {
     .container-seg {
         flex-direction: column;
         gap: 10px;
+    }
+
+    h2 {
+        white-space: normal;  
     }
 
     .col {

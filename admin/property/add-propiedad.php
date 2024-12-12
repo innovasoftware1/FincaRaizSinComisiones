@@ -520,6 +520,7 @@ if (isset($_POST['agregar'])) {
                             <label for="salidas_bogota">Salidas de Bogotá</label>
                             <select name="salidas_bogota" id="salidas_bogota" class="input-entrada-texto" required>
 
+                                <option value="Autopista Sur">Dentro de Bogotá</option>
                                 <option value="Autopista Sur">Autopista Sur</option>
                                 <option value="Autopista Calle 80">Autopista Calle 80</option>
                                 <option value="Autopista Calle 13">Autopista Calle 13</option>
