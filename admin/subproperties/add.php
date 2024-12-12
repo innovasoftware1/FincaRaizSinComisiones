@@ -189,9 +189,8 @@ if (isset($_POST['agregar'])) {
 
         <div class="contenedor-principal">
             <div id="nueva-propiedad">
-                <h2>Registro de subpropiedad para la propiedad: <?php echo $titulo_propiedad; ?></h2>
 
-                <h2>deseas registrar una subpropiedad a la propiedad: <?php echo htmlspecialchars($titulo_propiedad); ?>.</h2>
+                <h2>deseas registrar una subpropiedad a la propiedad:<?php echo htmlspecialchars($titulo_propiedad); ?>.</h2>
 
                 <br>
                 <hr>
