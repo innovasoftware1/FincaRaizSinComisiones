@@ -71,7 +71,7 @@ if (isset($_POST['agregar'])) {
     $inventario = $_POST['inventario'];
     $nombre_propietario = $_POST['nombre_propietario'];
     $usuarioId = $_SESSION['usuarioId'];
-    $valor_fijo=$_POST['valor_fijo'];
+    $valor_fijo = $_POST['valor_fijo'];
 
     $query = "INSERT INTO propiedades (
         fecha_alta, titulo, descripcion, tipo, tipoUbicacion, estado, ubicacion, direccion, habitaciones, banios, pisos, 
@@ -423,23 +423,23 @@ if (isset($_POST['agregar'])) {
                     <hr>
 
                     <h3><i class="fa-solid fa-camera-retro"></i> GALERIA DE FOTOS</h3>
-<br>
-<hr>
+                    <br>
+                    <hr>
 
-<div>
-    <label for="foto1" class="btn-fotos">Foto Principal</label>
-    <output id="list" class="contenedor-foto-principal">
-        <img src="<?php echo $propiedad['url_foto_principal'] ?>" alt="">
-    </output>
-    <input type="file" id="foto1" accept="image/*" name="foto1" style="display:none">
+                    <div>
+                        <label for="foto1" class="btn-fotos">Foto Principal</label>
+                        <output id="list" class="contenedor-foto-principal">
+                            <img src="<?php echo $propiedad['url_foto_principal'] ?>" alt="">
+                        </output>
+                        <input type="file" id="foto1" accept="image/*" name="foto1" style="display:none">
 
-    <label for="fotos" class="btn-fotos"> Galería de Fotos </label>
-    <div id="contenedor-fotos-publicacion">
-        <!-- Las imágenes seleccionadas se mostrarán aquí con un botón de eliminación -->
-    </div>
+                        <label for="fotos" class="btn-fotos"> Galería de Fotos </label>
+                        <div id="contenedor-fotos-publicacion">
+                            <!-- Las imágenes seleccionadas se mostrarán aquí con un botón de eliminación -->
+                        </div>
 
-    <input type="file" id="fotos" accept="image/*" name="fotos[]" value="Foto" multiple="" required style="display:none">
-</div>
+                        <input type="file" id="fotos" accept="image/*" name="fotos[]" value="Foto" multiple="" required style="display:none">
+                    </div>
 
                     <br>
                     <hr>
@@ -488,13 +488,13 @@ if (isset($_POST['agregar'])) {
                         </div>
 
 
- 
+
                     </div>
 
 
 
                     <div class="fila">
-                    <div class="box">
+                        <div class="box">
                             <label for="permuta">¿Permuta disponible?</label>
                             <select name="permuta" id="permuta" class="input-entrada-texto" required>
                                 <option value="1">Sí</option>
@@ -560,35 +560,34 @@ if (isset($_POST['agregar'])) {
                 </form>
 
                 <style>
+                    .foto-container {
+                        position: relative;
+                        display: inline-block;
+                        margin: 10px;
+                    }
 
-.foto-container {
-    position: relative;
-    display: inline-block;
-    margin: 10px;
-}
+                    .foto-container img {
+                        width: 100px;
+                        height: 100px;
+                        object-fit: cover;
+                        border-radius: 5px;
+                    }
 
-.foto-container img {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 5px;
-}
+                    .btn-eliminar {
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        background: red;
+                        color: white;
+                        border: none;
+                        padding: 5px;
+                        border-radius: 50%;
+                        cursor: pointer;
+                    }
 
-.btn-eliminar {
-    position: absolute;
-    top: 0;
-    right: 0;
-    background: red;
-    color: white;
-    border: none;
-    padding: 5px;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-.btn-eliminar:hover {
-    background: darkred;
-}
+                    .btn-eliminar:hover {
+                        background: darkred;
+                    }
 
 
                     .input-container {
@@ -632,49 +631,47 @@ if (isset($_POST['agregar'])) {
                         }
                     });
 
-// Variable para almacenar las fotos seleccionadas
-let fotosSeleccionadas = [];
+                    // Variable para almacenar las fotos seleccionadas
+                    let fotosSeleccionadas = [];
 
-document.getElementById('fotos').addEventListener('change', function(e) {
-    // Obtener los archivos seleccionados
-    const archivos = e.target.files;
+                    document.getElementById('fotos').addEventListener('change', function(e) {
+                        // Obtener los archivos seleccionados
+                        const archivos = e.target.files;
 
-    // Mostrar las imágenes en el contenedor
-    const contenedorFotos = document.getElementById('contenedor-fotos-publicacion');
-    
-    // Limpiar contenedor de fotos previas
-    contenedorFotos.innerHTML = '';
+                        // Mostrar las imágenes en el contenedor
+                        const contenedorFotos = document.getElementById('contenedor-fotos-publicacion');
 
-    // Iterar sobre las fotos seleccionadas y mostrarlas en el DOM
-    for (let i = 0; i < archivos.length; i++) {
-        const archivo = archivos[i];
-        
-        // Crear un contenedor para cada foto con un botón de eliminación
-        const divFoto = document.createElement('div');
-        divFoto.classList.add('foto-container');
+                        // Limpiar contenedor de fotos previas
+                        contenedorFotos.innerHTML = '';
 
-        const img = document.createElement('img');
-        img.src = URL.createObjectURL(archivo); // Mostrar la imagen
+                        // Iterar sobre las fotos seleccionadas y mostrarlas en el DOM
+                        for (let i = 0; i < archivos.length; i++) {
+                            const archivo = archivos[i];
 
-        const btnEliminar = document.createElement('button');
-        btnEliminar.innerHTML = 'X';
-        btnEliminar.classList.add('btn-eliminar');
-        btnEliminar.addEventListener('click', function() {
-            // Eliminar la foto seleccionada
-            divFoto.remove();
-            fotosSeleccionadas = fotosSeleccionadas.filter(f => f !== archivo);
-        });
+                            // Crear un contenedor para cada foto con un botón de eliminación
+                            const divFoto = document.createElement('div');
+                            divFoto.classList.add('foto-container');
 
-        divFoto.appendChild(img);
-        divFoto.appendChild(btnEliminar);
-        contenedorFotos.appendChild(divFoto);
+                            const img = document.createElement('img');
+                            img.src = URL.createObjectURL(archivo); // Mostrar la imagen
 
-        // Almacenar las fotos seleccionadas en el array para enviar al servidor
-        fotosSeleccionadas.push(archivo);
-    }
-});
+                            const btnEliminar = document.createElement('button');
+                            btnEliminar.innerHTML = 'X';
+                            btnEliminar.classList.add('btn-eliminar');
+                            btnEliminar.addEventListener('click', function() {
+                                // Eliminar la foto seleccionada
+                                divFoto.remove();
+                                fotosSeleccionadas = fotosSeleccionadas.filter(f => f !== archivo);
+                            });
 
+                            divFoto.appendChild(img);
+                            divFoto.appendChild(btnEliminar);
+                            contenedorFotos.appendChild(divFoto);
 
+                            // Almacenar las fotos seleccionadas en el array para enviar al servidor
+                            fotosSeleccionadas.push(archivo);
+                        }
+                    });
                 </script>
 
 

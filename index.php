@@ -36,7 +36,7 @@ $tipoUbicacion = isset($_GET['tipoUbicacion']) ? $_GET['tipoUbicacion'] : 'Venta
     <div class="container">
         <?php include("header.php"); ?>
 
-        <h2>"Donde tus sueños encuentran su lugaar<br> ideal, al mejor precio."</h2>
+        <h2>"Donde tus sueños encuentran su lugar<br> ideal, al mejor precio."</h2>
 
         <div class="box-buscar-propiedades pos-inferior">
             <div class="box-interior">
@@ -78,7 +78,7 @@ $tipoUbicacion = isset($_GET['tipoUbicacion']) ? $_GET['tipoUbicacion'] : 'Venta
 
                         <div class="filtro">
                             <div class="select-btn select-btn-filtro">
-                                <span class="btn-text">Tipo ubicacion</span>
+                                <span class="btn-text">Tipo ubicación</span>
                                 <span class="arrow-dwn"><i class="fa-solid fa-chevron-down"></i></span>
                             </div>
                             <div class="list-items list-items-filtro">

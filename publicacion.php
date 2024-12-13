@@ -77,10 +77,18 @@ $restul_fotos_galeria = obtenerFotosGaleria($id_propiedad);
                         </div>
 
                         <div class="col seg">
-                            <span class="tipoUbicacion"><b>Permuta:</b> <?php echo $propiedad['permuta'] == 1 ? 'Sí' : 'No'; ?>, se permuta.</span>
-                            <span class="tipoUbicacion">
-                                <p><b>Financiación:</b> <?php echo $propiedad['financiacion'] == 1 ? 'Sí' : 'No'; ?>, se financea.</p>
-                            </span>
+
+                            <div class="dato">
+                                <span class="header">
+                                    <p><i class="fa-solid fa-exchange-alt"></i><b style="color: #df3424;"> Permuta:</b></i> <?php echo $propiedad['permuta'] == 1 ? 'Sí' : 'No'; ?>, se permuta.</p> <!-- Ícono de Permuta -->
+                                </span>
+                            </div>
+                            <br>
+                            <div class="dato">
+                                <span class="header">
+                                    <p><i class="fa-solid fa-coins"></i><b style="color: #df3424;"> Financea:</b></i> <?php echo $propiedad['permuta'] == 1 ? 'Sí' : 'No'; ?>, se permuta.</p> <!-- Ícono de financea -->
+                                </span>
+                            </div>
                         </div>
                     </div>
 
