@@ -26,5 +26,5 @@ while ($i < count($idsFotos)) {
         
         // Eliminar el registro de la foto de la base de datos
         $query = "DEL
-
+>
 ?>

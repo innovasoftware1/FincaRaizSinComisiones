@@ -45,7 +45,7 @@ $restul_fotos_galeria = obtenerFotosGaleria($id_propiedad);
 
 <body class="page-publicacion">
     <div class="container">
-        <?php include("header.php"); ?>
+        <?php include("header.php"); ?> 
 
         <div class="contenedor-principal">
             <div class="info-publicacion">
