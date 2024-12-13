@@ -1,27 +1,7 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Servidor: localhost:3307
--- Tiempo de generación: 05-12-2024 a las 15:58:53
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Base de datos: `finca_raiz_v1`
---
-
--- --------------------------------------------------------
+DROP DATABASE IF EXISTS finca_raiz_v1;
+CREATE DATABASE finca_raiz_v1;
+USE finca_raiz_v1;
 
 --
 -- Estructura de tabla para la tabla `ciudades`
@@ -45,9 +25,6 @@ INSERT INTO `ciudades` (`id`, `id_departamento`, `nombre_ciudad`) VALUES
 (5, 3, 'Cali'),
 (6, 3, 'Palmira'),
 (7, 3, 'Buenaventura'),
-(8, 4, 'Barranquilla'),
-(9, 4, 'Soledad'),
-(10, 4, 'Malambo'),
 (11, 5, 'Soacha'),
 (12, 5, 'Zipaquirá'),
 (13, 5, 'Girardot'),
@@ -74,7 +51,6 @@ INSERT INTO `departamentos` (`id`, `nombre_departamento`) VALUES
 (1, 'Bogotá D.C.'),
 (2, 'Antioquia'),
 (3, 'Valle del Cauca'),
-(4, 'Atlántico'),
 (5, 'Cundinamarca'),
 (6, 'Santander');
 
@@ -89,16 +65,6 @@ CREATE TABLE `fotos` (
   `id_propiedad` int(11) NOT NULL,
   `nombre_foto` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `fotos`
---
-
-INSERT INTO `fotos` (`id`, `id_propiedad`, `nombre_foto`) VALUES
-(1, 1, 'db45d31698e6193e48f2f02dbf30f1387877a2a4.jpg'),
-(2, 1, 'd32ca83f86e059252dd3c27962d70e381178e1c3.jpg'),
-(3, 1, 'fe30f0648257fb73199e8a0a89a72493fe6f4c49.jpg'),
-(4, 1, '2de0100c2c0a514a08f6f1e25c34f61619f10584.jpg');
 
 -- --------------------------------------------------------
 
@@ -116,10 +82,10 @@ CREATE TABLE `propiedades` (
   `estado` varchar(15) NOT NULL,
   `ubicacion` varchar(200) NOT NULL,
   `direccion` varchar(200) NOT NULL,
-  `habitaciones` varchar(2) NOT NULL,
-  `banios` varchar(2) NOT NULL,
-  `pisos` varchar(1) NOT NULL,
-  `garage` varchar(2) NOT NULL,
+  `habitaciones` int(2) NOT NULL,
+  `banios` int(2) NOT NULL,
+  `pisos` int(2) NOT NULL,
+  `garage` int(2) NOT NULL,
   `dimensiones` varchar(50) NOT NULL,
   `dimensiones_tipo` varchar(10) DEFAULT NULL,
   `area` float DEFAULT NULL,
@@ -153,15 +119,9 @@ CREATE TABLE `propiedades` (
   `salidas_bogota` varchar(255) DEFAULT NULL,
   `inventario` varchar(255) DEFAULT NULL,
   `construcciones_aledañas` varchar(255) DEFAULT NULL,
-  `nombre_propietario` varchar(255) DEFAULT NULL
+  `nombre_propietario` varchar(255) DEFAULT NULL,
+  `valor_fijo` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `propiedades`
---
-
-INSERT INTO `propiedades` (`id`, `fecha_alta`, `titulo`, `descripcion`, `tipo`, `tipoUbicacion`, `estado`, `ubicacion`, `direccion`, `habitaciones`, `banios`, `pisos`, `garage`, `dimensiones`, `dimensiones_tipo`, `area`, `altitud`, `distancia_pueblo`, `vias_acceso`, `clima`, `precio`, `moneda`, `url_foto_principal`, `video_url`, `recorrido_360_url`, `ubicacion_url`, `documentos_transferencia`, `permisos`, `uso_principal`, `uso_compatibles`, `uso_condicionales`, `departamento`, `ciudad`, `usuario_id`, `agua_propia`, `luz`, `gas`, `internet`, `permuta`, `caracteristicas_positivas`, `distancia_desde_bogota`, `fecha_de_venta`, `financiacion`, `salidas_bogota`, `inventario`, `construcciones_aledañas`, `nombre_propietario`) VALUES
-(1, '2024-12-05 09:53:12', 'La nueva manzanda', 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Provident, recusandae tenetur. Cupiditate illo accusantium quo, odio magnam, harum aspernatur officiis ducimus hic repellat amet et neque molestias earum itaque ipsum.\r\n', 1, 'Campestre', 'activo', 'las cruces', 'Vía Guaymaral, Km. 7.5', '4', '2', '2', '2', '2', 'm²', 2, 0, 222, '2', 'aaaaaaaaa', 20000000, 'COP', 'fotos/1/1.jpg', '<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/5V-WecdQe5g?si=WMJTQ-Go5TqXVz6D\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>', 'https://webobook.com/public/66cf47e0deaff507cf1432b2,en?ap=false&amp', '<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15898.641763175523!2d-74.3460728675808!3d4.995947746013482!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e4085b18d640f2d%3A0x74ae9038db1681ac!2sHotel%20Villa%20Tatiana!5e0!3m2!1ses!2sco!4v1733410064776!5m2!1ses!2sco\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>', 'aaaaaa', 'aaaaaaaa', 'aaaaaa', 'aaaaa', 'aaaaaaaaaaa', 2, 2, 1014274669, 'nacimiento propio', 'si', 'si', 'si', 1, 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Provident, recusandae tenetur. Cupiditate illo accusantium quo, odio magnam, harum aspernatur officiis ducimus hic repellat amet et neque molestias earum itaque ipsum.\r\n', 2222, NULL, 1, 'autopista_sur', 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Provident, recusandae tenetur. Cupiditate illo accusantium quo, odio magnam, harum aspernatur officiis ducimus hic repellat amet et neque molestias earum itaque ipsum.', 'aaaaaaaaaaa', 'AAAA');
 
 -- --------------------------------------------------------
 
@@ -215,7 +175,8 @@ CREATE TABLE `subpropiedades` (
   `moneda` varchar(5) NOT NULL,
   `url_foto_principal` varchar(200) NOT NULL,
   `video_url` text DEFAULT NULL,
-  `recorrido_360_url` varchar(300) DEFAULT NULL
+  `recorrido_360_url` varchar(300) DEFAULT NULL,
+  `estado` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -234,11 +195,10 @@ CREATE TABLE `tipos` (
 --
 
 INSERT INTO `tipos` (`id`, `nombre_tipo`) VALUES
-(1, 'Casa'),
+(1, 'Casa prueba'),
 (2, 'Casa Lote'),
 (3, 'Casa Quinta'),
 (4, 'Lotes'),
-(5, 'Fincas'),
 (6, 'Proyectos');
 
 -- --------------------------------------------------------
@@ -262,8 +222,7 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nombre`, `email`, `usuario`, `password`, `rol_id`, `fecha_creacion`) VALUES
-(1014274668, 'Sergio Pinzon', 'sergio@gmail.com', 'sergpinz68', '101010', 2, '2024-11-14 10:34:55'),
-(1014274669, 'Feldan D. Rodriguez', 'admininnova@example.com', 'Admin10.', '123456', 1, '2024-11-12 11:06:39');
+(824571254, 'fledman jefe', 'fledman@gmail.es', 'Administrador', '$2y$10$cphHavpQ4dBV4lGfhd6TWOPwbarqr3yh1r2CrluCBKIiuEzOudvDm', 1, '2024-12-05 15:45:35');
 
 --
 -- Índices para tablas volcadas
@@ -341,25 +300,25 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `ciudades`
 --
 ALTER TABLE `ciudades`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `departamentos`
 --
 ALTER TABLE `departamentos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `fotos`
 --
 ALTER TABLE `fotos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `propiedades`
 --
 ALTER TABLE `propiedades`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
@@ -383,7 +342,7 @@ ALTER TABLE `subpropiedades`
 -- AUTO_INCREMENT de la tabla `tipos`
 --
 ALTER TABLE `tipos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
@@ -434,6 +393,3 @@ ALTER TABLE `usuarios`
   ADD CONSTRAINT `fk_usuarios_roles` FOREIGN KEY (`rol_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
