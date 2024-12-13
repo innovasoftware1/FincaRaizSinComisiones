@@ -12,7 +12,7 @@
 
     <footer class="footer-inicio">
         <div class="siguenos">
-            <p>Siguenos: </p>
+            <p>Síguenos: </p>
         </div>
         <div class="compartir">
             <a class="facebook" href="http://facebook.com/sharer.php?u=http://localhost/sapi/publicacion.php?idPublicacion=<?php echo $propiedad['id'] ?>" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>

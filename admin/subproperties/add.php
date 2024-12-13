@@ -266,7 +266,7 @@ if (isset($_POST['agregar'])) {
                         <div class="box">
                             <label for="moneda">Moneda</label>
                             <select name="moneda" class="input-entrada-texto" required>
-                                <option value="COP">COP</option>
+                                <option value="$">COP</option>
                                 <option value="USD">USD</option>
                             </select>
                         </div>

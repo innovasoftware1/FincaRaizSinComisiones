@@ -1616,12 +1616,12 @@ h2 {
     background-color: #fff;
     border: 1px solid #ccd1d1;
     border-radius: 10px;
+    margin-left: 15px;
 }
 
 .page-contacto .contenedor-contacto .col-size {
-    width: 97%;
+    /* width: 98%; */
     background-color: rgba(255, 221, 158, 0.7);
-    /* Fondo ligeramente transparente */
     border: 1px solid #f3b748;
     border-radius: 10px;
     transition: all 0.3s ease;
