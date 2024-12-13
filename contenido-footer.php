@@ -15,10 +15,10 @@
             <p>Síguenos: </p>
         </div>
         <div class="compartir">
-            <a class="facebook" href="http://facebook.com/sharer.php?u=http://localhost/sapi/publicacion.php?idPublicacion=<?php echo $propiedad['id'] ?>" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
-            <a class="whatsapp" href="whatsapp://send?text=http://paulopelegrina.com/publicacion.php?idPublicacion=<?php echo $propiedad['id'] ?>" data-action="share/whatsapp/share"><i class="fa-brands fa-whatsapp"></i></a>
-            <a class="instagram" href="https://www.instagram.com/create/story/?text=Mira%20esta%20propiedad%20!!!%20http://paulopelegrina.com/publicacion.php?idPublicacion=<?php echo $propiedad['id']; ?>" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-            <a class="x" href="https://twitter.com/intent/tweet?text=Mira%20esta%20propiedad%20!!!%20http://paulopelegrina.com/publicacion.php?idPublicacion=<?php echo $propiedad['id']; ?>" target="_blank"><i class="fa-brands fa-x-twitter">𝕏</i></a>
+            <a class="facebook" href="https://www.facebook.com/Fincaraizsincomisiones/" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+            <a class="whatsapp" href="https://api.whatsapp.com/send?phone=573102499843&text=Quiero%20m%C3%A1s%20informaci%C3%B3n..." data-action="share/whatsapp/share"><i class="fa-brands fa-whatsapp"></i></a>
+            <a class="instagram" href="https://www.instagram.com/fincaraizsincomisiones/?next=%2F" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+            <a class="x" href="https://www.tiktok.com/@fincaraizsincomisiones" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
         </div>
         <div class="footer-left">
             Fincaraizsincomisiones.com <br>

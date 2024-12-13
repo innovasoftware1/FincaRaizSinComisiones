@@ -54,7 +54,7 @@ if (isset($_POST['agregar'])) {
                         <script>
                             Swal.fire({
                                 icon: 'success',
-                                title: '¡Ciudad Agregada!',
+                                title: '¡Tipo de propiedad Agregada!',
                                 text: '<?php echo $mensaje; ?>',
                                 showConfirmButton: false,
                                 timer: 3000 
