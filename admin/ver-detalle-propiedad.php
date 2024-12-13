@@ -84,8 +84,10 @@ function obtenerCiudad($id_ciudad)
 
 
 <style>
-    .botones-acciones a {
-        margin-left: 20px;
+    .botones-acciones {
+        width: 200px;
+        display: flex;
+        justify-content: space-between;
     }
 </style>
 
@@ -506,7 +508,7 @@ function obtenerCiudad($id_ciudad)
                                     // Título y Descripción
                                     echo "<td><p><b>" . $subpropiedad['titulo'] . "</b><br>" . $subpropiedad['descripcion'] . "</p></td>";
                                     // Precio
-                                    echo "<td><p><b>COP</b> " . number_format($subpropiedad['precio']) . "</p></td>"; // Asegúrate de que 'precio' sea el nombre correcto en tu base de datos
+                                    echo "<td><p><b>$</b> " . number_format($subpropiedad['precio']) . "</p></td>"; // Asegúrate de que 'precio' sea el nombre correcto en tu base de datos
                                     // Botones de acción
                                     echo "<td class='botones-acciones'>
                             <a href='subproperties/details.php?id=" . $subpropiedad['id'] . "' class='btn-detalle'>
@@ -534,8 +536,8 @@ function obtenerCiudad($id_ciudad)
                                         </td>
                                       </tr>";
                             }
-                            
-                            
+
+
                             ?>
                         </tbody>
                     </table>
@@ -565,21 +567,20 @@ function obtenerCiudad($id_ciudad)
     }
 
     function eliminarPropiedad(idPropiedad) {
-    Swal.fire({
-        icon: 'success',
-        title: '¡Eliminado correctamente!',
-        text: 'El registro ha sido eliminado con éxito.',
-        confirmButtonText: 'Aceptar',
-        timer: 5000, // La alerta se cerrará automáticamente después de 5 segundos
-        timerProgressBar: true
-    });
+        Swal.fire({
+            icon: 'success',
+            title: '¡Eliminado correctamente!',
+            text: 'El registro ha sido eliminado con éxito.',
+            confirmButtonText: 'Aceptar',
+            timer: 5000, // La alerta se cerrará automáticamente después de 5 segundos
+            timerProgressBar: true
+        });
 
-    // Retrasa la redirección para que dé tiempo de ver la alerta
-    setTimeout(() => {
-        window.location.href = `subproperties/drop.php?id=${idPropiedad}&id_propiedad=${<?php echo $id_propiedad; ?>}`;
-    }, 3000); // Retraso de 5 segundos
-}
-
+        // Retrasa la redirección para que dé tiempo de ver la alerta
+        setTimeout(() => {
+            window.location.href = `subproperties/drop.php?id=${idPropiedad}&id_propiedad=${<?php echo $id_propiedad; ?>}`;
+        }, 3000); // Retraso de 5 segundos
+    }
 </script>
 
 

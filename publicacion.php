@@ -45,7 +45,7 @@ $restul_fotos_galeria = obtenerFotosGaleria($id_propiedad);
 
 <body class="page-publicacion">
     <div class="container">
-        <?php include("header.php"); ?> 
+        <?php include("header.php"); ?>
 
         <div class="contenedor-principal">
             <div class="info-publicacion">
@@ -260,6 +260,7 @@ $restul_fotos_galeria = obtenerFotosGaleria($id_propiedad);
 
                 <!-- contenedor sub-propiedades en caso de haber -->
                 <div class="info-publicacion">
+                    
                     <?php
                     $id_propiedad = $_GET['idPropiedad'];
 
@@ -277,7 +278,7 @@ $restul_fotos_galeria = obtenerFotosGaleria($id_propiedad);
                             $area_subpro = htmlspecialchars($subpropiedad['area']);
                             $area_tipo_subpro = htmlspecialchars($subpropiedad['area_tipo']);
                             $dimensiones_subpro = htmlspecialchars($subpropiedad['dimensiones']);
-                            $precio_subpro = " $" . number_format($subpropiedad['precio'], 0, '', '.');
+                            $precio_subpro = "$ " . number_format($subpropiedad['precio'], 0, '', '.');
                             $imagen_subpro = "admin/subproperties/" . htmlspecialchars($subpropiedad['url_foto_principal']);
                             $video_url_subpro = htmlspecialchars($subpropiedad['video_url']);
                             $recorrido_360_url_subpro = htmlspecialchars($subpropiedad['recorrido_360_url']);
@@ -293,8 +294,8 @@ $restul_fotos_galeria = obtenerFotosGaleria($id_propiedad);
 
                             $galeria_fotos_json_subpro = json_encode($galeria_fotos_urls_subpro);
                     ?>
-
                             <!-- Card de la subpropiedad -->
+
                             <div class="card-subpropiedad">
                                 <img src="<?php echo $imagen_subpro; ?>" alt="" class="img-subpropiedad">
                                 <div class="contenido">
@@ -379,19 +380,6 @@ $restul_fotos_galeria = obtenerFotosGaleria($id_propiedad);
                         <?php echo $uso_condicionales; ?>
                     </div>
                 </section>
-                <!-- valor agregado de la propiedad -final -->
-
-                <!-- <section class="compartir">
-                    <h3>Compartir esta propiedad</h3>
-                    <a class="facebook" href="http://facebook.com/sharer.php?u=http://localhost/sapi/publicacion.php?idPublicacion=<?php echo $propiedad['id'] ?>" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
-
-                    <a class="whatsapp" href="whatsapp://send?text=http://paulopelegrina.com/publicacion.php?idPublicacion=<?php echo $propiedad['id'] ?>" data-action="share/whatsapp/share"> <i class="fa-brands fa-whatsapp"></i> </a>
-
-                    <a class="instagram" href="https://www.instagram.com/create/story/?text=Mira%20esta%20propiedad%20!!!%20http://paulopelegrina.com/publicacion.php?idPublicacion=<?php echo $propiedad['id']; ?>" target="_blank"><i class="fa-brands fa-instagram"></i> </a>
-
-                    <a class="x" href="https://twitter.com/intent/tweet?text=Mira%20esta%20propiedad%20!!!%20http://paulopelegrina.com/publicacion.php?idPublicacion=<?php echo $propiedad['id']; ?>" target="_blank"><i class="fa-brands fa-x-twitter">𝕏</i> </a>
-
-                </section> -->
             </div>
 
             <div class="fila content-mp">
@@ -520,7 +508,7 @@ $restul_fotos_galeria = obtenerFotosGaleria($id_propiedad);
                 </div>
                 <!-- condiciones adicionales del predio - final -->
 
-                <div class="form-contacto-publicacion">
+                <div class="form-contacto-publicacion" style="display: none;">
                     <form action="">
                         <h3 class="text-center"><b>Comuníquese con nosotros</b></h3>
                         <hr id="hr-all">
@@ -570,7 +558,7 @@ $restul_fotos_galeria = obtenerFotosGaleria($id_propiedad);
 
             <!-- Modal para ver los detalles de la subpropiedad -->
             <div id="myModalDetalles" class="modal" style="display: none;">
-                <div class="modal-content" style="max-width: 400px; max-height: 300px; padding: 20px; text-align: left;">
+                <div class="modal-content" style="max-width: 600px; max-height: 380px; padding: 20px; text-align: left;">
                     <p style="font-size: 16px; color: #555; line-height: 1.6;">
                         <strong>Nombre sub-propiedad</strong><br> <span id="titulo"></span>
                     </p>

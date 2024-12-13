@@ -224,7 +224,7 @@ if (isset($_POST['agregar'])) {
                     <!-- Mostrar Descripción -->
                     <div class="fila-una-colummna">
                         <label for="descripcion">Descripción de la Propiedad</label>
-                        <textarea name="descripcion" id="" cols="30" rows="10" class="input-entrada-texto" placeholder="Descripcion detallada de la sub-propiedad..." style="resize: none;"></textarea>
+                        <textarea name="descripcion" id="" cols="30" rows="10" class="input-entrada-texto" placeholder="Descripcion detallada de la sub-propiedad..." maxlength="280" style="resize: none;"></textarea>
                     </div>
                     <br>
 
