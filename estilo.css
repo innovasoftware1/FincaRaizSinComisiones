@@ -646,19 +646,17 @@ body {
     justify-content: space-between;
 }
 
-/* responsive tamaño de botones y precio */
-@media (min-width: 350px) and (max-width: 768px) {
-    .page-publicacion .info-publicacion .dato1 .precio,
-    .page-publicacion .info-publicacion .dato1 .tipoUbicacion {
-        font-size: 15px !important;
+/* responsive botones de galeria */
+@media (min-width: 410px) and (max-width: 768px) {
+    .botones-galeria {
+        left: 2% !important;
     }
 }
 
-/* responsive botones de galeria */
-@media (min-width: 350px) and (max-width: 768px) {
+@media (min-width: 320px) and (max-width: 409px) {
     .botones-galeria {
-        top: 30% !important;
-        right: 6% !important;
+        left: 2% !important;
+
     }
 }
 
@@ -700,6 +698,70 @@ body {
     width: 30%;
     height: 150px;
     border-radius: 10px;
+}
+
+/* Contenedor titulo,precio, ubicacion, etc */
+.container-seg {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 200px;
+    justif
+    y-content: space-between;
+}
+
+.col i {
+    color: #df3424;
+}
+
+.col {
+    flex: 1;
+    min-width: 280px;
+    box-sizing: border-box;
+}
+
+h2 {
+    white-space: nowrap;  
+    /* overflow: hidden; */    
+    text-overflow: ellipsis; 
+}
+
+.tipoUbicacion {
+    display: block;
+    margin-top: 10px;
+    font-size: 1rem;
+    color: #333;
+}
+
+.tipoUbicacion p {
+    margin: 0;
+}
+
+.col span {
+    display: block;
+}
+
+.seg {
+    margin-top: 5%;
+}
+
+.datoresponsive {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.tipoUbicacion {
+    display: block;
+    font-size: 1rem;
+    color: #333;
+}
+
+.precio {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #007bff;
+    margin-top: 5px;
 }
 
 /* Estilos para el contenedor del slider */
@@ -769,7 +831,7 @@ body {
 
 .page-publicacion .info-publicacion .descripcion .fila {
     display: flex;
-    margin: 30px 0
+    margin: 30px 0;
 }
 
 .page-publicacion .info-publicacion .descripcion .sub-titulo,
@@ -783,6 +845,15 @@ body {
     width: 250px;
     border-left: 5px solid #ff5d55;
     padding-left: 5px;
+}
+
+@media (max-width: 768px) {
+    .page-publicacion .info-publicacion .descripcion .fila .dato,
+.page-publicacion .content-mp .fila .dato {
+    width: 250px;
+    border-left: 5px solid #ff5d55;
+    padding-left: 5px;
+}
 }
 
 .page-publicacion .info-publicacion .descripcion .fila .dato span {
@@ -881,93 +952,145 @@ body {
 
 /* BOTONES REDES SOCILES (COMPARTIR) */
 
-.page-publicacion .compartir .facebook {
-    font-size: 24px;
-    padding: 5px 0;
-    display: inline-block;
-    width: 60px;
-    background-color: #0861f2;
-    color: #fff;
-    border: 1px solid #0861f2;
-    border-radius: 10px;
-    text-decoration: none;
+.footer-inicio {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+    flex-wrap: wrap;
     text-align: center;
-    margin-right: 20px;
-    transition: .5s;
 }
 
-.page-publicacion .compartir .facebook:hover {
+.footer-left {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    margin-left: 0; 
+    margin-right: 23%; 
+    width: 50%; 
+}
+
+.compartir {
+    display: flex;
+    justify-content: flex-start;
+    width: auto; 
+    margin: 0 20px;
+}
+
+.compartir a {
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    margin-right: 5px; 
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.compartir .facebook {
+    background-color: #0861f2;
+}
+
+.compartir .facebook:hover {
     color: #0861f2;
     background-color: #fff;
     border: 1px solid #0861f2;
 }
 
-.page-publicacion .compartir .whatsapp {
-    font-size: 24px;
-    padding: 5px 0;
-    display: inline-block;
-    width: 60px;
+.compartir .whatsapp {
     background-color: #25d366;
-    color: #fff;
-    border: 1px solid #25d366;
-    border-radius: 10px;
-    text-decoration: none;
-    text-align: center;
-    margin-right: 20px;
-    transition: .5s;
 }
 
-.page-publicacion .compartir .whatsapp:hover {
+.compartir .whatsapp:hover {
     color: #25d366;
     background-color: #fff;
     border: 1px solid #25d366;
 }
 
-.page-publicacion .compartir .instagram {
-    font-size: 24px;
-    padding: 5px 0;
-    display: inline-block;
-    width: 60px;
+.compartir .instagram {
     background-color: #fe0c77;
-    color: #fff;
-    border: 1px solid #fe0c77;
-    border-radius: 10px;
-    text-decoration: none;
-    text-align: center;
-    margin-right: 20px;
-    transition: .5s;
 }
 
-.page-publicacion .compartir .instagram:hover {
+.compartir .instagram:hover {
     color: #fe0c77;
     background-color: #fff;
     border: 1px solid #fe0c77;
 }
 
-.page-publicacion .compartir .x {
-    font-size: 24px;
-    padding: 5px 0;
-    display: inline-block;
-    width: 60px;
+.compartir .x {
     background-color: #000;
-    color: #fff;
-    border: 1px solid #000;
-    border-radius: 10px;
-    text-decoration: none;
-    text-align: center;
-    margin-right: 20px;
-    transition: .5s;
 }
 
-.page-publicacion .compartir .x:hover {
+.compartir .x:hover {
     color: #000;
     background-color: #fff;
     border: 1px solid #000;
 }
 
-.page-publicacion .compartir h3 {
-    margin-bottom: 15px;
+@media (max-width: 768px) {
+    .compartir a {
+        width: 35px;
+        height: 35px;
+        font-size: 16px;
+        margin-right: 10px; 
+        margin-top: 15px;
+    }
+
+    .footer-inicio {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px; /* Agrega un poco de espacio alrededor */
+    }
+
+    .footer-left {
+        width: 80%;
+        margin-right: 0;
+        text-align: center;
+        margin-bottom: 15px;
+    }
 }
+
+@media (max-width: 480px) {
+    .page-publicacion .compartir a {
+        width: 30px;
+        height: 30px;
+        font-size: 14px;
+        margin-right: 8px;
+    }
+
+    .footer-inicio {
+        flex-direction: column;
+        align-items: center;
+        padding: 15px;
+    }
+
+    .footer-left {
+        margin-bottom: 20px;
+        width: 90%;
+        margin-top: 15px;
+    }
+
+    .page-publicacion .compartir {
+        flex-wrap: wrap; 
+        justify-content: center;
+    }
+}
+
+
+
+
+
+/* .page-publicacion .compartir h3 {
+    margin-bottom: 15px;
+} */
 
 /* MAPA PUBLICACION --- UBICACION URL */
 
@@ -1003,15 +1126,43 @@ body {
     position: relative;
 }
 
+.contenedor-multimedia {
+    position: relative; 
+}
+
 .botones-galeria {
     position: absolute;
-    top: 26%;
+    /* top: 1%; */
     right: 4%;
     display: flex;
     justify-content: flex-start;
     margin: 15px 0;
     gap: 10px;
 }
+
+/* Estilos base para los botones */
+.btn-general {
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    border: 1px solid #2196F3;
+    background-color: #fff;
+    color: #2196F3;
+    font-weight: bold;
+}
+
+
+/* Estilo para el botón al hacer clic o recibir el foco */
+.btn-general:focus,
+.btn-general:active {
+    background-color: #2196F3;
+    color: #fff;
+    border: 1px solid #2196F3;
+    opacity: 0.8;
+}
+
+
 
 /* Estilos para los botones */
 .botones-galeria button {
@@ -1072,20 +1223,23 @@ body {
 .card-subpropiedad {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border: 1px solid #ccc;
-    border-radius: 10px;
+    border-radius: 5px;
     overflow: hidden;
     background-color: #fff;
-    padding: 15px;  
+    /* padding: 15px; */
     text-align: center;
-    background-color: #fadbd8;
-    max-height: 250px;
+    background-color: #f4f6f7;
+    height: 450px;
+    max-height: 350px;
 }
 
 /* Imagen dentro de las tarjetas */
 .card-subpropiedad img {
     width: 100%;
-    height: auto;
-    border-radius: 10px;
+    height: 50%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom: 1px solid #cacaca;
     margin-bottom: 10px;
 }
 
@@ -1094,13 +1248,13 @@ body {
     font-size: 1.5em;
     font-weight: bold;
     margin: 10px 0;
-    color: #333;
+    color: #283747;
 }
 
 /* Precio de la subpropiedad */
 .card-subpropiedad .precio-subpro {
     font-size: 1.2em;
-    color: #fff;
+    color: #5d6d7e;
     font-weight: bold;
     margin: 10px 0;
 }
@@ -1121,10 +1275,52 @@ body {
     background-color: #217dbb;
 }
 
+/* Estilos de los botones dentro de la tarjeta */
+.card-subpropiedad .contenido button {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 10px;
+    margin-bottom: 10px;
+    transition: background-color 0.3s;
+    position: relative;
+    display: inline-block;
+}
+
+/* Tooltip: estilo básico */
+.card-subpropiedad button[title] {
+    position: relative;
+}
+
+.card-subpropiedad button[title]:hover::after {
+    content: attr(title);
+    position: absolute;
+    top: -38px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #1a5276;
+    color: #fff;
+    padding: 10px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.card-subpropiedad button[title]:hover::after {
+    opacity: 1;
+}
+
+
 /* ------------RESPONSIVO DE TARJETAS--------------- */
 @media (max-width: 768px) {
     .info-principal-galeria.subpro {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
     }
 }
 
@@ -1203,21 +1399,20 @@ body {
 .contenedor-foto-galeria {
     position: relative;
     display: inline-block;
-    margin: 10px;  /* Espaciado entre las fotos */
+    margin: 10px;
 }
 
 .foto-galeria {
-    max-width: 100%; /* Asegura que la imagen no se desborde */
+    max-width: 100%;
     height: auto;
-    display: block; /* Evita que la imagen tenga márgenes extra */
+    display: block;
 }
 
-/* Estilo para el botón de eliminar */
 .eliminar-foto {
     position: absolute;
     top: 5px;
     right: 5px;
-    background-color: rgba(255, 0, 0, 0.7); /* Fondo rojo con algo de transparencia */
+    background-color: rgba(255, 0, 0, 0.7);
     color: white;
     font-weight: bold;
     border: none;
@@ -1225,18 +1420,18 @@ body {
     padding: 5px 10px;
     cursor: pointer;
     font-size: 16px;
-    z-index: 10; /* Asegura que el botón esté sobre la imagen */
+    z-index: 10;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .eliminar-foto:hover {
-    background-color: rgba(255, 0, 0, 1); /* Fondo rojo sólido al pasar el mouse */
+    background-color: rgba(255, 0, 0, 1);
 }
 
 .eliminar-foto:focus {
-    outline: none; /* Quitar el borde de enfoque cuando se hace clic */
+    outline: none;
 }
 
 
@@ -1421,12 +1616,12 @@ body {
     background-color: #fff;
     border: 1px solid #ccd1d1;
     border-radius: 10px;
+    margin-left: 15px;
 }
 
 .page-contacto .contenedor-contacto .col-size {
-    width: 97%;
+    /* width: 98%; */
     background-color: rgba(255, 221, 158, 0.7);
-    /* Fondo ligeramente transparente */
     border: 1px solid #f3b748;
     border-radius: 10px;
     transition: all 0.3s ease;
@@ -1756,3 +1951,44 @@ footer.inferior2 {
 
 }
 
+/* P U B L I C A C I O N - F U N C I O N E S - M O V I L */
+@media (max-width: 768px) {
+    .container-seg {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    h2 {
+        white-space: normal;  
+    }
+
+    .col {
+        width: 100%;
+    }
+
+    .tipoUbicacion {
+        font-size: 0.9rem;
+    }
+
+    .seg {
+        margin-top: 2%;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .datoresponsive {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .tipoUbicacion {
+        font-size: 1.1rem;
+        margin-bottom: 5px;
+    }
+
+    .precio {
+        font-size: 1.3rem;
+        margin-top: 5px;
+    }
+}

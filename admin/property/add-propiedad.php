@@ -71,7 +71,7 @@ if (isset($_POST['agregar'])) {
     $inventario = $_POST['inventario'];
     $nombre_propietario = $_POST['nombre_propietario'];
     $usuarioId = $_SESSION['usuarioId'];
-    $valor_fijo=$_POST['valor_fijo'];
+    $valor_fijo = $_POST['valor_fijo'];
 
     $query = "INSERT INTO propiedades (
         fecha_alta, titulo, descripcion, tipo, tipoUbicacion, estado, ubicacion, direccion, habitaciones, banios, pisos, 
@@ -426,7 +426,9 @@ if (isset($_POST['agregar'])) {
                     <hr>
 
                     <div>
+
                         <label for="foto1" class="btn-fotos">Foto Principal (*)</label>
+
                         <output id="list" class="contenedor-foto-principal">
                             <img src="<?php echo $propiedad['url_foto_principal'] ?>" alt="">
                         </output>
@@ -487,14 +489,16 @@ if (isset($_POST['agregar'])) {
                         </div>
 
 
- 
+
                     </div>
 
 
 
                     <div class="fila">
+
                     <div class="box">
                             <label for="permuta">¿Permuta disponible? (*)</label>
+
                             <select name="permuta" id="permuta" class="input-entrada-texto" required>
                                 <option value="1">Sí</option>
                                 <option value="0">No</option>
@@ -519,6 +523,7 @@ if (isset($_POST['agregar'])) {
                             <label for="salidas_bogota">Salidas de Bogotá (*)</label>
                             <select name="salidas_bogota" id="salidas_bogota" class="input-entrada-texto" required>
 
+                                <option value="Autopista Sur">Dentro de Bogotá</option>
                                 <option value="Autopista Sur">Autopista Sur</option>
                                 <option value="Autopista Calle 80">Autopista Calle 80</option>
                                 <option value="Autopista Calle 13">Autopista Calle 13</option>
@@ -558,6 +563,7 @@ if (isset($_POST['agregar'])) {
                 </form>
 
                 <style>
+
                     
 
                     .foto-container {
@@ -565,6 +571,7 @@ if (isset($_POST['agregar'])) {
                         display: inline-block;
                         margin: 10px;
                     }
+
 
                     .foto-container img {
                         width: 100px;
@@ -657,6 +664,7 @@ function actualizarInput() {
     fotosSeleccionadas.forEach((archivo) => {
         dataTransfer.items.add(archivo);
     });
+
 
     // Asignar el nuevo objeto FileList al input
     inputFotos.files = dataTransfer.files;

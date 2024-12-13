@@ -331,7 +331,7 @@ function eliminarFoto(fotoId, index) {
     } else {
         console.warn(`Error: No se encontró el contenedor de la foto con índice ${index}.`);
     }
-
+    console.log(`Eliminando foto: ID=${fotoId}, Index=${index}`);
     console.log("Fotos a eliminar:", fotosAEliminar.value); // Depuración
 }
 

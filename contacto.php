@@ -39,9 +39,7 @@ include("funciones.php");
                 <br>
                 <hr>
                 <br>
-                <!-- Contenedor para las columnas -->
                 <div id="contenedor">
-                    <!-- Columna 1 -->
                     <div>
                         <div class="contacto-item">
                             <h3> <i class="fa-solid fa-hand-holding-dollar"></i> ¡Conoce nuestro nuevo método de venta!</h3>
@@ -64,8 +62,6 @@ include("funciones.php");
                             <p>"Porque somos un modelo de venta innovador en el sector de finca raíz, que te ayuda a vender tus propiedades de manera más eficiente, rápida, segura y económica."</p>
                         </div>
                     </div>
-
-                    <!-- Columna 2 -->
                     <div>
                         <div class="contacto-item">
                             <h3><i class="fa-solid fa-lightbulb"></i> Eficiencia</h3>
@@ -153,7 +149,7 @@ include("funciones.php");
                 </form>
             </div>
             <div class="col formulario">
-                <h3>Ubicacion</h3>
+                <h3>Ubicación</h3>
                 <hr>
                 <iframe class="maps" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d497.11541201109173!2d-74.0906027!3d4.607753!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f996d30f98dbf%3A0x2398e734d7687cbe!2sInnova%20Publicidad%20Visual%20S.A.S.!5e0!3m2!1ses!2sco!4v1730476915861!5m2!1ses!2sco" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>

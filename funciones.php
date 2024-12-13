@@ -247,7 +247,7 @@ function realizarBusqueda($id_ciudad, $id_tipo, $tipoUbicacion, $precio_min = nu
 
     $where = implode(' AND ', $conditions);
 
-    $query = "SELECT * FROM propiedades" . (count($conditions) ? " WHERE $where" : "");
+    $query = "SELECT * FROM propiedades" . (count($conditions) ? " WHERE $where" : "") . " ORDER BY precio ASC";
 
     return mysqli_query($conn, $query);
 }
