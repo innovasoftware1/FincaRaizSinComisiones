@@ -103,8 +103,6 @@ if (isset($_POST['actualizar'])) {
 
         header("Location: ../ver-detalle-propiedad.php?id=$propiedad_id&detalle=");
         exit;
-        
-
     } else {
         $mensaje = "Error al actualizar en la BD: " . mysqli_error($conn);
     }
@@ -122,43 +120,42 @@ if (isset($_POST['actualizar'])) {
     <title>FRSC - ADMIN.</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.5.11/dist/sweetalert2.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.5.11/dist/sweetalert2.min.js"></script>
+
     <link rel="stylesheet" href="../estilo.css">
     <style>
+        .btn-eliminar-galeria {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 50%;
+        }
 
-        
+        .foto-galeria {
+            position: relative;
+            max-width: 100%;
+            height: auto;
+        }
 
-.btn-eliminar-galeria {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    background-color: red;
-    color: white;
-    border: none;
-    padding: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 50%;
-}
+        .contenedor-foto-galeria {
+            position: relative;
+            display: inline-block;
+            margin: 10px;
+        }
 
-.foto-galeria {
-    position: relative;
-    max-width: 100%;
-    height: auto;
-}
-
-.contenedor-foto-galeria {
-    position: relative;
-    display: inline-block;
-    margin: 10px;
-}
-
-.contenedor-foto-galeria img {
-    width: 200px;
-    height: auto;
-    border: 2px solid #ddd;
-    border-radius: 5px;
-}
-
+        .contenedor-foto-galeria img {
+            width: 200px;
+            height: auto;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+        }
     </style>
 </head>
 
@@ -168,7 +165,7 @@ if (isset($_POST['actualizar'])) {
         <?php include("../menu_index_options.php"); ?>
 
         <div class="contenedor-principal">
-            <div id="nueva-propiedad">  
+            <div id="nueva-propiedad">
                 <h2>Actualizar subpropiedad: <?php echo htmlspecialchars($titulo); ?></h2>
                 <form action="" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="propiedad_id" value="<?php echo $propiedad_id; ?>">
@@ -177,7 +174,7 @@ if (isset($_POST['actualizar'])) {
 
 
 
-                
+
                     <div class="fila-una-columna">
                         <label for="titulo">Título de la Propiedad</label>
                         <input type="text" name="titulo" value="<?php echo $titulo; ?>" required class="input-entrada-texto" placeholder="Nombre de la propiedad...">
@@ -198,228 +195,252 @@ if (isset($_POST['actualizar'])) {
                         </select>
                     </div>
 
-                <!-- Dimensiones, Área, Tipo de Medida -->
-                <div class="fila">
-                    <div class="box">
-                        <label for="dimensiones">Dimensiones</label>
-                        <input type="text" name="dimensiones" value="<?php echo $dimensiones; ?>" class="input-entrada-texto" placeholder="Dimensiones del predio" required>
+                    <!-- Dimensiones, Área, Tipo de Medida -->
+                    <div class="fila">
+                        <div class="box">
+                            <label for="dimensiones">Dimensiones</label>
+                            <input type="text" name="dimensiones" value="<?php echo $dimensiones; ?>" class="input-entrada-texto" placeholder="Dimensiones del predio" required>
+                        </div>
+
+                        <div class="box">
+                            <label for="area">Área en metros cuadrados</label>
+                            <input type="text" name="area" value="<?php echo $area; ?>" class="input-entrada-texto" placeholder="Área" required>
+                        </div>
+
+                        <div class="box">
+                            <label for="area_tipo">Tipo de Medidas</label>
+                            <select name="area_tipo" id="area_tipo" class="input-entrada-texto" required>
+                                <option value="m²" <?php if ($area_tipo == 'm²') echo 'selected'; ?>>Metros cuadrados (m²)</option>
+                                <option value="hectáreas" <?php if ($area_tipo == 'hectáreas') echo 'selected'; ?>>Hectáreas</option>
+                                <option value="acres" <?php if ($area_tipo == 'acres') echo 'selected'; ?>>Acres</option>
+                                <option value="pies²" <?php if ($area_tipo == 'pies²') echo 'selected'; ?>>Pies cuadrados (ft²)</option>
+                            </select>
+                        </div>
                     </div>
 
+                    <!-- Precio -->
                     <div class="box">
-                        <label for="area">Área en metros cuadrados</label>
-                        <input type="text" name="area" value="<?php echo $area; ?>" class="input-entrada-texto" placeholder="Área" required>
+                        <label for="precio">Precio</label>
+                        <input type="text" name="precio" value="<?php echo $precio; ?>" class="input-entrada-texto" placeholder="Precio de la propiedad" required>
                     </div>
 
-                    <div class="box">
-                        <label for="area_tipo">Tipo de Medidas</label>
-                        <select name="area_tipo" id="area_tipo" class="input-entrada-texto" required>
-                            <option value="m²" <?php if ($area_tipo == 'm²') echo 'selected'; ?>>Metros cuadrados (m²)</option>
-                            <option value="hectáreas" <?php if ($area_tipo == 'hectáreas') echo 'selected'; ?>>Hectáreas</option>
-                            <option value="acres" <?php if ($area_tipo == 'acres') echo 'selected'; ?>>Acres</option>
-                            <option value="pies²" <?php if ($area_tipo == 'pies²') echo 'selected'; ?>>Pies cuadrados (ft²)</option>
-                        </select>
+                    <!-- Moneda -->
+                    <div class="fila">
+                        <div class="box">
+                            <label for="moneda">Moneda</label>
+                            <select name="moneda" class="input-entrada-texto" required>
+                                <option value="COP" <?php if ($moneda == 'COP') echo 'selected'; ?>>COP</option>
+                                <option value="USD" <?php if ($moneda == 'USD') echo 'selected'; ?>>USD</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
 
-                <!-- Precio -->
-                <div class="box">
-                    <label for="precio">Precio</label>
-                    <input type="text" name="precio" value="<?php echo $precio; ?>" class="input-entrada-texto" placeholder="Precio de la propiedad" required>
-                </div>
-
-                <!-- Moneda -->
-                <div class="fila">
-                    <div class="box">
-                        <label for="moneda">Moneda</label>
-                        <select name="moneda" class="input-entrada-texto" required>
-                            <option value="COP" <?php if ($moneda == 'COP') echo 'selected'; ?>>COP</option>
-                            <option value="USD" <?php if ($moneda == 'USD') echo 'selected'; ?>>USD</option>
-                        </select>
-                    </div>
-                </div>
-
-                <h3>GALERÍA DE FOTOS</h3>
-                <hr>
+                    <h3>GALERÍA DE FOTOS</h3>
+                    <hr>
 
 
-                <!-- Foto Principal -->
-                <div>
-                    <p>Foto principal (<label for="foto1" class="btn-cambiar-foto">Cambiar foto</label>)</p>
-                    <output id="list" class="contenedor-foto-principal">
-                        <img src="<?php echo $url_foto_principal; ?>" alt="Foto Principal">
-                    </output>
-                    <input type="file" id="foto1" accept="image/*" name="foto1" style="display:none" onchange="fotoPrincipalCambiada()">
-                    <input type="hidden" id="fotoPrincipalActualizada" name="fotoPrincipalActualizada" value="no">
-                </div>
-
-
-                <!-- Galería de Fotos -->
-                <div>
-                    <p>Galería (<label for="fotos" class="btn-cambiar-foto">Agregar más Fotos</label>)</p>
-                    <input type="file" id="fotos" accept="image/*" name="fotos[]" value="Foto" multiple="" style="display:none" onchange="agregarFotosNuevas()">
-                    <div id="contenedor-fotos-nuevas"></div>
-
-                    <?php
-                    $galeria = obtenerFotosGaleriaDeSubpropiedad($subpropiedad_id);
-                    $i = 1;
-                    ?>
-                    <?php while ($foto = mysqli_fetch_assoc($galeria)) : ?>
-                        <output class="contenedor-foto-galeria" id="foto-<?php echo $i ?>">
-                            <img src="fotos/<?php echo $subpropiedad_id . "/" . $foto['nombre_foto'] ?>" class="foto-galeria">
-                            <span class="btn-eliminar-galeria" data-id="<?php echo $foto['id'] ?>" data-index="<?php echo $i ?>" onclick="eliminarFoto(<?php echo $foto['id'] ?>, <?php echo $i ?>)"> X </span>
+                    <!-- Foto Principal -->
+                    <div>
+                        <p><b>Foto principal</b> ( <label for="foto1" class="btn-cambiar-foto">Cambiar foto</label>)</p>
+                        <output id="list" class="contenedor-foto-principal">
+                            <img src="<?php echo $url_foto_principal; ?>" alt="Foto Principal">
                         </output>
-                    <?php
-                        $i++;
-                    endwhile;
-                    ?>
-                </div>
-
-        <div id="contenedor-fotos-nuevas"></div>
-
-        <!-- El input de archivo está oculto -->
-        <input type="file" id="fotos" accept="image/*" name="fotos[]" value="Foto" multiple="" style="display:none" onchange="agregarFotosNuevas()">
-        <input type="hidden" id="fotosGaleriaActualizada" name="fotosGaleriaActualizada">
-    </div>
+                        <input type="file" id="foto1" accept="image/*" name="foto1" style="display:none" onchange="fotoPrincipalCambiada()">
+                        <input type="hidden" id="fotoPrincipalActualizada" name="fotoPrincipalActualizada" value="no">
+                    </div>
 
 
-                <br>
-                <br>
+                    <!-- Galería de Fotos -->
+                    <div>
+                        <p>Galería (<label for="fotos" class="btn-cambiar-foto">Agregar más Fotos</label>)</p>
+                        <input type="file" id="fotos" accept="image/*" name="fotos[]" value="Foto" multiple="" style="display:none" onchange="agregarFotosNuevas()">
+                        <div id="contenedor-fotos-nuevas"></div>
 
-                <!-- Video URL -->
-                <div class="box">
-                    <label for="video_url">URL del Video</label>
-                    <input type="text" name="video_url" value="<?php echo $video_url; ?>" class="input-entrada-texto" placeholder="URL del video">
-                </div>
+                        <?php
+                        $galeria = obtenerFotosGaleriaDeSubpropiedad($subpropiedad_id);
+                        $i = 1;
+                        ?>
+                        <?php while ($foto = mysqli_fetch_assoc($galeria)) : ?>
+                            <output class="contenedor-foto-galeria" id="foto-<?php echo $i ?>">
+                                <img src="fotos/<?php echo $subpropiedad_id . "/" . $foto['nombre_foto'] ?>" class="foto-galeria">
+                                <span class="btn-eliminar-galeria" data-id="<?php echo $foto['id'] ?>" data-index="<?php echo $i ?>" onclick="eliminarFoto(<?php echo $foto['id'] ?>, <?php echo $i ?>)"> X </span>
+                            </output>
+                        <?php
+                            $i++;
+                        endwhile;
+                        ?>
+                    </div>
 
-                <!-- Recorrido 360 URL -->
-                <div class="box">
-                    <label for="recorrido_360_url">URL del Recorrido 360</label>
-                    <input type="text" name="recorrido_360_url" value="<?php echo $recorrido_360_url; ?>" class="input-entrada-texto" placeholder="URL del recorrido 360">
-                </div>
-                <br>
+                    <div id="contenedor-fotos-nuevas">
 
-                <input type="submit" value="Actualizar Subpropiedad" name="actualizar" class="btn-accion">
-            </form>
+                        <!-- El input de archivo está oculto -->
+                        <input type="file" id="fotos" accept="image/*" name="fotos[]" value="Foto" multiple="" style="display:none" onchange="agregarFotosNuevas()">
+                        <input type="hidden" id="fotosGaleriaActualizada" name="fotosGaleriaActualizada">
+                    </div>
 
-            <?php if ($mensaje): ?>
-                <p><?php echo htmlspecialchars($mensaje); ?></p>
-            <?php endif; ?>
+
+                    <br>
+                    <br>
+
+                    <!-- Video URL -->
+                    <div class="box">
+                        <label for="video_url">URL del Video</label>
+                        <input type="text" name="video_url" value="<?php echo $video_url; ?>" class="input-entrada-texto" placeholder="URL del video">
+                    </div>
+                    <br>
+
+                    <!-- Recorrido 360 URL -->
+                    <div class="box">
+                        <label for="recorrido_360_url">URL del Recorrido 360</label>
+                        <input type="text" name="recorrido_360_url" value="<?php echo $recorrido_360_url; ?>" class="input-entrada-texto" placeholder="URL del recorrido 360">
+                    </div>
+                    <br>
+
+                    <input type="submit" value="Actualizar Subpropiedad" name="actualizar" class="btn-accion">
+                </form>
+
+                <?php if ($mensaje): ?>
+                    <p><?php echo htmlspecialchars($mensaje); ?></p>
+                <?php endif; ?>
+            </div>
         </div>
-    </div>
-    <script>
 
-function eliminarFoto(fotoId, index) {
-
-    var fotosAEliminar = document.getElementById('fotosAEliminar');
-    if (!fotosAEliminar) {
-        console.error("Error: No se encontró el campo oculto 'fotosAEliminar'.");
-        return;
-    }
+</body>
 
 
-    var fotosAEliminarValue = fotosAEliminar.value;
-    if (fotosAEliminarValue !== '') {
-        fotosAEliminar.value = fotosAEliminarValue + ',' + fotoId;
-    } else {
-        fotosAEliminar.value = fotoId;
-    }
+<script>
+    const propiedadId = "<?php echo $propiedad_id; ?>"; 
 
+    document.querySelector('.btn-accion').addEventListener('click', function (e) {
+        e.preventDefault();
 
-    var fotoContenedor = document.getElementById('foto-' + index);
-    if (fotoContenedor) {
-        fotoContenedor.remove();
-    } else {
-        console.warn(`Error: No se encontró el contenedor de la foto con índice ${index}.`);
-    }
-    console.log(`Eliminando foto: ID=${fotoId}, Index=${index}`);
-    console.log("Fotos a eliminar:", fotosAEliminar.value); // Depuración
-}
+        Swal.fire({
+            title: '¡Actualizado correctamente!',
+            text: 'La subpropiedad ha sido actualizada.',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: false 
+        }).then(() => {
+            window.location.href = `../ver-detalle-propiedad.php?id=${propiedadId}&detalle=`;
+        });
+    });
+</script>
 
 
 
-function agregarFotosNuevas() {
-    var input = document.getElementById('fotos');
-    var files = input.files;
 
-    // Verificamos si hay archivos seleccionados
-    if (files.length === 0) {
-        console.log("No se seleccionaron fotos.");
-        return;
-    }
 
-    var contenedorNuevas = document.getElementById('contenedor-fotos-nuevas');
+<script>
+    function eliminarFoto(fotoId, index) {
 
-    // Limpiar el contenedor en caso de que ya tenga contenido
-    contenedorNuevas.innerHTML = '';
-
-    // Recorremos cada archivo seleccionado
-    for (var i = 0; i < files.length; i++) {
-        var file = files[i];
-
-        // Verificamos si es una imagen
-        if (!file.type.match('image.*')) {
-            alert("El archivo seleccionado no es una imagen: " + file.name);
-            continue;
+        var fotosAEliminar = document.getElementById('fotosAEliminar');
+        if (!fotosAEliminar) {
+            console.error("Error: No se encontró el campo oculto 'fotosAEliminar'.");
+            return;
         }
 
-        var reader = new FileReader();
 
-        // Creamos un contenedor para la nueva foto
-        reader.onload = (function(file) {
-            return function(e) {
-                var output = document.createElement('output');
-                output.classList.add('contenedor-foto-galeria'); // Clase para estilos
+        var fotosAEliminarValue = fotosAEliminar.value;
+        if (fotosAEliminarValue !== '') {
+            fotosAEliminar.value = fotosAEliminarValue + ',' + fotoId;
+        } else {
+            fotosAEliminar.value = fotoId;
+        }
 
-                // Agregamos la imagen al contenedor
-                output.innerHTML = `
+
+        var fotoContenedor = document.getElementById('foto-' + index);
+        if (fotoContenedor) {
+            fotoContenedor.remove();
+        } else {
+            console.warn(`Error: No se encontró el contenedor de la foto con índice ${index}.`);
+        }
+        console.log(`Eliminando foto: ID=${fotoId}, Index=${index}`);
+        console.log("Fotos a eliminar:", fotosAEliminar.value); // Depuración
+    }
+
+
+
+    function agregarFotosNuevas() {
+        var input = document.getElementById('fotos');
+        var files = input.files;
+
+        // Verificamos si hay archivos seleccionados
+        if (files.length === 0) {
+            console.log("No se seleccionaron fotos.");
+            return;
+        }
+
+        var contenedorNuevas = document.getElementById('contenedor-fotos-nuevas');
+
+        // Limpiar el contenedor en caso de que ya tenga contenido
+        contenedorNuevas.innerHTML = '';
+
+        // Recorremos cada archivo seleccionado
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+
+            // Verificamos si es una imagen
+            if (!file.type.match('image.*')) {
+                alert("El archivo seleccionado no es una imagen: " + file.name);
+                continue;
+            }
+
+            var reader = new FileReader();
+
+            // Creamos un contenedor para la nueva foto
+            reader.onload = (function(file) {
+                return function(e) {
+                    var output = document.createElement('output');
+                    output.classList.add('contenedor-foto-galeria'); // Clase para estilos
+
+                    // Agregamos la imagen al contenedor
+                    output.innerHTML = `
                     <img src="${e.target.result}" class="foto-galeria" title="${file.name}">
                     <button type="button" class="btn-eliminar-galeria" onclick="eliminarFotoNueva(this)">X</button>
                 `;
 
-                // Añadimos el contenedor al div principal
-                contenedorNuevas.appendChild(output);
+                    // Añadimos el contenedor al div principal
+                    contenedorNuevas.appendChild(output);
+                };
+            })(file);
+
+            // Leemos el archivo como DataURL
+            reader.readAsDataURL(file);
+        }
+
+        // Indicar que se han agregado nuevas fotos (para manejar en el backend)
+        document.getElementById('fotosGaleriaActualizada').value = 'si';
+    }
+
+    function eliminarFotoNueva(button) {
+        // Eliminar el contenedor de la foto nueva del DOM
+        var output = button.parentElement;
+        if (output) {
+            output.remove();
+        }
+    }
+
+
+    function fotoPrincipalCambiada() {
+        const fotoPrincipalInput = document.getElementById('foto1');
+        const fotoPrincipalActualizada = document.getElementById('fotoPrincipalActualizada');
+        const previewContainer = document.getElementById('list');
+
+        if (fotoPrincipalInput.files.length > 0) {
+            const file = fotoPrincipalInput.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                // Actualiza la vista previa con la nueva imagen
+                previewContainer.innerHTML = `<img src="${e.target.result}" alt="Nueva Foto Principal">`;
             };
-        })(file);
 
-        // Leemos el archivo como DataURL
-        reader.readAsDataURL(file);
+            reader.readAsDataURL(file);
+            fotoPrincipalActualizada.value = 'si';
+        }
     }
-
-    // Indicar que se han agregado nuevas fotos (para manejar en el backend)
-    document.getElementById('fotosGaleriaActualizada').value = 'si';
-}
-
-function eliminarFotoNueva(button) {
-    // Eliminar el contenedor de la foto nueva del DOM
-    var output = button.parentElement;
-    if (output) {
-        output.remove();
-    }
-}
-
-
-function fotoPrincipalCambiada() {
-    const fotoPrincipalInput = document.getElementById('foto1');
-    const fotoPrincipalActualizada = document.getElementById('fotoPrincipalActualizada');
-    const previewContainer = document.getElementById('list');
-
-    if (fotoPrincipalInput.files.length > 0) {
-        const file = fotoPrincipalInput.files[0];
-        const reader = new FileReader();
-
-        reader.onload = function (e) {
-            // Actualiza la vista previa con la nueva imagen
-            previewContainer.innerHTML = `<img src="${e.target.result}" alt="Nueva Foto Principal">`;
-        };
-
-        reader.readAsDataURL(file);
-        fotoPrincipalActualizada.value = 'si';
-    }
-}
-
-
-
 </script>
-</body>
+
 
 </html>

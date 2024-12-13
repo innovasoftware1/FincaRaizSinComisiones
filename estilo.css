@@ -1277,7 +1277,7 @@ h2 {
 
 /* Estilos de los botones dentro de la tarjeta */
 .card-subpropiedad .contenido button {
-    background-color: #3498db;
+    background-color: #0e1c34;
     color: #fff;
     border: none;
     padding: 10px 15px;
@@ -1524,7 +1524,7 @@ h2 {
     height: 4px;
     background-color: #dadada;
     border-radius: 5px;
-    width: 80%;
+    width: 90%;
     border: none;
     margin: 10px auto;
 }
