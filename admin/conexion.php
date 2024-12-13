@@ -2,9 +2,9 @@
 
 <?php
 
-$server = "localhost:3307"; // Servidor y puerto
+$server = "localhost:3306"; // Servidor y puerto
 $username = "root";         // Usuario
-$password = "clave.innova";             // Contraseña
+$password = "";             // Contraseña
 $bd = "finca_raiz_v1";      // Base de datos
 
 $conn = mysqli_connect($server, $username, $password, $bd);

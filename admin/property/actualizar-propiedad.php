@@ -3,97 +3,129 @@ session_start();
 
 if (!$_SESSION['usuarioLogeado']) {
     header("Location:login.php");
+    exit();
 }
 
-function obtenerPropiedadPorId($id_propiedad)
+include("../conexion.php");
+
+$id_propiedad = null;
+
+// Obtener ID desde GET o POST
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id']) && !empty($_GET['id'])) {
+    $id_propiedad = mysqli_real_escape_string($conn, $_GET['id']);
+} elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id']) && !empty($_POST['id'])) {
+    $id_propiedad = mysqli_real_escape_string($conn, $_POST['id']);
+}
+
+if (!$id_propiedad) {
+    die("ID de propiedad no proporcionado o inválido.");
+}
+
+// Obtener propiedad si es GET
+$propiedad = null;
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    $propiedad = obtenerPropiedadPorId($id_propiedad);
+    if (!$propiedad) {
+        die("Propiedad no encontrada.");
+    }
+}
+
+// Funciones
+function obtenerPropiedadPorId($id)
 {
     include("../conexion.php");
-
-    $query = "SELECT * FROM propiedades WHERE id='$id_propiedad'";
-
-    $resultado_propiedad = mysqli_query($conn, $query);
-    $propiedad = mysqli_fetch_assoc($resultado_propiedad);
-    return $propiedad;
+    $query = "SELECT * FROM propiedades WHERE id='" . mysqli_real_escape_string($conn, $id) . "'";
+    $resultado = mysqli_query($conn, $query);
+    if (!$resultado) {
+        die("Error en la consulta: " . mysqli_error($conn));
+    }
+    return mysqli_fetch_assoc($resultado);
 }
-$id_propiedad = $_GET['id'];    
-$propiedad = obtenerPropiedadPorId($id_propiedad);
-
-/************************************************************* */
 
 function obtenerFotosGaleriaDePropiedad($id_propiedad)
 {
     include("../conexion.php");
 
-    $query = "SELECT * FROM fotos WHERE id_propiedad='$id_propiedad'";
+    $query = "SELECT * FROM fotos WHERE id_propiedad='" . mysqli_real_escape_string($conn, $id_propiedad) . "'";
 
     $galeria = mysqli_query($conn, $query);
+    if (!$galeria) {
+        die("Error en la consulta: " . mysqli_error($conn));
+    }
     return $galeria;
 }
 
 include("../conexion.php");
 
 $query = "SELECT * FROM tipos";
-
 $resultado_tipos = mysqli_query($conn, $query);
-
-include("../conexion.php");
+if (!$resultado_tipos) {
+    die("Error al obtener tipos: " . mysqli_error($conn));
+}
 
 $query = "SELECT * FROM departamentos";
-
 $resultado_departamentos = mysqli_query($conn, $query);
+if (!$resultado_departamentos) {
+    die("Error al obtener departamentos: " . mysqli_error($conn));
+}
 
-include("../conexion.php");
+if (isset($propiedad) && isset($propiedad['departamento'])) {
+    $query = "SELECT * FROM ciudades WHERE id_departamento='" . mysqli_real_escape_string($conn, $propiedad['departamento']) . "'";
+    $resultado_ciudades = mysqli_query($conn, $query);
+    if (!$resultado_ciudades) {
+        die("Error al obtener ciudades: " . mysqli_error($conn));
+    }
+}
 
-$query = "SELECT * FROM ciudades WHERE id_departamento='$propiedad[departamento]'";
+// Depuración: Imprimir valor de fotoPrincipalActualizada
+var_dump($_POST['fotoPrincipalActualizada']);  // Esto imprimirá lo que llega al servidor
 
-$resultado_ciudades = mysqli_query($conn, $query);
 
 if (isset($_POST['actualizar'])) {
 
-    include("../conexion.php");
-
     $id_propiedad = $_POST['id'];
-    $titulo = $_POST['titulo'];
-    $descripcion = $_POST['descripcion'];
-    $tipo = $_POST['tipo'];
-    $estado = $_POST['estado'];
-    $ubicacion = $_POST['ubicacion'];
-    $habitaciones = $_POST['habitaciones'];
-    $banios = $_POST['banios'];
-    $pisos = $_POST['pisos'];
-    $garage = $_POST['garage'];
-    $dimensiones = $_POST['dimensiones'];
-    $dimensiones_tipo = $_POST['dimensiones_tipo'];
-    $area = $_POST['area'];
-    $altitud = $_POST['altitud'];
-    $distancia_pueblo = $_POST['distancia_pueblo'];
-    $vias_acceso = $_POST['vias_acceso'];
-    $clima = $_POST['clima'];
-    $precio = $_POST['precio'];
-    $moneda = $_POST['moneda'];
-    $url_foto_principal = isset($_POST['url_foto_principal']) ? $_POST['url_foto_principal'] : '';
-    $video_url = $_POST['video_url'];
-    $recorrido_360_url = $_POST['recorrido_360_url'];
-    $ubicacion_url = $_POST['ubicacion_url'];
-    $documentos_transferencia = $_POST['documentos_transferencia'];
-    $permisos = isset($_POST['permisos']) ? $_POST['permisos'] : null;
-    $uso_principal = $_POST['uso_principal'];
-    $uso_compatibles = $_POST['uso_compatibles'];
-    $uso_condicionales = $_POST['uso_condicionales'];
-    $departamento = $_POST['departamento'];
-    $ciudad = $_POST['ciudad'];
-    $luz = isset($_POST['luz']) ? $_POST['luz'] : 0;
-    $gas = isset($_POST['gas']) ? $_POST['gas'] : 0;
-    $internet = isset($_POST['internet']) ? $_POST['internet'] : 0;
-    $permuta = isset($_POST['permuta']) ? $_POST['permuta'] : 0;
-    $caracteristicas_positivas = $_POST['caracteristicas_positivas'];
-    $distancia_desde_bogota = $_POST['distancia_desde_bogota'];
-    $financiacion = $_POST['financiacion'];
-    $salidas_bogota = $_POST['salidas_bogota'];
-    $agua_propia = isset($_POST['agua_propia']) ? $_POST['agua_propia'] : null;
-    $construcciones_aledañas = $_POST['construcciones_aledañas'];
-    $inventario = $_POST['inventario'];
-    $nombre_propietario = $_POST['nombre_propietario'];
+    $titulo = mysqli_real_escape_string($conn, $_POST['titulo']);
+    $descripcion = mysqli_real_escape_string($conn, $_POST['descripcion']);
+    $tipo = mysqli_real_escape_string($conn, $_POST['tipo']);
+    $estado = mysqli_real_escape_string($conn, $_POST['estado']);
+    $ubicacion = mysqli_real_escape_string($conn, $_POST['ubicacion']);
+    $habitaciones = (int)$_POST['habitaciones'];
+    $banios = (int)$_POST['banios'];
+    $pisos = (int)$_POST['pisos'];
+    // Ajuste para el valor de 'garage'
+    $garage = ($_POST['garage'] === 'Si') ? 1 : 0;
+    $dimensiones = mysqli_real_escape_string($conn, $_POST['dimensiones']);
+    $dimensiones_tipo = mysqli_real_escape_string($conn, $_POST['dimensiones_tipo']);
+    $area = (float)$_POST['area'];
+    $altitud = (float)$_POST['altitud'];
+    $distancia_pueblo = (float)$_POST['distancia_pueblo'];
+    $vias_acceso = mysqli_real_escape_string($conn, $_POST['vias_acceso']);
+    $clima = mysqli_real_escape_string($conn, $_POST['clima']);
+    $precio = (float)$_POST['precio'];
+    $moneda = mysqli_real_escape_string($conn, $_POST['moneda']);
+    $url_foto_principal = isset($_POST['url_foto_principal']) ? mysqli_real_escape_string($conn, $_POST['url_foto_principal']) : '';
+    $video_url = mysqli_real_escape_string($conn, $_POST['video_url']);
+    $recorrido_360_url = mysqli_real_escape_string($conn, $_POST['recorrido_360_url']);
+    $ubicacion_url = mysqli_real_escape_string($conn, $_POST['ubicacion_url']);
+    $documentos_transferencia = mysqli_real_escape_string($conn, $_POST['documentos_transferencia']);
+    $permisos = isset($_POST['permisos']) ? mysqli_real_escape_string($conn, $_POST['permisos']) : null;
+    $uso_principal = mysqli_real_escape_string($conn, $_POST['uso_principal']);
+    $uso_compatibles = mysqli_real_escape_string($conn, $_POST['uso_compatibles']);
+    $uso_condicionales = mysqli_real_escape_string($conn, $_POST['uso_condicionales']);
+    $departamento = mysqli_real_escape_string($conn, $_POST['departamento']);
+    $ciudad = mysqli_real_escape_string($conn, $_POST['ciudad']);
+    $luz = isset($_POST['luz']) ? 1 : 0;
+    $gas = isset($_POST['gas']) ? 1 : 0;
+    $internet = isset($_POST['internet']) ? 1 : 0;
+    $permuta = isset($_POST['permuta']) ? 1 : 0;
+    $caracteristicas_positivas = mysqli_real_escape_string($conn, $_POST['caracteristicas_positivas']);
+    $distancia_desde_bogota = (float)$_POST['distancia_desde_bogota'];
+    $financiacion = mysqli_real_escape_string($conn, $_POST['financiacion']);
+    $salidas_bogota = mysqli_real_escape_string($conn, $_POST['salidas_bogota']);
+    $agua_propia = isset($_POST['agua_propia']) ? mysqli_real_escape_string($conn, $_POST['agua_propia']) : null;
+    $construcciones_aledañas = mysqli_real_escape_string($conn, $_POST['construcciones_aledañas']);
+    $inventario = mysqli_real_escape_string($conn, $_POST['inventario']);
+    $nombre_propietario = mysqli_real_escape_string($conn, $_POST['nombre_propietario']);
 
     $query = "UPDATE propiedades SET 
         titulo = '$titulo',
@@ -101,18 +133,18 @@ if (isset($_POST['actualizar'])) {
         tipo = '$tipo',
         estado = '$estado',
         ubicacion = '$ubicacion',
-        habitaciones = '$habitaciones',
-        banios = '$banios',
-        pisos = '$pisos',
-        garage = '$garage',
+        habitaciones = $habitaciones,
+        banios = $banios,
+        pisos = $pisos,
+        garage = $garage,
         dimensiones = '$dimensiones',
         dimensiones_tipo = '$dimensiones_tipo',
-        area = '$area',
-        altitud = '$altitud',
-        distancia_pueblo = '$distancia_pueblo',
+        area = $area,
+        altitud = $altitud,
+        distancia_pueblo = $distancia_pueblo,
         vias_acceso = '$vias_acceso',
         clima = '$clima',
-        precio = '$precio',
+        precio = $precio,
         moneda = '$moneda',
         url_foto_principal = '$url_foto_principal',
         video_url = '$video_url',
@@ -125,12 +157,12 @@ if (isset($_POST['actualizar'])) {
         uso_condicionales = '$uso_condicionales',
         departamento = '$departamento',
         ciudad = '$ciudad',
-        luz = '$luz',
-        gas = '$gas',
-        internet = '$internet',
-        permuta = '$permuta',
+        luz = $luz,
+        gas = $gas,
+        internet = $internet,
+        permuta = $permuta,
         caracteristicas_positivas = '$caracteristicas_positivas',
-        distancia_desde_bogota = '$distancia_desde_bogota',
+        distancia_desde_bogota = $distancia_desde_bogota,
         financiacion = '$financiacion',
         salidas_bogota = '$salidas_bogota',
         agua_propia = '$agua_propia',
@@ -139,31 +171,34 @@ if (isset($_POST['actualizar'])) {
         nombre_propietario = '$nombre_propietario'
         WHERE id = '$id_propiedad'";
 
-    
-    if (mysqli_query($conn, $query)) {
-
-        if ($_POST['fotoPrincipalActualizada'] == "si") {
-            include("../actualizar-foto-principal.php");
-        }
-
-        if ($_POST['fotosGaleriaActualizada'] == "si") {
-            $id_ultima_propiedad = $id_propiedad;
-            include("../procesar-fotos-galeria.php");
-        }
-
-        $idsFotos =  $_POST['fotosAEliminar'];
-        if ($idsFotos != "") {
-            include("../eliminar-fotos-de-galeria.php");
-        }
-
-        $mensaje = "La propiedad se actualizó correctamente";
-    } else {
-        $mensaje = "No se pudo insertar en la BD" . mysqli_error($conn);
+if (mysqli_query($conn, $query)) {
+    // Procesar foto principal si fue actualizada
+    if ($_POST['fotoPrincipalActualizada'] === "si") {
+        include("../actualizar-foto-principal.php");
     }
+
+    // Procesar galería de fotos si fueron agregadas
+    if (isset($_FILES['fotos']) && !empty($_FILES['fotos']['name'][0])) {
+        $id_ultima_propiedad = $id_propiedad;
+        include("../procesar-fotos-galeria.php");
+    }
+
+    // Eliminar fotos de la galería si fueron seleccionadas
+    $idsFotos = $_POST['fotosAEliminar'];
+    if (!empty($idsFotos)) {
+        include("../eliminar-fotos-de-galeria.php");
+    }
+
+    // Mensaje de éxito
+    $mensaje = "La propiedad se actualizó correctamente";
+} else {
+    // Mensaje de error si no se pudo actualizar
+    $mensaje = "No se pudo insertar en la BD: " . mysqli_error($conn);
 }
-
-
+}
 ?>
+
+
 
 
 <!DOCTYPE html>
@@ -179,6 +214,23 @@ if (isset($_POST['actualizar'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="../estilo.css">
+    <style>
+        .btn-eliminar-imagen {
+    background-color: red;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 3px;
+    margin-top: 5px;
+}
+
+.btn-eliminar-imagen:hover {
+    background-color: darkred;
+}
+
+    </style>
     <script>
         function muestraselect(str) {
             var conexion;
@@ -593,7 +645,6 @@ if (isset($_POST['actualizar'])) {
                     <br>
                     <h2>Galería de fotos</h2>
                     <hr>
-
                     <div class="">
                         <p><b>Foto principal</b> (<label for="foto1" class="btn-cambiar-foto">Cambiar foto</label>)</p>
                         <output id="list" class="contenedor-foto-principal">
@@ -601,207 +652,308 @@ if (isset($_POST['actualizar'])) {
                         </output>
 
                         <input type="file" id="foto1" accept="image/*" name="foto1" style="display:none">
-                        <input type="hidden" id="fotoPrincipalActualizada" name="fotoPrincipalActualizada" value="<?php echo $propiedad['url_foto_principal']; ?>">
+                        <input type="hidden" name="fotoPrincipalActualizada" value="si">
+
+                        
+
+
                     </div>
                     <br><br>
                     <div>
-                        <p><b>Galería</b> ( <label for="fotos" class="btn-cambiar-foto">Agregar mas Fotos</label>)</p>
-                        <input type="hidden" id="fotosAEliminar" name="fotosAEliminar">
-                        <div id="contenedor-fotos-publicacion">
-                            <?php
-                            $galeria = obtenerFotosGaleriaDePropiedad($propiedad['id']);
-                            $i = 1;
-                            while ($foto = mysqli_fetch_assoc($galeria)) : ?>
-                                <output class="contenedor-foto-galeria" id="<?php echo $i ?>">
-                                    <img src="fotos/<?php echo $propiedad['id'] . "/" . $foto['nombre_foto'] ?>" class="foto-galeria">
-                                    <span id="btn-eliminar-galeria" id="<?php echo $foto['id'] ?>" onclick="eliminarFoto(<?php echo $foto['id'] ?>, <?php echo $i ?>)"> Eliminar</span>
-                                </output>
-                            <?php
-                                $i++;
-                            endwhile
-                            ?>
-                        </div>
+                    <div>
+    <p><b>Galería</b> ( <label for="fotos" class="btn-cambiar-foto">Agregar más Fotos</label>)</p>
+    <input type="hidden" id="fotosAEliminar" name="fotosAEliminar">
+    
+    <div id="contenedor-fotos-publicacion">
+        <?php
+        $galeria = obtenerFotosGaleriaDePropiedad($propiedad['id']);
+        $i = 1;
+        while ($foto = mysqli_fetch_assoc($galeria)) : ?>
+            <output class="contenedor-foto-galeria" id="<?php echo $i ?>">
+                <img src="fotos/<?php echo $propiedad['id'] . "/" . $foto['nombre_foto'] ?>" class="foto-galeria">
+                <span id="btn-eliminar-galeria" id="<?php echo $foto['id'] ?>" onclick="eliminarFoto(<?php echo $foto['id'] ?>, <?php echo $i ?>)"> Eliminar</span>
+            </output>
+        <?php
+            $i++;
+        endwhile
+        ?>
+    </div>
+    
+    <br><br>
 
-                        <br>
-                        <br>
+    <!-- Única entrada para seleccionar las fotos -->
+    <input type="file" id="fotos" accept="image/*" name="fotos[]" multiple style="display:none">
+    <input type="hidden" id="fotosGaleriaActualizada" name="fotosGaleriaActualizada">
+</div>
 
-                        <div id="contenedor-fotos-nuevas">
-                            <p><b>(Opcional) Fotos nuevas de galeria</b></p>       
-                        </div>
+<br><br>
+<h2>Video y Recorrido 360º</h2>
+<hr>
+<div class="form-group">
+    <label for="video_url">Video del predio</label>
+    <input
+        class="input-entrada-texto"
+        type="text"
+        name="video_url"
+        id="video_url"
+        value="<?php echo htmlspecialchars($propiedad['video_url']); ?>"
+        placeholder="Ingrese URL del video de YouTube"
+        required>
+    <div id="videoPreview"></div>
+</div>
 
-                        <input type="file" id="fotos" accept="image/*" name="fotos[]" multiple="" style="display:none">
-                        <input type="hidden" id="fotosGaleriaActualizada" name="fotosGaleriaActualizada">
-                    </div>
+<br><br>
+<div class="form-group">
+    <label for="recorrido_360_url">Recorrido 360º</label>
+    <input
+        class="input-entrada-texto"
+        type="text"
+        name="recorrido_360_url"
+        id="recorrido_360_url"
+        value="<?php echo htmlspecialchars($propiedad['recorrido_360_url']); ?>"
+        placeholder="Ingrese URL del recorrido 360º"
+        required>
+    <div id="videoPreview"></div>
+</div>
 
-                            
+<br>
+<h2>Detalles Financieros De La Propiedad</h2>
+<hr>
 
-                                    <br>
-                                    <br>
-                                    <h2>Video y Recorrido 360º</h2>
-                                    <hr>
-                                    <div class="form-group">
-                                        <label for="video_url">Video del predio</label>
-                                        <input
-                                            class="input-entrada-texto"
-                                            type="text"
-                                            name="video_url"
-                                            id="video_url"
-                                            value="<?php echo htmlspecialchars($propiedad['video_url']); ?>"
-                                            placeholder="Ingrese URL del video de YouTube"
-                                            required>
-                                        <div id="videoPreview"></div>
-                                    </div>
+<!-- Campo: Precio -->
+<div class="box">
+    <label for="precio">Precio (Alquiler o Venta)</label>
+    <input 
+        type="text" 
+        name="precio" 
+        value="<?php echo $propiedad['precio']; ?>" 
+        class="input-entrada-texto">
+</div>
 
-                                    <br>
-                                    <br>
-                                    <div class="form-group">
-                                        <label for="recorrido_360_url">Recorrido 360º</label>
-                                        <input
-                                            class="input-entrada-texto"
-                                            type="text"
-                                            name="recorrido_360_url"
-                                            id="recorrido_360_url"
-                                            value="<?php echo htmlspecialchars($propiedad['recorrido_360_url']); ?>"
-                                            placeholder="Ingrese URL del recorrido 360º"
-                                            required>
-                                        <div id="videoPreview"></div>
-                                    </div>
+<!-- Campo: Moneda -->
+<div class="box">
+    <label for="moneda">Moneda</label>
+    <input 
+        type="text" 
+        name="moneda" 
+        value="<?php echo $propiedad['moneda']; ?>" 
+        class="input-entrada-texto" 
+        required>
+</div>
 
-                                    <br>
-                <h2>Detalles Financieros De La Propiedad</h2>
-                <hr>
+<!-- Campo: Permuta -->
+<div class="fila">
+    <div class="box">
+        <label for="permuta">¿Permuta?</label>
+        <select name="permuta" id="" class="input-entrada-texto">
+            <option value="0" <?php if ($propiedad['permuta'] == "No") { echo "selected"; } ?>>No</option>
+            <option value="1" <?php if ($propiedad['permuta'] == "Si") { echo "selected"; } ?>>Sí</option>
+        </select>
+    </div>
+</div>  
 
-                <!-- Campo: Precio -->
-                <div class="box">
-                    <label for="precio">Precio (Alquiler o Venta)</label>
-                    <input 
-                        type="text" 
-                        name="precio" 
-                        value="<?php echo $propiedad['precio']; ?>" 
-                        class="input-entrada-texto">
-                </div>
+<!-- Campo: Financiación disponible -->
+<div class="box">
+    <label for="financiacion">¿Financiación disponible?</label>
+    <select name="financiacion" id="financiacion" class="input-entrada-texto" required>
+        <option value="1" <?php if ($propiedad['financiacion'] == "1") { echo "selected"; } ?>>Sí</option>
+        <option value="0" <?php if ($propiedad['financiacion'] == "0") { echo "selected"; } ?>>No</option>
+    </select>
+</div>
 
-                <!-- Campo: Moneda -->
-                <div class="box">
-                    <label for="moneda">Moneda</label>
-                    <input 
-                        type="text" 
-                        name="moneda" 
-                        value="<?php echo $propiedad['moneda']; ?>" 
-                        class="input-entrada-texto" 
-                        required>
-                </div>
+<br>
+<h2>Espaciales</h2>
+<hr>
 
-                <!-- Campo: Permuta -->
-                <div class="fila">
-                    <div class="box">
-                        <label for="permuta">¿Permuta?</label>
-                        <select name="permuta" id="" class="input-entrada-texto">
-                            <option value="0" <?php if ($propiedad['permuta'] == "No") { echo "selected"; } ?>>No</option>
-                            <option value="1" <?php if ($propiedad['permuta'] == "Si") { echo "selected"; } ?>>Sí</option>
-                        </select>
-                    </div>
-                </div>  
+<div class="fila">
+    <!-- Salidas de Bogotá -->
+    <div class="box">
+        <label for="salidas_bogota">Salidas de Bogotá</label>
+        <select name="salidas_bogota" id="salidas_bogota" class="input-entrada-texto" required>
+            <option value="autopista_sur" <?php if ($propiedad['salidas_bogota'] == "autopista_sur") { echo "selected"; } ?>>Autopista Sur</option>
+            <option value="autopista_calle_80" <?php if ($propiedad['salidas_bogota'] == "autopista_calle_80") { echo "selected"; } ?>>Autopista Calle 80</option>
+            <option value="autopista_calle_13" <?php if ($propiedad['salidas_bogota'] == "autopista_calle_13") { echo "selected"; } ?>>Autopista Calle 13</option>
+            <option value="autopista_via_la_calera" <?php if ($propiedad['salidas_bogota'] == "autopista_via_la_calera") { echo "selected"; } ?>>Autopista Via La Calera</option>
+        </select>
+    </div>
 
-                <!-- Campo: Financiación disponible -->
-                <div class="box">
-                    <label for="financiacion">¿Financiación disponible?</label>
-                    <select name="financiacion" id="financiacion" class="input-entrada-texto" required>
-                        <option value="1" <?php if ($propiedad['financiacion'] == "1") { echo "selected"; } ?>>Sí</option>
-                        <option value="0" <?php if ($propiedad['financiacion'] == "0") { echo "selected"; } ?>>No</option>
-                    </select>
-                </div>
+    <!-- Distancia al Pueblo -->
+    <div class="box">
+        <label for="distancia_pueblo">Distancia al Pueblo</label>
+        <input 
+            type="text" 
+            name="distancia_pueblo" 
+            class="input-entrada-texto" 
+            value="<?php echo htmlspecialchars($propiedad['distancia_pueblo']); ?>" 
+            placeholder="Distancia en km">
+    </div>
+</div>
 
-                <br>
-                <h2>Espaciales</h2>
-                <hr>
+<div class="fila">
+    <!-- Distancia desde Bogotá -->
+    <div class="box">
+        <label for="distancia_desde_bogota">Distancia desde Bogotá (km)</label>
+        <input 
+            type="number" 
+            name="distancia_desde_bogota" 
+            id="distancia_desde_bogota" 
+            class="input-entrada-texto" 
+            value="<?php echo htmlspecialchars($propiedad['distancia_desde_bogota']); ?>" 
+            placeholder="Distancia en km" 
+            required>
+    </div>
 
-                <div class="fila">
-                    <!-- Salidas de Bogotá -->
-                    <div class="box">
-                        <label for="salidas_bogota">Salidas de Bogotá</label>
-                        <select name="salidas_bogota" id="salidas_bogota" class="input-entrada-texto" required>
-                            <option value="autopista_sur" <?php if ($propiedad['salidas_bogota'] == "autopista_sur") { echo "selected"; } ?>>Autopista Sur</option>
-                            <option value="autopista_calle_80" <?php if ($propiedad['salidas_bogota'] == "autopista_calle_80") { echo "selected"; } ?>>Autopista Calle 80</option>
-                            <option value="autopista_calle_13" <?php if ($propiedad['salidas_bogota'] == "autopista_calle_13") { echo "selected"; } ?>>Autopista Calle 13</option>
-                            <option value="autopista_via_la_calera" <?php if ($propiedad['salidas_bogota'] == "autopista_via_la_calera") { echo "selected"; } ?>>Autopista Via La Calera</option>
-                        </select>
-                    </div>
+    <!-- Vías de acceso -->
+    <div class="box">
+        <label for="vias_acceso">Vías de acceso</label>
+        <input 
+            type="text" 
+            name="vias_acceso" 
+            class="input-entrada-texto" 
+            value="<?php echo htmlspecialchars($propiedad['vias_acceso']); ?>" 
+            placeholder="Vías de acceso" 
+            required>
+    </div>
 
-                    <!-- Distancia al Pueblo -->
-                    <div class="box">
-                        <label for="distancia_pueblo">Distancia al Pueblo</label>
-                        <input 
-                            type="text" 
-                            name="distancia_pueblo" 
-                            class="input-entrada-texto" 
-                            value="<?php echo htmlspecialchars($propiedad['distancia_pueblo']); ?>" 
-                            placeholder="Distancia en km">
-                    </div>
-                </div>
+    <!-- Nombre del propietario -->
+    <div class="box">
+        <label for="nombre_propietario">Nombre Propietario</label>
+        <input 
+            type="text" 
+            name="nombre_propietario" 
+            class="input-entrada-texto" 
+            value="<?php echo htmlspecialchars($propiedad['nombre_propietario']); ?>" 
+            placeholder="Nombre propietario" 
+            required>
+    </div>
+</div>
+<input type="hidden" id="fotosAEliminar" name="fotosAEliminar">
 
-                <div class="fila">
-                    <!-- Distancia desde Bogotá -->
-                    <div class="box">
-                        <label for="distancia_desde_bogota">Distancia desde Bogotá (km)</label>
-                        <input 
-                            type="number" 
-                            name="distancia_desde_bogota" 
-                            id="distancia_desde_bogota" 
-                            class="input-entrada-texto" 
-                            value="<?php echo htmlspecialchars($propiedad['distancia_desde_bogota']); ?>" 
-                            placeholder="Distancia en km" 
-                            required>
-                    </div>
+<!-- Botón de envío del formulario -->
+<input type="submit" value="Actualizar Datos" name="actualizar" class="btn-accion">
+</form>
 
-                    <!-- Vías de acceso -->
-                    <div class="box">
-                        <label for="vias_acceso">Vías de acceso</label>
-                        <input 
-                            type="text" 
-                            name="vias_acceso" 
-                            class="input-entrada-texto" 
-                            value="<?php echo htmlspecialchars($propiedad['vias_acceso']); ?>" 
-                            placeholder="Vías de acceso" 
-                            required>
-                    </div>
+<?php if (isset($estado)) : ?>
+<script>
+    Swal.fire({
+        icon: '<?php echo $estado; ?>',
+        title: '<?php echo $estado == 'success' ? "¡Éxito!" : "¡Se Actualizo correctamente!"; ?>',
+        text: '<?php echo $mensaje; ?>',
+        showConfirmButton: false,
+        timer: 2500
+    }).then(() => {
+        <?php if ($estado == 'success') : ?>
+            window.location.href = 'listado-propiedades.php';
+        <?php endif; ?>
+    });
+</script>
+<?php endif ?>
 
-                    <!-- Nombre del propietario -->
-                    <div class="box">
-                        <label for="nombre_propietario">Nombre Propietario</label>
-                        <input 
-                            type="text" 
-                            name="nombre_propietario" 
-                            class="input-entrada-texto" 
-                            value="<?php echo htmlspecialchars($propiedad['nombre_propietario']); ?>" 
-                            placeholder="Nombre propietario" 
-                            required>
-                    </div>
-                </div>
+<!-- Scripts para manejar las fotos y eliminar imágenes -->
+<script>
+let fotosEliminadas = []; // Array para almacenar los nombres de las fotos eliminadas (nuevas)
+let fotosEliminadasExistentes = []; // Array para almacenar las IDs de las fotos eliminadas de la base de datos
+
+// Cuando se cambia la foto principal
+document.getElementById('foto1').addEventListener('change', function(event) {
+    const fotoPrincipalInput = document.getElementById('fotoPrincipalActualizada');
+    const file = event.target.files[0];
+
+    if (file) {
+        // Si se selecciona una nueva foto, actualizamos el valor del campo oculto
+        fotoPrincipalInput.value = URL.createObjectURL(file); // O el valor real si se sube al servidor
+    } else {
+        // Si no se selecciona ninguna foto, mantenemos la foto principal actual
+        fotoPrincipalInput.value = '<?php echo $propiedad['url_foto_principal']; ?>';  // Esto asegura que no se pierda el valor
+    }
+
+    // Para depuración: Ver el valor en el campo oculto antes de enviar el formulario
+    console.log("Valor de fotoPrincipalActualizada: ", fotoPrincipalInput.value);
+});
 
 
-                <input type="submit" value="Actualizar Datos" name="actualizar" class="btn-accion">
-            </form>
 
-            <?php if (isset($estado)) : ?>
-                <script>
-                    Swal.fire({
-                        icon: '<?php echo $estado; ?>',
-                        title: '<?php echo $estado == 'success' ? "¡Éxito!" : "¡Se Actualizo correctamente!"; ?>',
-                        text: '<?php echo $mensaje; ?>',
-                        showConfirmButton: false,
-                        timer: 2500
-                    }).then(() => {
-                        <?php if ($estado == 'success') : ?>
-                            window.location.href = 'listado-propiedades.php';
-                        <?php endif; ?>
-                    });
-                </script>
-            <?php endif ?>
 
-    <script src="../script.js"></script>
-    <script src="../subirFoto.js"></script>
-    <script src="../vista_recorrido_video.js"></script>
+
+// Función para eliminar fotos existentes de la base de datos
+function eliminarFotoExistente(fotoId, index) {
+    const contenedor = document.getElementById('contenedor-fotos-publicacion');
+    
+    // Eliminar la foto visualmente del contenedor
+    const fotoElement = document.getElementById(index);
+    contenedor.removeChild(fotoElement);
+
+    // Agregar la ID de la foto eliminada al array de fotos eliminadas
+    fotosEliminadasExistentes.push(fotoId);
+
+    // Actualizamos el campo oculto con las fotos eliminadas (tanto nuevas como de la BD)
+    document.getElementById('fotosAEliminar').value = [...fotosEliminadas, ...fotosEliminadasExistentes].join(',');
+}
+
+// Función para manejar la selección de nuevas fotos
+document.getElementById('fotos').addEventListener('change', function(event) {
+    const archivos = event.target.files;
+    const contenedor = document.getElementById('contenedor-fotos-publicacion');
+    
+    Array.from(archivos).forEach(file => {
+        const reader = new FileReader();
+        
+        reader.onload = function(e) {
+            const div = document.createElement('output');
+            div.classList.add('contenedor-foto-galeria');
+            
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.classList.add('foto-galeria');
+            
+            const eliminarBtn = document.createElement('span');
+            eliminarBtn.textContent = 'Eliminar';
+            eliminarBtn.classList.add('btn-eliminar-imagen');
+            eliminarBtn.onclick = function() {
+                contenedor.removeChild(div);
+
+                // Al eliminar la imagen, la agregamos al array de fotos eliminadas
+                fotosEliminadas.push(file.name);
+
+                // Actualizamos el campo oculto con las fotos eliminadas
+                document.getElementById('fotosAEliminar').value = [...fotosEliminadas, ...fotosEliminadasExistentes].join(',');
+
+                // Eliminar el archivo de la lista de archivos seleccionados
+                eliminarArchivoDelInput(file);
+            };
+            
+            div.appendChild(img);
+            div.appendChild(eliminarBtn);
+            
+            contenedor.appendChild(div);
+        };
+        
+        reader.readAsDataURL(file);
+    });
+});
+
+// Función para eliminar el archivo del input
+function eliminarArchivoDelInput(file) {
+    const inputFile = document.getElementById('fotos');
+    const dataTransfer = new DataTransfer();
+    
+    // Filtramos los archivos para quitar el que fue eliminado
+    for (const fileItem of inputFile.files) {
+        if (fileItem.name !== file.name) {
+            dataTransfer.items.add(fileItem);
+        }
+    }
+    
+    // Actualizamos el input con los archivos restantes
+    inputFile.files = dataTransfer.files;
+}
+
+
+</script>
+
+<script src="../script.js"></script>
+<script src="../subirFoto.js"></script>
+<script src="../vista_recorrido_video.js"></script>
+
 </body>
-
 </html>
