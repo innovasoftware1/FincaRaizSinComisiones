@@ -1,3 +1,5 @@
+actualizar-departamento.php
+
 <?php
 include("../conexion.php");
 $id_departamento = $_GET['id'];
@@ -16,7 +18,7 @@ if (isset($_GET['modificar'])) {
     $query = "UPDATE departamentos SET nombre_departamento='$nombre_departamento' WHERE id='$id'";
 
     if (mysqli_query($conn, $query)) {
-        $mensaje = "El país se actualizó correctamente";
+        $mensaje = "El departamento se actualizó correctamente";
         $estado = 'success';
     } else {
         $mensaje = "No se pudo actualizar en la BD: " . mysqli_error($conn);

@@ -270,32 +270,134 @@ if (isset($_POST['actualizar'])) {
                         </output>
                     <?php
                         $i++;
-                    endwhile;
+                    endwhile;   
                     ?>
+             
+
+                    <div id="contenedor-fotos-nuevas"></div>
+
+                    <!-- El input de archivo está oculto -->
+                    <input type="file" id="fotos" accept="image/*" name="fotos[]" value="Foto" multiple="" style="display:none" onchange="agregarFotosNuevas()">
+                    <input type="hidden" id="fotosGaleriaActualizada" name="fotosGaleriaActualizada">
                 </div>
-
-        <div id="contenedor-fotos-nuevas"></div>
-
-        <!-- El input de archivo está oculto -->
-        <input type="file" id="fotos" accept="image/*" name="fotos[]" value="Foto" multiple="" style="display:none" onchange="agregarFotosNuevas()">
-        <input type="hidden" id="fotosGaleriaActualizada" name="fotosGaleriaActualizada">
-    </div>
 
 
                 <br>
                 <br>
+<!-- Video URL -->
+<div class="box">
+    <label for="video_url">URL del Video</label>
+    <input type="text" name="video_url" value="<?php echo htmlspecialchars($video_url); ?>" class="input-entrada-texto" placeholder="URL del video" id="video_url_input">
+</div>
 
-                <!-- Video URL -->
-                <div class="box">
-                    <label for="video_url">URL del Video</label>
-                    <input type="text" name="video_url" value="<?php echo $video_url; ?>" class="input-entrada-texto" placeholder="URL del video">
-                </div>
+<br>
+<!-- Vista previa del video -->
+<div id="video_preview" style="display:none;">
+    <label>Vista previa del Video:</label>
+    <iframe id="video_iframe" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+</div>
+
+<script>
+    // Función para extraer solo el video ID de un iframe de YouTube
+    function extractVideoIdFromIframe(src) {
+        // Si ya es un iframe completo, extraemos la URL
+        if (src.includes('youtube.com/embed/')) {
+            var regex = /https:\/\/www\.youtube\.com\/embed\/([a-zA-Z0-9_-]+)/;
+            var match = src.match(regex);
+            return match ? match[1] : null;
+        }
+        return null;
+    }
+
+    // Función para mostrar la vista previa del video
+    function showVideoPreview(videoUrl) {
+        var videoPreview = document.getElementById('video_preview');
+        var iframe = document.getElementById('video_iframe');
+
+        // Verifica si la URL contiene un iframe de YouTube
+        var videoId = extractVideoIdFromIframe(videoUrl);
+
+        if (videoId) {
+            iframe.src = "https://www.youtube.com/embed/" + videoId;
+            videoPreview.style.display = "block"; // Mostrar la vista previa
+        } else {
+            videoPreview.style.display = "none"; // Si no es válido, ocultar la vista previa
+        }
+    }
+
+    // Función para manejar cambios en el campo de entrada y mostrar la vista previa
+    document.getElementById('video_url_input').addEventListener('input', function() {
+        var videoUrl = this.value.trim();
+        showVideoPreview(videoUrl);  // Llamamos a la función para actualizar la vista previa
+    });
+
+    // Al cargar la página, si el campo tiene un valor, muestra la vista previa automáticamente
+    window.onload = function() {
+        var videoUrl = document.getElementById('video_url_input').value.trim();
+        if (videoUrl) {
+            showVideoPreview(videoUrl);  // Mostrar la vista previa si hay valor
+        }
+    };
+</script>
+
+
+
 
                 <!-- Recorrido 360 URL -->
+                
                 <div class="box">
                     <label for="recorrido_360_url">URL del Recorrido 360</label>
-                    <input type="text" name="recorrido_360_url" value="<?php echo $recorrido_360_url; ?>" class="input-entrada-texto" placeholder="URL del recorrido 360">
+                    <input type="text" name="recorrido_360_url" value="<?php echo $recorrido_360_url; ?>" class="input-entrada-texto" placeholder="URL del recorrido 360" id="recorrido_360_url_input">
                 </div>
+
+                <br>
+                <!-- Vista previa del recorrido 360° -->
+                <div id="recorrido_360_preview" style="display:none;">
+                    <label>Vista previa del Recorrido 360°:</label>
+                    <iframe id="recorrido_360_iframe" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+                </div>
+
+                <script>
+                    document.getElementById('recorrido_360_url_input').addEventListener('input', function() {
+                        var recorridoUrl = this.value;
+                        var recorridoPreview = document.getElementById('recorrido_360_preview');
+                        var iframe = document.getElementById('recorrido_360_iframe');
+
+                        // Verificar si la URL corresponde a un recorrido 360° de Webobook
+                        var recorridoRegex = /https:\/\/webobook\.com\/public\/([a-zA-Z0-9_-]+)/;
+
+                        var match = recorridoUrl.match(recorridoRegex);
+
+                        if (match) {
+                            // Mostrar el iframe con la URL del recorrido 360°
+                            iframe.src = recorridoUrl;
+                            recorridoPreview.style.display = "block"; // Mostrar la vista previa
+                        } else {
+                            recorridoPreview.style.display = "none"; // Ocultar la vista previa si la URL no es válida
+                        }
+                    });
+
+                    // Función para comprobar si hay un valor en el campo de entrada y mostrar la vista previa automáticamente
+                    window.onload = function() {
+                        var recorridoUrl = document.getElementById('recorrido_360_url_input').value;
+                        var recorridoPreview = document.getElementById('recorrido_360_preview');
+                        var iframe = document.getElementById('recorrido_360_iframe');
+
+                        // Verificar si el valor inicial del campo es una URL válida
+                        var recorridoRegex = /https:\/\/webobook\.com\/public\/([a-zA-Z0-9_-]+)/;
+                        var match = recorridoUrl.match(recorridoRegex);
+
+                        if (match) {
+                            // Mostrar el iframe con la URL del recorrido 360° si ya está presente
+                            iframe.src = recorridoUrl;
+                            recorridoPreview.style.display = "block"; // Mostrar la vista previa
+                        } else {
+                            recorridoPreview.style.display = "none"; // Ocultar la vista previa si la URL no es válida
+                        }
+                    };
+                </script>
+
+
                 <br>
 
                 <input type="submit" value="Actualizar Subpropiedad" name="actualizar" class="btn-accion">
@@ -416,8 +518,6 @@ function fotoPrincipalCambiada() {
         fotoPrincipalActualizada.value = 'si';
     }
 }
-
-
 
 </script>
 </body>

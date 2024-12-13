@@ -311,17 +311,85 @@ if (isset($_POST['agregar'])) {
                     <h3><i class="fa-solid fa-video"></i> VIDEO y RECORRIDO 360º</h3>
                     <br>
                     <hr>
+                    
                     <div class="box">
-                        <label for="video_url">Video (Youtube.com)</label>
-                        <input type="text" name="video_url" class="input-entrada-texto" placeholder="Ingrese enlace iframe de Yotube...">
-                    </div>
+    <label for="video_url">Video (Youtube.com)</label>
+    <input type="text" name="video_url" class="input-entrada-texto" placeholder="Ingrese enlace iframe de Youtube..." id="video_url_input">
+</div>
+<br>
+
+<!-- Vista previa del video -->
+<div id="video_preview" style="display:none;">
+    <label>Vista previa del Video:</label>
+    <iframe id="video_iframe" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+<script>
+    document.getElementById('video_url_input').addEventListener('input', function() {
+        var videoUrl = this.value;
+        var videoPreview = document.getElementById('video_preview');
+        var iframe = document.getElementById('video_iframe');
+
+        // Verificar si la URL es un iframe válido de YouTube
+        var youtubeIframeRegex = /<iframe[^>]*src="https:\/\/www\.youtube\.com\/embed\/([a-zA-Z0-9_-]+)\?[^"]*"[^>]*><\/iframe>/;
+        var youtubeUrlRegex = /https:\/\/www\.youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/;
+
+        var matchIframe = videoUrl.match(youtubeIframeRegex);
+        var matchUrl = videoUrl.match(youtubeUrlRegex);
+
+        if (matchIframe) {
+            // Si es un iframe, extraemos el ID del video
+            var videoId = matchIframe[1];
+            iframe.src = "https://www.youtube.com/embed/" + videoId;
+            videoPreview.style.display = "block"; // Mostrar la vista previa
+        } else if (matchUrl) {
+            // Si es solo una URL de YouTube, extraemos el ID del video y generamos el iframe
+            var videoId = matchUrl[1];
+            iframe.src = "https://www.youtube.com/embed/" + videoId;
+            videoPreview.style.display = "block"; // Mostrar la vista previa
+        } else {
+            videoPreview.style.display = "none"; // Ocultar la vista previa si no es un iframe válido
+        }
+    });
+</script>
+
+
                     <br>
-                    <br>
+
                     <div class="box">
-                        <label for="recorrido_360_url">Recorrido 360° (Webobook.com)</label>
-                        <input type="text" name="recorrido_360_url" class="input-entrada-texto" placeholder="Ingrese URL del recorrido 360...">
-                    </div>
-                    <br>
+                    <div class="box">
+    <label for="recorrido_360_url">Recorrido 360° (Webobook.com)</label>
+    <input type="text" name="recorrido_360_url" class="input-entrada-texto" placeholder="Ingrese URL del recorrido 360..." id="recorrido_360_url_input">
+</div>
+<br>
+<!-- Vista previa del recorrido 360° -->
+<div id="recorrido_360_preview" style="display:none;">
+    <label>Vista previa del Recorrido 360°:</label>
+    <iframe id="recorrido_360_iframe" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+</div>
+
+<script>
+    document.getElementById('recorrido_360_url_input').addEventListener('input', function() {
+        var recorridoUrl = this.value;
+        var recorridoPreview = document.getElementById('recorrido_360_preview');
+        var iframe = document.getElementById('recorrido_360_iframe');
+
+        // Verificar si la URL corresponde a un recorrido 360° de Webobook
+        var recorridoRegex = /https:\/\/webobook\.com\/public\/([a-zA-Z0-9_-]+)/;
+
+        var match = recorridoUrl.match(recorridoRegex);
+
+        if (match) {
+            // Construir el iframe para mostrar el recorrido 360°
+            iframe.src = recorridoUrl;
+            recorridoPreview.style.display = "block"; // Mostrar la vista previa
+        } else {
+            recorridoPreview.style.display = "none"; // Ocultar la vista previa si la URL no es válida
+        }
+    });
+</script>
+
+
                     <hr>
                     <br>
                     <input type="submit" value="Agregar Subpropiedad" name="agregar" class="btn-accion">
@@ -379,4 +447,4 @@ if (isset($_POST['agregar'])) {
     <script src="../vista_recorrido_video.js"></script>
 </body>
 
-</html>
+</html> 
