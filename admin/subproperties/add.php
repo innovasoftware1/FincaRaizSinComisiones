@@ -245,7 +245,7 @@ if (isset($_POST['agregar'])) {
 
                         <div class="box">
                             <label for="area">Área total</label>
-                            <input type="text" name="area" class="input-entrada-texto" placeholder="Área total de la propiedad (ej: 2000)" required>
+                            <input type="number" name="area" class="input-entrada-texto" placeholder="Área total de la propiedad (ej: 2000)" required>
                         </div>
                         <div class="box">
                             <label for="area_tipo">Tipo de Medida</label>
@@ -275,19 +275,37 @@ if (isset($_POST['agregar'])) {
                     </div>
                     <hr>
                     <h3><i class="fa-solid fa-camera-retro"></i> GALERIA DE FOTOS</h3>
-                    <br>
-                    <hr>
-                    <div>
-                        <label for="foto1" class="btn-fotos">Foto Principal</label>
-                        <output id="list" class="contenedor-foto-principal">
-                            <img src="<?php echo $propiedad['url_foto_principal'] ?>" alt="">
-                        </output>
-                        <input type="file" id="foto1" accept="image/*" name="foto1" style="display:none">
-                        <label for="fotos" class="btn-fotos"> Galería de Fotos </label>
-                        <div id="contenedor-fotos-publicacion">
-                        </div>
-                        <input type="file" id="fotos" accept="image/*" name="fotos[]" value="Foto" multiple="" required style="display:none">
-                    </div>
+<br>
+<hr>
+<div>
+    <label for="foto1" class="btn-fotos">Foto Principal</label>
+    <output id="list" class="contenedor-foto-principal">
+        <img src="<?php echo $propiedad['url_foto_principal'] ?>" alt="">
+    </output>
+    <input 
+        type="file" 
+        id="foto1" 
+        accept="image/*" 
+        name="foto1" 
+        style="display:none" 
+        required 
+        oninvalid="this.setCustomValidity('Por favor, agrega la foto principal.')" 
+        oninput="this.setCustomValidity('')">
+
+    <label for="fotos" class="btn-fotos"> Galería de Fotos </label>
+    <div id="contenedor-fotos-publicacion"></div>
+    <input 
+        type="file" 
+        id="fotos" 
+        accept="image/*" 
+        name="fotos[]" 
+        style="display:none" 
+        required 
+        multiple 
+        oninvalid="this.setCustomValidity('Por favor, agrega al menos una foto a la galería.')" 
+        oninput="this.setCustomValidity('')">
+</div>
+
                     <br>
                     <hr>
                     <h3><i class="fa-solid fa-video"></i> VIDEO y RECORRIDO 360º</h3>
@@ -333,6 +351,24 @@ if (isset($_POST['agregar'])) {
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+    document.querySelector('form').addEventListener('submit', function (event) {
+        const foto1 = document.getElementById('foto1');
+        const fotos = document.getElementById('fotos');
+
+        if (!foto1.files.length) {
+            alert('Por favor, sube la foto principal.');
+            event.preventDefault(); // Evita que el formulario se envíe
+        }
+
+        if (!fotos.files.length) {
+            alert('Por favor, sube al menos una foto a la galería.');
+            event.preventDefault();
+        }
+    });
+</script>
+
     <script>
         $('#link-add-propiedad').addClass('pagina-activa');
     </script>

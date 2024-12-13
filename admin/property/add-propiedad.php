@@ -170,13 +170,13 @@ if (isset($_POST['agregar'])) {
                     <hr>
                     <div class="fila">
                         <div class="box">
-                            <label for="titulo">Nombre de la propiedad</label>
+                            <label for="titulo">Nombre de la propiedad (*)</label>
                             <input type="text" name="titulo" required class="input-entrada-texto" placeholder="Nombre de la propiedad..." maxlength="50">
                         </div>
 
                         <div class="box">
-                            <label for="tipo">Seleccione tipo de propiedad</label>
-                            <select name="tipo" id="" class="input-entrada-texto">
+                            <label for="tipo">Seleccione tipo de propiedad (*)</label>
+                            <select name="tipo" id="" class="input-entrada-texto" required>
                                 <?php while ($row = mysqli_fetch_assoc($resultado_tipos)) : ?>
                                     <option value="<?php echo $row['id'] ?>">
                                         <?php echo $row['nombre_tipo'] ?>
@@ -186,8 +186,8 @@ if (isset($_POST['agregar'])) {
                         </div>
 
                         <div class="box">
-                            <label for="tipoUbicacion">Tipo De ubicacion</label>
-                            <select name="tipoUbicacion" id="tipoUbicacion" class="input-entrada-texto">
+                            <label for="tipoUbicacion">Tipo De ubicacion (*)</label>
+                            <select name="tipoUbicacion" id="tipoUbicacion" class="input-entrada-texto" required>
                                 <option value="Campestre">Campestre</option>
                                 <option value="Urbano">Urbano</option>
                             </select>
@@ -196,13 +196,13 @@ if (isset($_POST['agregar'])) {
 
                     <div class="fila">
                         <div class="box">
-                            <label for="descripcion">Descripción de la Propiedad</label>
-                            <textarea name="descripcion" id="" cols="30" rows="10" class="input-entrada-texto" placeholder="Descripcion detallada de la propiedad..." style="width: 660px; height: 150px; resize: none;"></textarea>
+                            <label for="descripcion">Descripción de la Propiedad (*)</label>
+                          <textarea name="descripcion" id="" cols="30" rows="10" class="input-entrada-texto" placeholder="Descripcion detallada de la propiedad..." style="width: 660px; height: 150px; resize: none;" required ></textarea>
                         </div>
 
                         <div class="box">
-                            <label for="estado">Estado de la propiedad</label>
-                            <select name="estado" id="estado" class="input-entrada-texto">
+                            <label for="estado">Estado de la propiedad (*)</label>
+                            <select name="estado" id="estado" class="input-entrada-texto" required >
                                 <option value="Activo">Activo</option>
                             </select>
                         </div>
@@ -216,28 +216,28 @@ if (isset($_POST['agregar'])) {
                     <hr>
                     <div class="fila">
                         <div class="box">
-                            <label for="habitaciones">Habitaciones</label>
-                            <input type="text" name="habitaciones" class="input-entrada-texto" placeholder="Número de habitaciones (ej. 2, 5, etc...)" maxlength="2" required />
+                            <label for="habitaciones">Habitaciones (*)</label>
+                            <input type="number" name="habitaciones" class="input-entrada-texto" placeholder="Número de habitaciones (ej. 2, 5, etc...)" maxlength="2" required />
                         </div>
                         <div class="box">
-                            <label for="banios">Baños</label>
-                            <input type="text" name="banios" class="input-entrada-texto" placeholder="Número de baños (ej. 2, 5, etc...)" maxlength="2" required>
+                            <label for="banios">Baños (*)</label>
+                            <input type="number" name="banios" class="input-entrada-texto" placeholder="Número de baños (ej. 2, 5, etc...)" maxlength="2" required>
                         </div>
 
                         <div class="box">
-                            <label for="pisos">Pisos</label>
-                            <input type="text" name="pisos" class="input-entrada-texto" placeholder="Número de pisos (ej. 2, 5, etc...)" maxlength="2" required>
+                            <label for="pisos">Pisos (*)</label>
+                            <input type="number" name="pisos" class="input-entrada-texto" placeholder="Número de pisos (ej. 2, 5, etc...)" maxlength="2" required>
                         </div>
                     </div>
 
                     <div class="fila">
                         <div class="box">
-                            <label for="inventario">Inventario</label>
+                            <label for="inventario">Inventario </label>
                             <textarea name="inventario" id="" cols="30" rows="10" class="input-entrada-texto" placeholder="Inventario detallado de la propiedad..." style="width: 660px; height: 150px; resize: none;"></textarea>
                         </div>
                         <div class="box">
-                            <label for="garage">Garaje</label>
-                            <input type="text" name="garage" class="input-entrada-texto" placeholder="Número de garages (ej. 2, 5, etc...)" maxlength="2" required>
+                            <label for="garage">Garaje (*)</label>
+                            <input type="number" name="garage" class="input-entrada-texto" placeholder="Número de garages (ej. 2, 5, etc...)" maxlength="2" required>
                         </div>
 
                     </div>
@@ -248,20 +248,19 @@ if (isset($_POST['agregar'])) {
                     <hr>
                     <div class="fila">
                         <div class="box">
-                            <label for="dimensiones">Dimensiones</label>
-                            <input type="text" name="dimensiones" class="input-entrada-texto" placeholder="Dimensiones (ej: Ancho x Largo)" maxlength="20" required>
+                            <label for="dimensiones">Dimensiones </label>
+                            <input type="text" name="dimensiones" class="input-entrada-texto" placeholder="Dimensiones (ej: Ancho x Largo)" maxlength="20" >
                         </div>
                         <div class="box">
-                            <label for="area">Área total</label>
-                            <input type="text" name="area" class="input-entrada-texto" placeholder="Área total de la propiedad (ej: 2000)" maxlength="20" required>
+                            <label for="area">Área total (*)</label>
+                            <input type="number" name="area" class="input-entrada-texto" placeholder="Área total de la propiedad (ej: 2000)" maxlength="20" required>
                         </div>
                         <div class="box">
-                            <label for="dimensiones_tipo">Tipo de Medida</label>
+                            <label for="dimensiones_tipo">Tipo de Área (*)</label>
                             <select name="dimensiones_tipo" id="dimensiones_tipo" class="input-entrada-texto" required>
                                 <option value="m²">Metros cuadrados (m²)</option>
                                 <option value="hectáreas">Hectáreas (ha)</option>
-                                <option value="acres">Acres (ac)</option>
-                                <option value="pies²">Pies cuadrados (ft²)</option>
+                                <option value="acres">Fanegadas(fg)</option>
                             </select>
                         </div>
 
@@ -273,8 +272,8 @@ if (isset($_POST['agregar'])) {
                     <hr>
                     <div class="fila">
                         <div class="box">
-                            <label for="departamento">Seleccione Depart. de la Propiedad</label>
-                            <select name="departamento" id="" onchange="muestraselect(this.value)" class="input-entrada-texto">
+                            <label for="departamento">Seleccione Depart. de la Propiedad (*)</label>
+                            <select name="departamento" id="" onchange="muestraselect(this.value)" class="input-entrada-texto" required>
                                 <option value="">Seleccione el departamento</option>
                                 <?php while ($row = mysqli_fetch_assoc($resultado_departamentos)) : ?>
                                     <option value="<?php echo $row['id'] ?>">
@@ -284,13 +283,13 @@ if (isset($_POST['agregar'])) {
                             </select>
                         </div>
                         <div class="box">
-                            <label for="ciudad">Seleccione una ciudad</label>
+                            <label for="ciudad">Seleccione una ciudad (*)</label>
                             <select name="ciudad" id="ciudad" class="input-entrada-texto" required>
                             </select>
                         </div>
 
                         <div class="box">
-                            <label for="ubicacion">Barrio o Pueblo</label>
+                            <label for="ubicacion">Barrio o Pueblo (*)</label>
                             <input type="text" name="ubicacion" class="input-entrada-texto" placeholder="Ubicación de la propiedad" required>
                         </div>
                     </div>
@@ -302,8 +301,8 @@ if (isset($_POST['agregar'])) {
 
                     <div class="input-container">
                         <br>
-                        <label for="ubicacion_url">Ingrese la URL de la ubicación:</label>
-                        <textarea class="input-entrada-texto" id="ubicacion_url" name="ubicacion_url" placeholder="Pegue aquí el iframe" style="resize: none;"></textarea><br>
+                        <label for="ubicacion_url">Ingrese la URL de la ubicación: (*)</label>
+                        <textarea class="input-entrada-texto" id="ubicacion_url" name="ubicacion_url" placeholder="Pegue aquí el iframe" style="resize: none;" required ></textarea><br>
                         <div id="previewContainer"></div> <!-- Contenedor para mostrar el iframe -->
                         <div id="errorContainer" class="error-message"></div> <!-- Contenedor para mostrar errores -->
                     </div>
@@ -316,25 +315,25 @@ if (isset($_POST['agregar'])) {
                     <hr>
                     <div class="fila">
                         <div class="box">
-                            <label for="agua_propia">Agua</label>
-                            <select name="agua_propia" id="agua_propia" class="input-entrada-texto">
-                                <option value="nacimiento propio">Nacimiento propio</option>
-                                <option value="algibe">Algibe</option>
-                                <option value="reserva_acuifera_subterranea">Reserva acuífera subterránea</option>
-                                <option value="no_aplica">No, pero de fácil acceso.</option>
+                            <label for="agua_propia">Agua (*)</label>
+                            <select name="agua_propia" id="agua_propia" class="input-entrada-texto" required>
+                                <option value="nacimiento propio">Nacimiento propio (*)</option>
+                                <option value="algibe">Algibe (*)</option>
+                                <option value="reserva_acuifera_subterranea">Reserva acuífera subterránea (*)</option>
+                                <option value="no_aplica">No, pero de fácil acceso. (*)</option>
                             </select>
                         </div>
                         <div class="box">
-                            <label for="luz">Luz</label>
-                            <select name="luz" id="luz" class="input-entrada-texto">
+                            <label for="luz">Luz (*)</label>
+                            <select name="luz" id="luz" class="input-entrada-texto" required>
                                 <option value="si">Sí</option>
                                 <option value="no">No, pero de fácil acceso.</option>
                             </select>
                         </div>
 
                         <div class="box">
-                            <label for="gas">Gas</label>
-                            <select name="gas" id="gas" class="input-entrada-texto">
+                            <label for="gas">Gas (*)</label>
+                            <select name="gas" id="gas" class="input-entrada-texto" required>
                                 <option value="si">Sí</option>
                                 <option value="no">No, pero de fácil acceso.</option>
                             </select>
@@ -343,13 +342,13 @@ if (isset($_POST['agregar'])) {
 
                     <div class="fila">
                         <div class="box">
-                            <label for="caracteristicas_positivas">Características Positivas</label>
-                            <textarea name="caracteristicas_positivas" id="caracteristicas_positivas" cols="30" rows="5" class="input-entrada-texto" placeholder="Características positivas de la propiedad..." style="width: 660px; height: 150px; resize: none;"></textarea>
-                        </div>
+                            <label for="caracteristicas_positivas">Características Positivas (*)</label>
+                            <textarea name="caracteristicas_positivas" id="caracteristicas_positivas" cols="30" rows="5" class="input-entrada-texto" placeholder="Características positivas de la propiedad..." style="width: 660px; height: 150px; resize: none;" required ></textarea>
+                        </div> 
 
                         <div class="box">
-                            <label for="internet">Internet</label>
-                            <select name="internet" id="internet" class="input-entrada-texto">
+                            <label for="internet">Internet (*)</label>
+                            <select name="internet" id="internet" class="input-entrada-texto" required>
                                 <option value="si">Sí</option>
                                 <option value="no">No, pero de fácil acceso.</option>
                             </select>
@@ -361,17 +360,17 @@ if (isset($_POST['agregar'])) {
                     <hr>
                     <div class="fila">
                         <div class="box">
-                            <label for="construcciones_aledañas">Construcciones Aledañas</label>
-                            <textarea name="construcciones_aledañas" id="" cols="30" rows="10" class="input-entrada-texto" placeholder="Construcciones aledañas a la propiedad..." style="width: 660px; height: 130px; resize: none;"></textarea>
+                            <label for="construcciones_aledañas">Construcciones Aledañas (*)</label>
+                            <textarea name="construcciones_aledañas" id="" cols="30" rows="10" class="input-entrada-texto" placeholder="Construcciones aledañas a la propiedad..." style="width: 660px; height: 130px; resize: none;" required></textarea>
                         </div>
                         <div class="box">
                         </div>
                         <div class="box">
-                            <label for="altitud">Altitud</label>
-                            <input type="text" name="altitud" class="input-entrada-texto" placeholder="Cantidad de M.S.N.M (ej: 2000)" required>
+                            <label for="altitud">Altitud (*)</label>
+                            <input type="number" name="altitud" class="input-entrada-texto" placeholder="Cantidad de M.S.N.M (ej: 2000)" required>
                             <br>
                             <br>
-                            <label for="clima">Clima</label>
+                            <label for="clima">Clima (*)</label>
                             <select name="clima" id="" class="input-entrada-texto">
                                 <option value="Cálido (24 °C a 30 °C)">Cálido (24 °C a 30 °C)</option>
                                 <option value="Templado (16 °C a 24 °C)">Templado (16 °C a 24 °C)</option>
@@ -392,31 +391,31 @@ if (isset($_POST['agregar'])) {
                     <hr>
                     <div class="fila">
                         <div class="box">
-                            <label for="documentos_transferencia">Documentos de trasferencia</label>
+                            <label for="documentos_transferencia">Documentos de trasferencia (*)</label>
                             <input type="text" name="documentos_transferencia" class="input-entrada-texto" placeholder="Documentos solicitados..." required>
                         </div>
                         <div class="box">
                             <label for="permisos">Permisos</label>
-                            <input type="text" name="permisos" class="input-entrada-texto" placeholder="Permisos de la propiedad..." required>
+                            <input type="text" name="permisos" class="input-entrada-texto" placeholder="Permisos de la propiedad...">
                         </div>
                         <div class="box">
                         </div>
                     </div>
                     <hr>
-                    <h3><i class="fa-solid fa-street-view"></i> USOS DETALLADOS DE SUELOS</h3>
+                    <h3><i class="fa-solid fa-street-view"></i> USOS DETALLADOS DE SUELOS </h3>
                     <br>
                     <hr>
                     <div class="fila">
                         <div class="box">
-                            <label for="uso_principal">Uso principal</label>
+                            <label for="uso_principal">Uso principal (*)</label>
                             <textarea type="text" name="uso_principal" class="input-entrada-texto" placeholder="Usos principales..." style="height: 100px; max-width: 100%; resize: none;" required></textarea>
                         </div>
                         <div class="box">
-                            <label for="uso_compatibles">Usos compatibles</label>
+                            <label for="uso_compatibles">Usos compatibles (*)</label>
                             <textarea type="text" name="uso_compatibles" class="input-entrada-texto" placeholder="Usos compatibles..." style="height: 100px; max-width: 100%; resize: none;" required></textarea>
                         </div>
                         <div class="box">
-                            <label for="uso_condicionales">Usos condicionales</label>
+                            <label for="uso_condicionales">Usos condicionales (*)</label>
                             <textarea type="text" name="uso_condicionales" class="input-entrada-texto" placeholder="Usos condicionales..." style="height: 100px; max-width: 100%; resize: none;" required></textarea>
                         </div>
                     </div>
@@ -427,7 +426,9 @@ if (isset($_POST['agregar'])) {
                     <hr>
 
                     <div>
-                        <label for="foto1" class="btn-fotos">Foto Principal</label>
+
+                        <label for="foto1" class="btn-fotos">Foto Principal (*)</label>
+
                         <output id="list" class="contenedor-foto-principal">
                             <img src="<?php echo $propiedad['url_foto_principal'] ?>" alt="">
                         </output>
@@ -447,14 +448,14 @@ if (isset($_POST['agregar'])) {
                     <br>
                     <hr>
                     <div>
-                        <label for="video_url">Video (Youtube.com)</label>
+                        <label for="video_url">Video (Youtube.com) (*)</label>
                         <input class="input-entrada-texto" type="text" name="video_url" id="video_url" placeholder="Ingrese enlace iframe de Yotube..." required>
                         <div id="videoPreview"></div> <!-- Contenedor para la vista previa -->
                     </div>
                     <br>
                     <br>
                     <div>
-                        <label for="recorrido_360_url">Recorrido 360° (Webobook.com)</label>
+                        <label for="recorrido_360_url">Recorrido 360° (Webobook.com) (*)</label>
                         <input class="input-entrada-texto" type="text" name="recorrido_360_url" id="recorrido_360_url" placeholder="Ingrese URL del recorrido 360..." required>
                         <div id="recorridoPreview"></div> <!-- Mantenemos la vista previa -->
                     </div>
@@ -468,12 +469,12 @@ if (isset($_POST['agregar'])) {
                     <hr>
                     <div class="fila">
                         <div class="box">
-                            <label for="precio">Precio</label>
-                            <input type="text" name="precio" class="input-entrada-texto" placeholder="Precio de la propiedad (sin puntos)" required>
+                            <label for="precio">Precio (*)</label>
+                            <input type="number" name="precio" class="input-entrada-texto" placeholder="Precio de la propiedad (sin puntos)" required>
                         </div>
 
                         <div class="box">
-                            <label for="valor_fijo">¿Es valor fijo?</label>
+                            <label for="valor_fijo">¿Es valor fijo? (*)</label>
                             <select name="valor_fijo" id="valor_fijo" class="input-entrada-texto">
                                 <option value="1">Sí</option>
                                 <option value="0">No</option>
@@ -481,7 +482,7 @@ if (isset($_POST['agregar'])) {
                         </div>
 
                         <div class="box">
-                            <label for="moneda">Moneda</label>
+                            <label for="moneda">Moneda (*)</label>
                             <select name="moneda" class="input-entrada-texto" required>
                                 <option value="COP">COP</option>
                             </select>
@@ -494,15 +495,17 @@ if (isset($_POST['agregar'])) {
 
 
                     <div class="fila">
-                        <div class="box">
-                            <label for="permuta">¿Permuta disponible?</label>
+
+                    <div class="box">
+                            <label for="permuta">¿Permuta disponible? (*)</label>
+
                             <select name="permuta" id="permuta" class="input-entrada-texto" required>
                                 <option value="1">Sí</option>
                                 <option value="0">No</option>
                             </select>
                         </div>
                         <div class="box">
-                            <label for="financiacion">¿Financiación disponible?</label>
+                            <label for="financiacion">¿Financiación disponible? (*)</label>
                             <select name="financiacion" id="financiacion" class="input-entrada-texto" required>
                                 <option value="1">Sí</option>
                                 <option value="0">No</option>
@@ -517,7 +520,7 @@ if (isset($_POST['agregar'])) {
                     <hr>
                     <div class="fila">
                         <div class="box">
-                            <label for="salidas_bogota">Salidas de Bogotá</label>
+                            <label for="salidas_bogota">Salidas de Bogotá (*)</label>
                             <select name="salidas_bogota" id="salidas_bogota" class="input-entrada-texto" required>
 
                                 <option value="Autopista Sur">Dentro de Bogotá</option>
@@ -532,22 +535,22 @@ if (isset($_POST['agregar'])) {
                             </select>
                         </div>
                         <div class="box">
-                            <label for="distancia_pueblo">Distancia al Pueblo</label>
+                            <label for="distancia_pueblo">Distancia al Pueblo (*)</label>
                             <input type="number" name="distancia_pueblo" class="input-entrada-texto" placeholder="Distancia en Km. (sin puntos)" required>
                         </div>
                         <div class="box">
-                            <label for="distancia_desde_bogota">Distancia desde Bogotá (km)</label>
+                            <label for="distancia_desde_bogota">Distancia desde Bogotá (km) (*)</label>
                             <input type="number" name="distancia_desde_bogota" id="distancia_desde_bogota" class="input-entrada-texto" placeholder="Distancia en Km. (sin puntos)" required>
                         </div>
                     </div>
 
                     <div class="fila">
                         <div class="box">
-                            <label for="vias_acceso">Vías de acceso</label>
+                            <label for="vias_acceso">Vías de acceso (*)</label>
                             <textarea name="vias_acceso" id="" cols="30" rows="10" class="input-entrada-texto" placeholder="Descripción de las vias de acceso relacionadas a la propiedad..." style="width: 660px; height: 150px; resize: none;"></textarea>
                         </div>
                         <div class="box">
-                            <label for="nombre_propietario">Nombre Propietario</label>
+                            <label for="nombre_propietario">Nombre Propietario (*)</label>
                             <input type="text" name="nombre_propietario" class="input-entrada-texto" placeholder="nombre propietario" required>
                         </div>
                     </div>
@@ -560,11 +563,15 @@ if (isset($_POST['agregar'])) {
                 </form>
 
                 <style>
+
+                    
+
                     .foto-container {
                         position: relative;
                         display: inline-block;
                         margin: 10px;
                     }
+
 
                     .foto-container img {
                         width: 100px;
@@ -592,7 +599,7 @@ if (isset($_POST['agregar'])) {
 
                     .input-container {
                         margin-bottom: 20px;
-                    }
+                     }
 
                     textarea {
                         width: 100%;
@@ -601,80 +608,69 @@ if (isset($_POST['agregar'])) {
                     }
                 </style>
 
-                <script>
-                    // Obtener referencias a los elementos
-                    const iframeInput = document.getElementById('ubicacion_url');
-                    const previewContainer = document.getElementById('previewContainer');
-                    const errorContainer = document.getElementById('errorContainer');
+<script>
+// Variable para almacenar las fotos seleccionadas
+let fotosSeleccionadas = [];
 
-                    // Evento para generar la vista previa automáticamente
-                    iframeInput.addEventListener('input', () => {
-                        const iframeCode = iframeInput.value.trim();
+// Obtener el input de archivos y el contenedor de fotos
+const inputFotos = document.getElementById('fotos');
+const contenedorFotos = document.getElementById('contenedor-fotos-publicacion');
 
-                        // Limpiar cualquier error previo
-                        errorContainer.textContent = '';
+// Evento para manejar la selección de fotos
+inputFotos.addEventListener('change', function(evt) {
+    contenedorFotos.innerHTML = ''; // Limpiar fotos previas
 
-                        // Imprimir el valor ingresado en la consola
-                        console.log('Valor de ubicacion_url:', iframeCode);
+    const archivos = Array.from(evt.target.files);
 
-                        // Validar que el código ingresado sea un iframe con un atributo 'src'
-                        const srcMatch = iframeCode.match(/<iframe[^>]*src=["']([^"']+)["'][^>]*>/);
+    // Añadir los nuevos archivos al array de fotos seleccionadas
+    fotosSeleccionadas.push(...archivos);
 
-                        if (srcMatch && srcMatch[1]) {
-                            const iframeSrc = srcMatch[1]; // Aquí está el valor de src
+    // Mostrar las fotos seleccionadas
+    fotosSeleccionadas.forEach((archivo, index) => {
+        const divFoto = document.createElement('div');
+        divFoto.classList.add('contenedor-foto-galeria');
 
-                            // Inyectar un nuevo iframe con el src extraído
-                            previewContainer.innerHTML = `<iframe src="${iframeSrc}" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`;
-                        } else {
-                            previewContainer.innerHTML = ''; // Limpiar la vista previa
-                            errorContainer.textContent = 'El código ingresado no contiene un iframe válido o no tiene el atributo "src".';
-                        }
-                    });
+        const img = document.createElement('img');
+        img.classList.add('foto-galeria');
+        img.src = URL.createObjectURL(archivo);
+        img.title = archivo.name;
 
-                    // Variable para almacenar las fotos seleccionadas
-                    let fotosSeleccionadas = [];
+        const eliminarBtn = document.createElement('button');
+        eliminarBtn.type = 'button';
+        eliminarBtn.classList.add('eliminar-foto');
+        eliminarBtn.textContent = 'X';
 
-                    document.getElementById('fotos').addEventListener('change', function(e) {
-                        // Obtener los archivos seleccionados
-                        const archivos = e.target.files;
+        // Manejar la eliminación de la foto
+        eliminarBtn.addEventListener('click', function() {
+            divFoto.remove(); // Eliminar del DOM
+            fotosSeleccionadas.splice(index, 1); // Eliminar del array
+            actualizarInput(); // Actualizar el input
+        });
 
-                        // Mostrar las imágenes en el contenedor
-                        const contenedorFotos = document.getElementById('contenedor-fotos-publicacion');
+        divFoto.appendChild(img);
+        divFoto.appendChild(eliminarBtn);
+        contenedorFotos.appendChild(divFoto);
+    });
 
-                        // Limpiar contenedor de fotos previas
-                        contenedorFotos.innerHTML = '';
+    actualizarInput(); // Sincronizar el input con las fotos seleccionadas
+});
 
-                        // Iterar sobre las fotos seleccionadas y mostrarlas en el DOM
-                        for (let i = 0; i < archivos.length; i++) {
-                            const archivo = archivos[i];
+// Función para sincronizar el input con las fotos seleccionadas
+function actualizarInput() {
+    // Crear un nuevo objeto DataTransfer
+    const dataTransfer = new DataTransfer();
 
-                            // Crear un contenedor para cada foto con un botón de eliminación
-                            const divFoto = document.createElement('div');
-                            divFoto.classList.add('foto-container');
-
-                            const img = document.createElement('img');
-                            img.src = URL.createObjectURL(archivo); // Mostrar la imagen
-
-                            const btnEliminar = document.createElement('button');
-                            btnEliminar.innerHTML = 'X';
-                            btnEliminar.classList.add('btn-eliminar');
-                            btnEliminar.addEventListener('click', function() {
-                                // Eliminar la foto seleccionada
-                                divFoto.remove();
-                                fotosSeleccionadas = fotosSeleccionadas.filter(f => f !== archivo);
-                            });
-
-                            divFoto.appendChild(img);
-                            divFoto.appendChild(btnEliminar);
-                            contenedorFotos.appendChild(divFoto);
-
-                            // Almacenar las fotos seleccionadas en el array para enviar al servidor
-                            fotosSeleccionadas.push(archivo);
-                        }
-                    });
-                </script>
+    // Añadir los archivos restantes al objeto DataTransfer
+    fotosSeleccionadas.forEach((archivo) => {
+        dataTransfer.items.add(archivo);
+    });
 
 
+    // Asignar el nuevo objeto FileList al input
+    inputFotos.files = dataTransfer.files;
+}
+
+</script>
 
 
                 <?php if (isset($_POST['agregar'])) : ?>
@@ -691,6 +687,7 @@ if (isset($_POST['agregar'])) {
                     </script>
                 <?php endif; ?>
 
+
             </div>
         </div>
     </div>
@@ -701,10 +698,9 @@ if (isset($_POST['agregar'])) {
     </script>
     <!-- scripts para procesar galerias (video,imagens, recorrido360) prpiedad -->
     <script src="../subirfoto.js"></script>
-    <script src="../scriptFotos.js"></script>
     <script src="../subir_v_r.js"></script>
     <script src="../vista_recorrido_video.js"></script>
     <!-- **NOTA:** pendiente script de alerta SW2 (eliminar - agregar) -->
 </body>
 
-</html>
+</html> 
