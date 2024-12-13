@@ -287,6 +287,7 @@ if (isset($_POST['actualizar'])) {
                         <label for="video_url">URL del Video</label>
                         <input type="text" name="video_url" value="<?php echo $video_url; ?>" class="input-entrada-texto" placeholder="URL del video">
                     </div>
+
                     <br>
 
                     <!-- Recorrido 360 URL -->
@@ -303,6 +304,7 @@ if (isset($_POST['actualizar'])) {
                     <p><?php echo htmlspecialchars($mensaje); ?></p>
                 <?php endif; ?>
             </div>
+
         </div>
 
 </body>
@@ -440,6 +442,10 @@ if (isset($_POST['actualizar'])) {
             fotoPrincipalActualizada.value = 'si';
         }
     }
+
+}
+
+
 </script>
 
 

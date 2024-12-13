@@ -1,3 +1,5 @@
+index.php
+
 <?php
 session_start();
 
@@ -51,28 +53,28 @@ $totaCiudades = obtenerTotalRegistros('ciudades');
                         <hr>
                         <span class="dato"><?php echo $totalPropiedades ?></span>
                         <hr>
-                        <a href="listado-propiedades.php">Ver Detalles</a>
+                        <a href="property/listado-propiedades.php">Ver Detalles</a>
                     </div>
                     <div class="caja-info tipo">
                         <p>Total Tipo de Propiedades</p>
                         <hr>
                         <span class="dato"><?php echo $totalTipos ?></span>
                         <hr>
-                        <a href="listado-tipo-propiedades.php">Ver Detalles</a>
+                        <a href="type_property/listado-tipo-propiedades.php">Ver Detalles</a>
                     </div>
                     <div class="caja-info departamentos">
                         <p>Total departamentos</p>
                         <hr>
                         <span class="dato"><?php echo $totalDepartamentos ?></span>
                         <hr>
-                        <a href="listado-departamentos.php">Ver Detalles</a>
+                        <a href="departments/listado-departamento.php">Ver Detalles</a>
                     </div>
                     <div class="caja-info ciudades">
                         <p>Total Ciudades</p>
                         <hr>
                         <span class="dato"><?php echo $totaCiudades ?></span>
                         <hr>
-                        <a href="listado-ciudades.php">Ver Detalles</a>
+                        <a href="city/listado-ciudades.php">Ver Detalles</a>
                     </div>
                 </div>
                 <br>
@@ -88,9 +90,6 @@ $totaCiudades = obtenerTotalRegistros('ciudades');
                             </div>
                             <div class="btn-container">
                                 <a href="ver-usuarios.php" class="btn">Ver Usuarios</a>
-                            </div>
-                            <div class="btn-container">
-                                <a href="permisos-usuario.php" class="btn">Permisos de usuario</a>
                             </div>
                         </div>
                     </div>
@@ -162,3 +161,4 @@ $totaCiudades = obtenerTotalRegistros('ciudades');
 </script>
 
 </html>
+

@@ -317,17 +317,21 @@ if (isset($_POST['agregar'])) {
                         <div class="box">
                             <label for="agua_propia">Agua (*)</label>
                             <select name="agua_propia" id="agua_propia" class="input-entrada-texto" required>
-                                <option value="nacimiento propio">Nacimiento propio (*)</option>
-                                <option value="algibe">Algibe (*)</option>
-                                <option value="reserva_acuifera_subterranea">Reserva acuífera subterránea (*)</option>
-                                <option value="no_aplica">No, pero de fácil acceso. (*)</option>
+                                <option value="nacimiento propio">Nacimiento propio</option>
+                                <option value="algibe">Algibe</option>
+                                <option value="reserva acuifera  subterranea">Reserva acuífera subterránea</option>
+                                <option value="Acueducto">Acueducto</option>
+                                <option value="Derechos adquiridos de un nacedero de agua ">Derechos adquiridos de un nacedero de agua </option>
+                                <option value="no aplica">No, pero de fácil acceso.</option>
+                                
                             </select>
                         </div>
                         <div class="box">
                             <label for="luz">Luz (*)</label>
                             <select name="luz" id="luz" class="input-entrada-texto" required>
                                 <option value="si">Sí</option>
-                                <option value="no">No, pero de fácil acceso.</option>
+                                <option value="no">No</option>
+                                <option value="no, pero de facil acceso">No, pero de fácil acceso.</option>
                             </select>
                         </div>
 
@@ -335,7 +339,8 @@ if (isset($_POST['agregar'])) {
                             <label for="gas">Gas (*)</label>
                             <select name="gas" id="gas" class="input-entrada-texto" required>
                                 <option value="si">Sí</option>
-                                <option value="no">No, pero de fácil acceso.</option>
+                                <option value="no">No</option>
+                                <option value="no, pero de facil acceso">No, pero de fácil acceso.</option>
                             </select>
                         </div>
                     </div>
@@ -350,7 +355,8 @@ if (isset($_POST['agregar'])) {
                             <label for="internet">Internet (*)</label>
                             <select name="internet" id="internet" class="input-entrada-texto" required>
                                 <option value="si">Sí</option>
-                                <option value="no">No, pero de fácil acceso.</option>
+                                <option value="no">No</option>
+                                <option value="no, pero de facil acceso">No, pero de fácil acceso.</option>
                             </select>
                         </div>
                     </div>
@@ -389,18 +395,34 @@ if (isset($_POST['agregar'])) {
                     <h3><i class="fa-solid fa-file-lines"></i> DOCUMENTOS JURIDICO</h3>
                     <br>
                     <hr>
+
                     <div class="fila">
                         <div class="box">
-                            <label for="documentos_transferencia">Documentos de trasferencia (*)</label>
-                            <input type="text" name="documentos_transferencia" class="input-entrada-texto" placeholder="Documentos solicitados..." required>
+                            <label for="documentos_transferencia">Documentos de transferencia (*)</label>
+                            <select name="documentos_transferencia" id="documentos_transferencia" class="input-entrada-texto" required>
+                                <option value="">Seleccione una opción...</option>
+                                <option value="escritura publica">Escritura pública</option>
+                                <option value="certificado libertad">Certificado de libertad y tradición</option>
+                                <option value="paz salvo predial">Paz y salvo predial</option>
+                                <option value="paz salvo valorizacion">Paz y salvo de valorización</option>
+                                <option value="impuesto traspaso">Pago de impuesto de traspaso</option>
+                                <option value="cedulas comprador vendedor">Cédulas del comprador y vendedor</option>
+                                <option value="certificado no deuda">Certificado de no deuda</option>
+                                <option value="porcentaje global">Porcentaje de avance global</option>
+                            </select>
                         </div>
                         <div class="box">
-                            <label for="permisos">Permisos</label>
-                            <input type="text" name="permisos" class="input-entrada-texto" placeholder="Permisos de la propiedad...">
-                        </div>
-                        <div class="box">
+                            <label for="permisos">Permisos (*)</label>
+                            <select name="permisos" id="permisos" class="input-entrada-texto" required>
+                                <option value="">Seleccione una opción...</option>
+                                <option value="si">Sí, cuenta con permisos</option>
+                                <option value="no">No, no cuenta con permisos</option>
+                                <option value="no contamos con esta información">No contamos con esta información</option>
+                            </select>
                         </div>
                     </div>
+
+                 
                     <hr>
                     <h3><i class="fa-solid fa-street-view"></i> USOS DETALLADOS DE SUELOS </h3>
                     <br>
@@ -427,7 +449,7 @@ if (isset($_POST['agregar'])) {
 
                     <div>
 
-                        <label for="foto1" class="btn-fotos">Foto Principal (*)</label>
+                        <label for="foto1" class="btn-fotos">Foto Principal</label>
 
                         <output id="list" class="contenedor-foto-principal">
                             <img src="<?php echo $propiedad['url_foto_principal'] ?>" alt="">
@@ -441,7 +463,21 @@ if (isset($_POST['agregar'])) {
 
                         <input type="file" id="fotos" accept="image/*" name="fotos[]" value="Foto" multiple="" required style="display:none">
                     </div>
+                    <script>
+    document.getElementById('formulario').addEventListener('submit', function(event) {
+        // Verificar si no se ha seleccionado ninguna foto en "foto1"
+        if (document.getElementById('foto1').files.length === 0) {
+            alert('Por favor, selecciona una foto principal.');
+            event.preventDefault(); // Evita que el formulario se envíe si no se seleccionó una foto
+        }
 
+        // Verificar si no se ha seleccionado ninguna foto en "fotos[]"
+        if (document.getElementById('fotos').files.length === 0) {
+            alert('Por favor, selecciona al menos una foto para la galería.');
+            event.preventDefault(); // Evita que el formulario se envíe si no se seleccionó una foto
+        }
+    });
+</script>
                     <br>
                     <hr>
                     <h3><i class="fa-solid fa-video"></i> VIDEO y RECORRIDO 360º</h3>
@@ -476,10 +512,10 @@ if (isset($_POST['agregar'])) {
                         <div class="box">
                             <label for="valor_fijo">¿Es valor fijo? (*)</label>
                             <select name="valor_fijo" id="valor_fijo" class="input-entrada-texto">
-                                <option value="1">Sí</option>
-                                <option value="0">No</option>
+                                <option value="0">Sí</option>
+                                <option value="1">No</option>
                             </select>
-                        </div>
+                        </div>  
 
                         <div class="box">
                             <label for="moneda">Moneda (*)</label>
@@ -488,17 +524,11 @@ if (isset($_POST['agregar'])) {
                             </select>
                         </div>
 
-
-
                     </div>
 
-
-
                     <div class="fila">
-
-                    <div class="box">
+                        <div class="box">
                             <label for="permuta">¿Permuta disponible? (*)</label>
-
                             <select name="permuta" id="permuta" class="input-entrada-texto" required>
                                 <option value="1">Sí</option>
                                 <option value="0">No</option>
